@@ -21,10 +21,10 @@
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
+        <div class="container p-0">
             
             <!-- <a class="navbar-brand" href="#page-top"><img src="assets/img/icono.png" alt="..." /></a> -->
-            <h2 class="masthead-heading" style="color: #fff; font-family: Georgia, 'Times New Roman', Times, serif" >UCUENCA</h2>
+            <h2 class="masthead-heading" style="color: #fff; font-family: 'Times New Roman', Times, serif" >UCUENCA</h2>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -33,12 +33,14 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Proyectos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">Acerca de </a></li>
                     <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                 </ul>
             </div>
+            <button class="btn btn-primary btn-lg" onclick="cargarSegundoProyecto()">Ingresar</button>
+            <div id="contenido-segundo-proyecto"></div>
         </div>
     </nav>
     <!-- Masthead-->
@@ -50,7 +52,7 @@
             <div class="masthead-heading text-uppercase">GRUPO DE INVESTIGACIÓN EN INGENIERIA DEL SOFTWARE</div>
             <!-- <label class="masthead-subheading">Grupo de investigacion de Ingenieria del Software </label> -->
             <br>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#contact">Envia un mensaje</a>
+            <a class="btn btn-primary btn-xl text-uppercase" href="#contact">Contacto</a>
         </div>
 
     </header>
@@ -711,11 +713,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="/paginaweb.js"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    
+    <script>
+        // Función para enviar una solicitud al servidor para cargar el segundo proyecto
+        function cargarSegundoProyecto() {
+            fetch('/cargar-segundo-proyecto')
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data); // Imprimir el mensaje de respuesta en la consola
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 
 </html>
