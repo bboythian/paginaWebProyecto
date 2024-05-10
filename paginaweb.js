@@ -13,11 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 // Ruta para cargar el segundo proyecto
 app.get('/web_ciberadiccion', (req, res) => {
     const { spawn } = require('child_process');
-    const ls = spawn('node', ['C:/Users/chris/Desktop/web_ciberadiccion/app.js']);
+    const ls = spawn('node', ['../servidorPrueba/server.js']);
 
     ls.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
