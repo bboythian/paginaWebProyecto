@@ -1,5 +1,14 @@
 {
+  "name": "login-app",
+  "version": "1.0.0",
+  "description": "Aplicación de login con validación en MongoDB",
+  "main": "paginaWeb.js",
+  "scripts": {
+    "start": "node paginaWeb.js"
+  },
   "dependencies": {
-    "express": "^4.19.2"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3"
   }
 }

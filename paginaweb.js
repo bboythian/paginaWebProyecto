@@ -1,44 +1,33 @@
-
-// paginaweb.js
 const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 8080;
 const path = require('path');
-const bodyParser = require('body-parser');
+const webLogin = require('./webLogin');
 
-app.use(express.static(path.join(__dirname)));
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// Servir archivos estáticos desde el directorio raíz del proyecto
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 
+// Usar el archivo webLogin.js para manejar la ruta de login
+app.use(webLogin);
+
+// Ruta para servir el archivo HTML principal
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-// Ruta para cargar el segundo proyecto
-app.get('/web_ciberadiccion', (req, res) => {
-    const { spawn } = require('child_process');
-    const ls = spawn('node', ['../servidorPrueba/server.js']);
-
-    ls.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-    });
-
-    ls.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-
-    ls.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
-
-    res.send("Proyecto cargado correctamente.");
+    res.sendFile(path.join(__dirname, 'webServiceApp', 'index.html'));
 });
 
-// Nueva ruta para manejar la solicitud del botón
-app.get('/cargar-segundo-proyecto', (req, res) => {
-    // Redirigir a la ruta que carga el segundo proyecto
-    res.redirect('/web_ciberadiccion');
+// Ruta para servir el archivo HTML de login
+app.get('/ingresar', (req, res) => {
+    res.sendFile(path.join(__dirname, 'webServiceApp', 'webLogin.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Ruta para servir el archivo HTML de la página principal después del login
+app.get('/main', (req, res) => {
+    res.sendFile(path.join(__dirname, 'webServiceApp', 'webServiceMain.html'));
+});
+
+app.listen(8080, () => {
+    console.log('Servidor corriendo en http://localhost:8080');
 });

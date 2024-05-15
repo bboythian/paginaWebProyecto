@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/webStyle.css">
+    <title>Inicio de Sesión</title>
+
+</head>
+<body>
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form class="login-form" action="/login" method="post">
+            <div class="form-group">
+                <input type="text" placeholder="Cédula" name="cedula" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Contraseña" name="password" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+            <div class="additional-options">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <label>
+                    <input type="checkbox" name="remember"> Recuérdame
+                </label>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
