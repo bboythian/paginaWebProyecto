@@ -7,9 +7,25 @@
     <title>Reportes</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="../css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container" style=" font-family:FFMetaBold">
+            <!-- <a class="navbar-brand" href="#page-top"><img src="assets/img/icono.png" alt="..." /></a> -->
+            <h1 class="masthead-heading mb-0 mx-4" style="color: #fff;  font-family: FFMetaBold;" >UCUENCA</h1>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item" ><a class="nav-link" href="#main">Regresar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="m-2 p-2">
+s
+    </div>
     <div class="container mt-5">
         <h1 class="text-center">Reportes Ciberadiccion</h1>
         <h2 class="mt-4">Gráficos</h2>
@@ -52,6 +68,7 @@
                     <th>Tiempo Uso 4</th>
                     <th>Paquete 5</th>
                     <th>Tiempo Uso 5</th>
+
                 </tr>
             </thead>
             <tbody id="data-table-body">
@@ -307,6 +324,13 @@
                      
                      <td>${item.packageName5}</td>
                      <td>${item.tiempoUso5}</td>
+
+                     <td> 
+                        <form action="/delete-reporte" method="POST">
+                            <input type="hidden" name="reporteId" value="${item._id}">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
 
                  `;
                  dataTableBody.appendChild(row);
