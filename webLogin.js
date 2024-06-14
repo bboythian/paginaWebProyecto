@@ -143,5 +143,141 @@ app.post('/delete-reporte', (req, res) => {
         });
 });
 
+// //guardar seccion de preferencias y gustos
+// const userPreferencesSchema = new mongoose.Schema({
+//     cedula: String,
+//     peliculas: String,
+//     musica: String,
+//     series: String,
+//     libros: String,
+//     formatoLectura: String,
+//     actividadesAlAireLibre: String,
+//     frecuenciaActividadesAlAireLibre: String,
+//     actividadesEnInteriores: String,
+//     tiempoActividadesEnInteriores: String,
+//     destinosDeViaje: String,
+//     actividadesEnViaje: String,
+//     gadgets: String,
+//     aplicaciones: String,
+//     tipoComida: String,
+//     frecuenciaComerFuera: String,
+//     deportes: String,
+//     frecuenciaEjercicio: String,
+// });
+
+// const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
+
+// // Configurar OpenAI
+// const configuration = new Configuration({
+//     apiKey: 'YOUR_OPENAI_API_KEY',
+//   });
+//   const openai = new OpenAIApi(configuration);
+  
+  // Ruta para recibir la solicitud y consultar la IA
+//   app.post('/sugerir-actividad', async (req, res) => {
+//     const { cedula, hora, numeroAlerta } = req.body;
+  
+//     try {
+//       // Buscar el perfil del usuario en la base de datos
+//       const perfilUsuario = await UserPreferences.findOne({ cedula });
+  
+//       if (!perfilUsuario) {
+//         return res.status(404).send('Perfil del usuario no encontrado');
+//       }
+  
+//       // Preparar el mensaje para la API de OpenAI
+//       const prompt = `
+//       Perfil del usuario:
+//       Peliculas: ${perfilUsuario.peliculas}
+//       Musica: ${perfilUsuario.musica}
+//       Series: ${perfilUsuario.series}
+//       Libros: ${perfilUsuario.libros}
+//       Formato de Lectura: ${perfilUsuario.formatoLectura}
+//       Actividades al Aire Libre: ${perfilUsuario.actividadesAlAireLibre}
+//       Frecuencia de Actividades al Aire Libre: ${perfilUsuario.frecuenciaActividadesAlAireLibre}
+//       Actividades en Interiores: ${perfilUsuario.actividadesEnInteriores}
+//       Tiempo en Actividades en Interiores: ${perfilUsuario.tiempoActividadesEnInteriores}
+//       Destinos de Viaje: ${perfilUsuario.destinosDeViaje}
+//       Actividades en Viaje: ${perfilUsuario.actividadesEnViaje}
+//       Gadgets: ${perfilUsuario.gadgets}
+//       Aplicaciones: ${perfilUsuario.aplicaciones}
+//       Tipo de Comida: ${perfilUsuario.tipoComida}
+//       Frecuencia de Comer Fuera: ${perfilUsuario.frecuenciaComerFuera}
+//       Deportes: ${perfilUsuario.deportes}
+//       Frecuencia de Ejercicio: ${perfilUsuario.frecuenciaEjercicio}
+//       Hora del día: ${hora}
+  
+//       Sugerencia de actividad para desviar la atención del teléfono:
+//       `;
+  
+//       // Consultar a la API de OpenAI
+//       const response = await openai.createCompletion({
+//         model: 'text-davinci-003',
+//         prompt: prompt,
+//         max_tokens: 150,
+//       });
+  
+//       const sugerencia = response.data.choices[0].text.trim();
+//       console.log('Sugerencia de actividad:', sugerencia);
+//       res.send({ sugerencia });
+//     } catch (error) {
+//       console.error('Error al consultar la IA:', error);
+//       res.status(500).send('Error al procesar la solicitud');
+//     }
+//   });
+
+// app.post('/enviar-preferencias', (req, res) => {
+//     const {
+//         cedula,
+//         peliculas,
+//         musica,
+//         series,
+//         libros,
+//         formatoLectura,
+//         actividadesAlAireLibre,
+//         frecuenciaActividadesAlAireLibre,
+//         actividadesEnInteriores,
+//         tiempoActividadesEnInteriores,
+//         destinosDeViaje,
+//         actividadesEnViaje,
+//         gadgets,
+//         aplicaciones,
+//         tipoComida,
+//         frecuenciaComerFuera,
+//         deportes,
+//         frecuenciaEjercicio,
+//     } = req.body;
+
+//     const nuevasPreferencias = new UserPreferences({
+//         cedula,
+//         peliculas,
+//         musica,
+//         series,
+//         libros,
+//         formatoLectura,
+//         actividadesAlAireLibre,
+//         frecuenciaActividadesAlAireLibre,
+//         actividadesEnInteriores,
+//         tiempoActividadesEnInteriores,
+//         destinosDeViaje,
+//         actividadesEnViaje,
+//         gadgets,
+//         aplicaciones,
+//         tipoComida,
+//         frecuenciaComerFuera,
+//         deportes,
+//         frecuenciaEjercicio,
+//     });
+
+//     nuevasPreferencias.save()
+//         .then(preferencias => {
+//             res.status(200).send('Preferencias guardadas correctamente');
+//         })
+//         .catch(err => {
+//             console.error('Error al guardar preferencias:', err);
+//             res.status(500).send('Error al procesar las preferencias');
+//         }); 
+// });
+
 
 module.exports = app;
