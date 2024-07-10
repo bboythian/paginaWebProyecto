@@ -1,45 +1,83 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+const port = 8081;
 
 // Conexión a la base de datos
-mongoose.connect('mongodb://localhost:27017/baseUsage', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/baseUsage')
+    .then(() => {
+        console.log('Conectado a la base de datos MongoDB');
+    })
+    .catch((err) => {
+        console.error('Error de conexión a MongoDB:', err);
+    });
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
-db.once('open', () => {
-    console.log('Conectado a la base de datos MongoDB');
-});
 
 // Definir el esquema de usuario
 const userSchema = new mongoose.Schema({
-    cedula: String,
-    password: String
+    cedula: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
 });
 
-// Definir un esquema de usuario
+// Definir un esquema de reporte
 const reporteSchema = new mongoose.Schema({
-    cedula: String,
-    fecha: Date,
-    mayorConsumo: String,
-    packageName1: String,
-    packageName2: String,
-    packageName3: String,
-    packageName4: String,
-    packageName5: String,
-    tiempoUso1: String,
-    tiempoUso2: String,
-    tiempoUso3: String,
-    tiempoUso4: String,
-    tiempoUso5: String,
+    email: { type: String, required: true },
+    fecha: { type: Date, required: true },
+    mayorConsumo: { type: String, required: true },
+    packageName1: { type: String, required: true },
+    packageName2: { type: String, required: true },
+    packageName3: { type: String, required: true },
+    packageName4: { type: String, required: true },
+    packageName5: { type: String, required: true },
+    tiempoUso1: { type: String, required: true },
+    tiempoUso2: { type: String, required: true },
+    tiempoUso3: { type: String, required: true },
+    tiempoUso4: { type: String, required: true },
+    tiempoUso5: { type: String, required: true }
+});
+
+// Definir el esquema y el modelo de correo electrónico
+const emailSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true }
+});
+
+emailSchema.index({ email: 1 }, { unique: true });
+
+
+// Guardar sección de preferencias y gustos
+const userPreferencesSchema = new mongoose.Schema({
+    email: { type: String, required: true },
+    periodo: { type: String, required: true },
+    peliculas: { type: String, required: true },
+    musica: { type: String, required: true },
+    series: { type: String, required: true },
+    libros: { type: String, required: true },
+    formatoLectura: { type: String, required: true },
+    actividadesAlAireLibre: { type: String, required: true },
+    frecuenciaActividadesAlAireLibre: { type: String, required: true },
+    actividadesEnInteriores: { type: String, required: true },
+    tiempoActividadesEnInteriores: { type: String, required: true },
+    destinosDeViaje: { type: String, required: true },
+    actividadesEnViaje: { type: String, required: true },
+    gadgets: { type: String, required: true },
+    aplicaciones: { type: String, required: true },
+    tipoComida: { type: String, required: true },
+    frecuenciaComerFuera: { type: String, required: true },
+    deportes: { type: String, required: true },
+    frecuenciaEjercicio: { type: String, required: true }
 });
 
 // Definir un modelo basado en el esquema
 const Reporte = mongoose.model('Reporte', reporteSchema);
-
 const User = mongoose.model('User', userSchema);
+const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
+const Email = mongoose.model('Email', emailSchema);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Ruta para manejar el inicio de sesión
 app.post('/login', async (req, res) => {
@@ -52,10 +90,30 @@ app.post('/login', async (req, res) => {
             res.send('Credenciales incorrectas');
         }
     } catch (error) {
+        console.error('Error en la ruta /login:', error.message);
         res.status(500).send('Error al procesar la solicitud');
     }
 });
 
+// Ruta para validar el correo electrónico
+app.post('/validar-email', async (req, res) => {
+    const { email } = req.body;
+    if (!email) {
+        return res.status(400).send({ error: 'Email is required' });
+    }
+
+    try {
+        const emailExists = await Email.findOne({ email });
+        if (emailExists) {
+            return res.status(200).send({ exists: true });
+        } else {
+            return res.status(404).send({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error en la ruta /validar-email:', error.message);
+        res.status(500).send('Error al procesar la solicitud');
+    }
+});
 
 
 
@@ -73,7 +131,7 @@ app.get('/get-reportes', (req, res) => {
 
 // Ruta para agregar un nuevo reporte desde la aplicación móvil Flutter
 app.post('/enviar-datos', (req, res) => {
-    const { cedula, fecha, mayorConsumo, usageData } = req.body;
+    const { email, fecha, mayorConsumo, usageData } = req.body;
 
     if (usageData) {
         // Parsear los datos enviados desde el móvil
@@ -81,7 +139,7 @@ app.post('/enviar-datos', (req, res) => {
 
         // Construir un objeto Reporte con los datos recibidos
         const nuevoReporte = new Reporte({
-            cedula,
+            email,
             fecha,
             mayorConsumo,
         });
@@ -107,7 +165,7 @@ app.post('/enviar-datos', (req, res) => {
     } else {
         // Si no se recibieron datos de uso de aplicaciones, enviar una lista vacía
         const nuevoReporte = new Reporte({
-            cedula,
+            email,
             fecha,
             mayorConsumo,
             packageName1: '-',
@@ -143,29 +201,17 @@ app.post('/delete-reporte', (req, res) => {
         });
 });
 
-// //guardar seccion de preferencias y gustos
-// const userPreferencesSchema = new mongoose.Schema({
-//     cedula: String,
-//     peliculas: String,
-//     musica: String,
-//     series: String,
-//     libros: String,
-//     formatoLectura: String,
-//     actividadesAlAireLibre: String,
-//     frecuenciaActividadesAlAireLibre: String,
-//     actividadesEnInteriores: String,
-//     tiempoActividadesEnInteriores: String,
-//     destinosDeViaje: String,
-//     actividadesEnViaje: String,
-//     gadgets: String,
-//     aplicaciones: String,
-//     tipoComida: String,
-//     frecuenciaComerFuera: String,
-//     deportes: String,
-//     frecuenciaEjercicio: String,
-// });
+// Endpoint para obtener los datos de userPreferences
+app.get('/get-user-preferences', async (req, res) => {
+    try {
+        const userPreferences = await UserPreferences.find();
+        res.json(userPreferences);
+    } catch (error) {
+        console.error('Error al obtener userPreferences:', error);
+        res.status(500).send('Error al obtener userPreferences');
+    }
+});
 
-// const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
 
 // // Configurar OpenAI
 // const configuration = new Configuration({
@@ -226,58 +272,62 @@ app.post('/delete-reporte', (req, res) => {
 //     }
 //   });
 
-// app.post('/enviar-preferencias', (req, res) => {
-//     const {
-//         cedula,
-//         peliculas,
-//         musica,
-//         series,
-//         libros,
-//         formatoLectura,
-//         actividadesAlAireLibre,
-//         frecuenciaActividadesAlAireLibre,
-//         actividadesEnInteriores,
-//         tiempoActividadesEnInteriores,
-//         destinosDeViaje,
-//         actividadesEnViaje,
-//         gadgets,
-//         aplicaciones,
-//         tipoComida,
-//         frecuenciaComerFuera,
-//         deportes,
-//         frecuenciaEjercicio,
-//     } = req.body;
+app.post('/enviar-preferencias', (req, res) => {
+    const {
+        email,
+        periodo,
+        peliculas,
+        musica,
+        series,
+        libros,
+        formatoLectura,
+        actividadesAlAireLibre,
+        frecuenciaActividadesAlAireLibre,
+        actividadesEnInteriores,
+        tiempoActividadesEnInteriores,
+        destinosDeViaje,
+        actividadesEnViaje,
+        gadgets,
+        aplicaciones,
+        tipoComida,
+        frecuenciaComerFuera,
+        deportes,
+        frecuenciaEjercicio,
+        fechaRegistro,  // Extraer el nuevo campo
+    } = req.body;
 
-//     const nuevasPreferencias = new UserPreferences({
-//         cedula,
-//         peliculas,
-//         musica,
-//         series,
-//         libros,
-//         formatoLectura,
-//         actividadesAlAireLibre,
-//         frecuenciaActividadesAlAireLibre,
-//         actividadesEnInteriores,
-//         tiempoActividadesEnInteriores,
-//         destinosDeViaje,
-//         actividadesEnViaje,
-//         gadgets,
-//         aplicaciones,
-//         tipoComida,
-//         frecuenciaComerFuera,
-//         deportes,
-//         frecuenciaEjercicio,
-//     });
+    const nuevasPreferencias = new UserPreferences({
+        email,
+        periodo,
+        peliculas,
+        musica,
+        series,
+        libros,
+        formatoLectura,
+        actividadesAlAireLibre,
+        frecuenciaActividadesAlAireLibre,
+        actividadesEnInteriores,
+        tiempoActividadesEnInteriores,
+        destinosDeViaje,
+        actividadesEnViaje,
+        gadgets,
+        aplicaciones,
+        tipoComida,
+        frecuenciaComerFuera,
+        deportes,
+        frecuenciaEjercicio,
+        fechaRegistro,  // Agregar el nuevo campo al modelo
+    });
 
-//     nuevasPreferencias.save()
-//         .then(preferencias => {
-//             res.status(200).send('Preferencias guardadas correctamente');
-//         })
-//         .catch(err => {
-//             console.error('Error al guardar preferencias:', err);
-//             res.status(500).send('Error al procesar las preferencias');
-//         }); 
-// });
+    nuevasPreferencias.save()
+        .then(preferencias => {
+            res.status(200).send('Preferencias guardadas correctamente');
+        })
+        .catch(err => {
+            console.error('Error al guardar preferencias:', err);
+            res.status(500).send('Error al procesar las preferencias');
+        }); 
+});
 
 
 module.exports = app;
