@@ -51,23 +51,18 @@ emailSchema.index({ email: 1 }, { unique: true });
 const userPreferencesSchema = new mongoose.Schema({
     email: { type: String, required: true },
     periodo: { type: String, required: true },
-    peliculas: { type: String, required: true },
-    musica: { type: String, required: true },
-    series: { type: String, required: true },
-    libros: { type: String, required: true },
-    formatoLectura: { type: String, required: true },
-    actividadesAlAireLibre: { type: String, required: true },
-    frecuenciaActividadesAlAireLibre: { type: String, required: true },
-    actividadesEnInteriores: { type: String, required: true },
-    tiempoActividadesEnInteriores: { type: String, required: true },
-    destinosDeViaje: { type: String, required: true },
-    actividadesEnViaje: { type: String, required: true },
-    gadgets: { type: String, required: true },
-    aplicaciones: { type: String, required: true },
-    tipoComida: { type: String, required: true },
-    frecuenciaComerFuera: { type: String, required: true },
-    deportes: { type: String, required: true },
-    frecuenciaEjercicio: { type: String, required: true }
+    edad: { type: String, required: true },
+    genero: { type: String, required: true },
+    residencia: { type: String, required: true },
+    mascota: { type: String, required: true },
+    comoVive: { type: String, required: true },
+    responsabilidadesEnCasa: { type: String, required: true },
+    gestionTiempoEstudio: { type: String, required: true },
+    tareasUniversitarias: { type: String, required: true },
+    actividadesAireLibre: { type: String, required: true },
+    actividadesEnCasa: { type: String, required: true },
+    espacioOrdenado: { type: String, required: true },
+    gadgets: { type: String, required: true }
 });
 
 // Definir un modelo basado en el esquema
@@ -272,51 +267,57 @@ app.get('/get-user-preferences', async (req, res) => {
 //     }
 //   });
 
+/*
+ email: { type: String, required: true },
+    periodo: { type: String, required: true },
+    edad: { type: String, required: true },
+    genero: { type: String, required: true },
+    residencia: { type: String, required: true },
+    mascota: { type: String, required: true },
+    comoVive: { type: String, required: true },
+    responsabilidadesEnCasa: { type: String, required: true },
+    gestionTiempoEstudio: { type: String, required: true },
+    tareasUniversitarias: { type: String, required: true },
+    actividadesAireLibre: { type: String, required: true },
+    actividadesEnCasa: { type: String, required: true },
+    espacioOrdenado: { type: String, required: true },
+    gadgets: { type: String, required: true }
+*/
+
+
 app.post('/enviar-preferencias', (req, res) => {
     const {
         email,
         periodo,
-        peliculas,
-        musica,
-        series,
-        libros,
-        formatoLectura,
-        actividadesAlAireLibre,
-        frecuenciaActividadesAlAireLibre,
-        actividadesEnInteriores,
-        tiempoActividadesEnInteriores,
-        destinosDeViaje,
-        actividadesEnViaje,
+        edad,
+        genero,
+        residencia,
+        mascota,
+        comoVive,
+        responsabilidadesEnCasa,
+        gestionTiempoEstudio,
+        tareasUniversitarias,
+        actividadesAireLibre,
+        actividadesEnCasa,
+        espacioOrdenado,
         gadgets,
-        aplicaciones,
-        tipoComida,
-        frecuenciaComerFuera,
-        deportes,
-        frecuenciaEjercicio,
-        fechaRegistro,  // Extraer el nuevo campo
     } = req.body;
 
     const nuevasPreferencias = new UserPreferences({
         email,
         periodo,
-        peliculas,
-        musica,
-        series,
-        libros,
-        formatoLectura,
-        actividadesAlAireLibre,
-        frecuenciaActividadesAlAireLibre,
-        actividadesEnInteriores,
-        tiempoActividadesEnInteriores,
-        destinosDeViaje,
-        actividadesEnViaje,
+        edad,
+        genero,
+        residencia,
+        mascota,
+        comoVive,
+        responsabilidadesEnCasa,
+        gestionTiempoEstudio,
+        tareasUniversitarias,
+        actividadesAireLibre,
+        actividadesEnCasa,
+        espacioOrdenado,
         gadgets,
-        aplicaciones,
-        tipoComida,
-        frecuenciaComerFuera,
-        deportes,
-        frecuenciaEjercicio,
-        fechaRegistro,  // Agregar el nuevo campo al modelo
     });
 
     nuevasPreferencias.save()
