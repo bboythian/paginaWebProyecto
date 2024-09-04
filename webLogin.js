@@ -62,7 +62,7 @@ const userPreferencesSchema = new mongoose.Schema({
     actividadesAireLibre: { type: String, required: true },
     actividadesEnCasa: { type: String, required: true },
     espacioOrdenado: { type: String, required: true },
-    gadgets: { type: String, required: true }
+    motivacion: { type: String, required: true }
 });
 
 // Definir un modelo basado en el esquema
@@ -300,7 +300,7 @@ app.post('/enviar-preferencias', (req, res) => {
         actividadesAireLibre,
         actividadesEnCasa,
         espacioOrdenado,
-        gadgets,
+        motivacion,
     } = req.body;
 
     const nuevasPreferencias = new UserPreferences({
@@ -317,7 +317,7 @@ app.post('/enviar-preferencias', (req, res) => {
         actividadesAireLibre,
         actividadesEnCasa,
         espacioOrdenado,
-        gadgets,
+        motivacion,
     });
 
     nuevasPreferencias.save()
