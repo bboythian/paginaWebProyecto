@@ -110,8 +110,6 @@ app.post('/validar-email', async (req, res) => {
     }
 });
 
-
-
 // Ruta para obtener y mostrar todos los usuarios en formato JSON
 app.get('/get-reportes', (req, res) => {
     Reporte.find()
@@ -184,6 +182,7 @@ app.post('/enviar-datos', (req, res) => {
             });
     }
 });
+
 // Ruta para eliminar un usuario
 app.post('/delete-reporte', (req, res) => {
     Reporte.findOneAndDelete({ _id: req.body.reporteId })
@@ -195,6 +194,19 @@ app.post('/delete-reporte', (req, res) => {
             res.redirect('/'); // Redirigir de vuelta a la página principal en caso de error
         });
 });
+
+// Ruta para eliminar un user-preference
+app.post('/delete-user-preference', (req, res) => {
+    UserPreferences.findOneAndDelete({ _id: req.body.userPreferenceId })
+        .then(() => {
+            res.redirect('/main'); // Redirigir de vuelta a la página principal después de eliminar usuario
+        })
+        .catch(err => {
+            console.error('Error al eliminar user preference:', err);
+            res.redirect('/'); // Redirigir de vuelta a la página principal en caso de error
+        });
+});
+
 
 // Endpoint para obtener los datos de userPreferences
 app.get('/get-user-preferences', async (req, res) => {
@@ -208,7 +220,7 @@ app.get('/get-user-preferences', async (req, res) => {
 });
 
 
-// // Configurar OpenAI
+// Configurar OpenAI
 // const configuration = new Configuration({
 //     apiKey: 'YOUR_OPENAI_API_KEY',
 //   });
@@ -267,22 +279,6 @@ app.get('/get-user-preferences', async (req, res) => {
 //     }
 //   });
 
-/*
- email: { type: String, required: true },
-    periodo: { type: String, required: true },
-    edad: { type: String, required: true },
-    genero: { type: String, required: true },
-    residencia: { type: String, required: true },
-    mascota: { type: String, required: true },
-    comoVive: { type: String, required: true },
-    responsabilidadesEnCasa: { type: String, required: true },
-    gestionTiempoEstudio: { type: String, required: true },
-    tareasUniversitarias: { type: String, required: true },
-    actividadesAireLibre: { type: String, required: true },
-    actividadesEnCasa: { type: String, required: true },
-    espacioOrdenado: { type: String, required: true },
-    gadgets: { type: String, required: true }
-*/
 
 
 app.post('/enviar-preferencias', (req, res) => {
