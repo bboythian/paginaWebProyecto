@@ -44,7 +44,7 @@ const reporteSchema = new mongoose.Schema({
 //     email: { type: String, required: true, unique: true }
 // });
 
-emailSchema.index({ email: 1 }, { unique: true });
+// emailSchema.index({ email: 1 }, { unique: true });
 
 
 // Guardar sección de preferencias y gustos
