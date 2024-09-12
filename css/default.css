@@ -36,7 +36,7 @@
 }
 .table-custom th:nth-child(3), 
         .table-custom td:nth-child(3) {
-            min-width: 150px; /* Ajusta este valor según sea necesario */
+            min-width: 60px; /* Ajusta este valor según sea necesario */
         }
 
 .table-custom tbody tr:hover {
