@@ -40,9 +40,9 @@ const reporteSchema = new mongoose.Schema({
 });
 
 // Definir el esquema y el modelo de correo electrónico
-const emailSchema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true }
-});
+// const emailSchema = new mongoose.Schema({
+//     email: { type: String, required: true, unique: true }
+// });
 
 emailSchema.index({ email: 1 }, { unique: true });
 
@@ -65,11 +65,23 @@ const userPreferencesSchema = new mongoose.Schema({
     motivacion: { type: String, required: true }
 });
 
+// Guardar sección de preferencias y gustos
+const userRegisterSchema = new mongoose.Schema({
+    email: { type: String, required: true },
+    cedula: { type: String, required: true },
+    edad: { type: String, required: true },
+    genero: { type: String, required: true },
+    so: { type: String, required: true },
+    movilidad: { type: String, required: true },
+    tiempoDiario: { type: String, required: true },
+});
+
 // Definir un modelo basado en el esquema
 const Reporte = mongoose.model('Reporte', reporteSchema);
 const User = mongoose.model('User', userSchema);
 const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
-const Email = mongoose.model('Email', emailSchema);
+const UserRegister= mongoose.model('UserRegister', userRegisterSchema);
+// const Email = mongoose.model('Email', emailSchema);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -98,15 +110,24 @@ app.post('/validar-email', async (req, res) => {
     }
 
     try {
-        const emailExists = await Email.findOne({ email });
-        if (emailExists) {
+        const emailRegister = await UserRegister.findOne({ email });
+        const emailPreference = await UserPreferences.findOne({ email });
+    
+        // Si existe el email en emailRegister y no existe en emailPreference, devuelve true
+        if (emailRegister && !emailPreference) {
             return res.status(200).send({ exists: true });
-        } else {
-            return res.status(404).send({ exists: false });
         }
+    
+        // Si existe el email en emailPreference, devuelve false
+        if (emailPreference) {
+            return res.status(200).send({ exists: false });
+        }
+    
+        // Si no existe en ambos, devuelve que no existe (404)
+        return res.status(404).send({ exists: false });
+    
     } catch (error) {
-        console.error('Error en la ruta /validar-email:', error.message);
-        res.status(500).send('Error al procesar la solicitud');
+        return res.status(500).send({ error: 'Server error en validar email', details: error });
     }
 });
 
@@ -217,6 +238,29 @@ app.get('/get-user-preferences', async (req, res) => {
         console.error('Error al obtener userPreferences:', error);
         res.status(500).send('Error al obtener userPreferences');
     }
+});
+
+// Endpoint para obtener los datos de userPreferences
+app.get('/get-user-register', async (req, res) => {
+    try {
+        const userRegister = await UserRegister.find();
+        res.json(userRegister);
+    } catch (error) {
+        console.error('Error al obtener userPreferences:', error);
+        res.status(500).send('Error al obtener userPreferences');
+    }
+});
+
+// Ruta para eliminar un user-preference
+app.post('/delete-user-register', (req, res) => {
+    UserRegister.findOneAndDelete({ _id: req.body.userRegisterId })
+        .then(() => {
+            res.redirect('/main'); // Redirigir de vuelta a la página principal después de eliminar usuario
+        })
+        .catch(err => {
+            console.error('Error al eliminar user preference:', err);
+            res.redirect('/'); // Redirigir de vuelta a la página principal en caso de error
+        });
 });
 
 
