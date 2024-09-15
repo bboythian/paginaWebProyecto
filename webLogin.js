@@ -320,18 +320,18 @@ app.post('/delete-user-register', (req, res) => {
 
 
 // IMPLEMENTACION GENERACION PERFIL EN CHATGPT
-const { Configuration, OpenAIApi } = require('openai');
-// Configuración de la API de OpenAI
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY, // Asegúrate de definir tu clave API en las variables de entorno
-});
-const openai = new OpenAIApi(configuration);
-// Modelo adicional para obtener más parámetros
+// const { Configuration, OpenAIApi } = require('openai');
+// // Configuración de la API de OpenAI
+// const configuration = new Configuration({
+//     apiKey: process.env.OPENAI_API_KEY, // Asegúrate de definir tu clave API en las variables de entorno
+// });
+// const openai = new OpenAIApi(configuration);
+// // Modelo adicional para obtener más parámetros
 
-const preferencesRegister = mongoose.model('UserRegister', new mongoose.Schema({
-    email: String,
-    anotherField: String, // Define otros campos que necesites
-}));
+// const preferencesRegister = mongoose.model('UserRegister', new mongoose.Schema({
+//     email: String,
+//     anotherField: String, // Define otros campos que necesites
+// }));
 
 app.post('/enviar-preferencias', async (req, res) => {
     const {
