@@ -51,17 +51,12 @@ const reporteSchema = new mongoose.Schema({
 const userPreferencesSchema = new mongoose.Schema({
     email: { type: String, required: true },
     periodo: { type: String, required: true },
-    edad: { type: String, required: true },
-    genero: { type: String, required: true },
-    residencia: { type: String, required: true },
     mascota: { type: String, required: true },
-    comoVive: { type: String, required: true },
     responsabilidadesEnCasa: { type: String, required: true },
-    gestionTiempoEstudio: { type: String, required: true },
     tareasUniversitarias: { type: String, required: true },
+    espacioOrdenado: { type: String, required: true },
     actividadesAireLibre: { type: String, required: true },
     actividadesEnCasa: { type: String, required: true },
-    espacioOrdenado: { type: String, required: true },
     motivacion: { type: String, required: true }
 });
 
@@ -342,34 +337,24 @@ app.post('/enviar-preferencias', async (req, res) => {
     const {
         email,
         periodo,
-        edad,
-        genero,
-        residencia,
         mascota,
-        comoVive,
         responsabilidadesEnCasa,
-        gestionTiempoEstudio,
         tareasUniversitarias,
+        espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
-        espacioOrdenado,
         motivacion,
     } = req.body;
 
     const nuevasPreferencias = new UserPreferences({
         email,
         periodo,
-        edad,
-        genero,
-        residencia,
         mascota,
-        comoVive,
         responsabilidadesEnCasa,
-        gestionTiempoEstudio,
         tareasUniversitarias,
+        espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
-        espacioOrdenado,
         motivacion,
     });
 
