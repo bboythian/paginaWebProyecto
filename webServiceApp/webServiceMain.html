@@ -591,18 +591,13 @@
                     row.innerHTML = `
                 <td>${item.email}</td>
                 <td>${item.periodo}</td>
-                <td>${item.edad}</td>
-                <td>${item.genero}</td>
-                <td>${item.residencia}</td>
                 <td>${item.mascota}</td>
-                <td>${item.comoVive}</td>
                 <td>${item.responsabilidadesEnCasa}</td>
-                <td>${item.gestionTiempoEstudio}</td>
                 <td>${item.tareasUniversitarias}</td>
+                <td>${item.espacioOrdenado}</td>
                 <td>${item.actividadesAireLibre}</td>
                 <td>${item.actividadesEnCasa}</td>
-                <td>${item.espacioOrdenado}</td>
-                <td>${item.motivacion}</td> 
+                <td>${item.motivacion}</td>
                 <td>
                             <form action="/delete-user-preference" method="POST">
                                 <input type="hidden" name="userPreferenceId" value="${item._id}">
