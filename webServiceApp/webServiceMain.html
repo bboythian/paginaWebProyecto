@@ -119,7 +119,7 @@
                                 <th>Género</th>
                                 <th>SO</th>
                                 <th>Movilidad</th>
-                                <th>Tiempo dedicado a tareas</th>
+                                <th>Dedica tiempo a tareas</th>
                                 <th>Edición</th>
                             </tr>
                         </thead>
@@ -144,17 +144,12 @@
                             <tr>
                                 <th>Email</th>
                                 <th>Periodo</th>
-                                <th>Edad</th>
-                                <th>Género</th>
-                                <th>Lugar residencia</th>
-                                <th>Tiene mascota</th>
-                                <th>Como vive</th>
+                                <th>Mascota</th>
                                 <th>Responsabilidades en Casa</th>
-                                <th>Gestión de tiempo de estudio</th>
                                 <th>Tareas Universitarias</th>
+                                <th>Espacio Ordenado</th>
                                 <th>Actividades al Aire Libre</th>
                                 <th>Actividades en Casa</th>
-                                <th>Espacio Ordenado</th>
                                 <th>Motivacion</th>
                                 <th>Edición</th>
                             </tr>
@@ -591,18 +586,13 @@
                     row.innerHTML = `
                 <td>${item.email}</td>
                 <td>${item.periodo}</td>
-                <td>${item.edad}</td>
-                <td>${item.genero}</td>
-                <td>${item.residencia}</td>
                 <td>${item.mascota}</td>
-                <td>${item.comoVive}</td>
                 <td>${item.responsabilidadesEnCasa}</td>
-                <td>${item.gestionTiempoEstudio}</td>
                 <td>${item.tareasUniversitarias}</td>
+                <td>${item.espacioOrdenado}</td>
                 <td>${item.actividadesAireLibre}</td>
                 <td>${item.actividadesEnCasa}</td>
-                <td>${item.espacioOrdenado}</td>
-                <td>${item.motivacion}</td> 
+                <td>${item.motivacion}</td>
                 <td>
                             <form action="/delete-user-preference" method="POST">
                                 <input type="hidden" name="userPreferenceId" value="${item._id}">

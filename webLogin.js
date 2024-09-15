@@ -51,17 +51,12 @@ const reporteSchema = new mongoose.Schema({
 const userPreferencesSchema = new mongoose.Schema({
     email: { type: String, required: true },
     periodo: { type: String, required: true },
-    edad: { type: String, required: true },
-    genero: { type: String, required: true },
-    residencia: { type: String, required: true },
     mascota: { type: String, required: true },
-    comoVive: { type: String, required: true },
     responsabilidadesEnCasa: { type: String, required: true },
-    gestionTiempoEstudio: { type: String, required: true },
     tareasUniversitarias: { type: String, required: true },
+    espacioOrdenado: { type: String, required: true },
     actividadesAireLibre: { type: String, required: true },
     actividadesEnCasa: { type: String, required: true },
-    espacioOrdenado: { type: String, required: true },
     motivacion: { type: String, required: true }
 });
 
@@ -324,39 +319,42 @@ app.post('/delete-user-register', (req, res) => {
 //   });
 
 
+// IMPLEMENTACION GENERACION PERFIL EN CHATGPT
+// const { Configuration, OpenAIApi } = require('openai');
+// // Configuración de la API de OpenAI
+// const configuration = new Configuration({
+//     apiKey: process.env.OPENAI_API_KEY, // Asegúrate de definir tu clave API en las variables de entorno
+// });
+// const openai = new OpenAIApi(configuration);
+// // Modelo adicional para obtener más parámetros
 
-app.post('/enviar-preferencias', (req, res) => {
+// const preferencesRegister = mongoose.model('UserRegister', new mongoose.Schema({
+//     email: String,
+//     anotherField: String, // Define otros campos que necesites
+// }));
+
+app.post('/enviar-preferencias', async (req, res) => {
     const {
         email,
         periodo,
-        edad,
-        genero,
-        residencia,
         mascota,
-        comoVive,
         responsabilidadesEnCasa,
-        gestionTiempoEstudio,
         tareasUniversitarias,
+        espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
-        espacioOrdenado,
         motivacion,
     } = req.body;
 
     const nuevasPreferencias = new UserPreferences({
         email,
         periodo,
-        edad,
-        genero,
-        residencia,
         mascota,
-        comoVive,
         responsabilidadesEnCasa,
-        gestionTiempoEstudio,
         tareasUniversitarias,
+        espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
-        espacioOrdenado,
         motivacion,
     });
 
@@ -368,6 +366,52 @@ app.post('/enviar-preferencias', (req, res) => {
             console.error('Error al guardar preferencias:', err);
             res.status(500).send('Error al procesar las preferencias');
         }); 
+
+    // try {
+    //     Guardar las preferencias primero
+    //     const preferenciasGuardadas = await nuevasPreferencias.save();
+
+    //     Obtener más parámetros desde otra tabla (colección)
+    //     const extraData = await ExtraData.findOne({ email });
+
+    //     if (extraData) {
+    //         Realizar la consulta a la API de ChatGPT
+    //         const prompt = `El usuario con el correo ${email} tiene las siguientes preferencias: 
+    //             Periodo: ${periodo}, 
+    //             Edad: ${edad}, 
+    //             Genero: ${genero}, 
+    //             Residencia: ${residencia}, 
+    //             Mascota: ${mascota}, 
+    //             Cómo Vive: ${comoVive}, 
+    //             Responsabilidades en Casa: ${responsabilidadesEnCasa}, 
+    //             Gestión del Tiempo de Estudio: ${gestionTiempoEstudio}, 
+    //             Tareas Universitarias: ${tareasUniversitarias}, 
+    //             Actividades al Aire Libre: ${actividadesAireLibre}, 
+    //             Actividades en Casa: ${actividadesEnCasa}, 
+    //             Espacio Ordenado: ${espacioOrdenado}, 
+    //             Motivación: ${motivacion}, 
+    //             Datos extra: ${extraData.anotherField}.
+    //             ¿Puedes generar una recomendación basada en estas preferencias?`;
+
+    //         const response = await openai.createCompletion({
+    //             model: 'text-davinci-003',
+    //             prompt: prompt,
+    //             max_tokens: 150,
+    //         });
+
+    //         const respuestaAPI = response.data.choices[0].text;
+
+    //         Imprimir la respuesta en consola (puedes cambiarlo más adelante)
+    //         console.log('Respuesta de ChatGPT:', respuestaAPI);
+
+    //         res.status(200).send('Preferencias guardadas correctamente y consulta a ChatGPT realizada');
+    //     } else {
+    //         res.status(404).send('No se encontraron datos adicionales para el email proporcionado');
+    //     }
+    // } catch (err) {
+    //     console.error('Error al guardar preferencias o realizar la consulta a ChatGPT:', err);
+    //     res.status(500).send('Error al procesar las preferencias');
+    // }
 });
 
 
