@@ -6,6 +6,15 @@ const moment = require('moment-timezone');
 const app = express();
 const port = 8081;
 
+const Queue = require('bull');
+const geminiQueue = new Queue('geminiQueue', {
+    redis: {
+        host: '127.0.0.1',
+        port: 6379
+    }
+});
+
+
 // Configuración de Google Generative AI
 const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
@@ -321,17 +330,16 @@ async function generarPromptGemini(usuario, preferencias) {
     return prompt;
 }
 // Función para hacer la consulta a la API de Gemini
-async function consultarGemini(prompt) {
+async function consultarGemini(prompt, retryCount = 3) {
     try {
         const result = await model.generateContent(prompt);
-        // ${usuario.email},
         const responseText = await result.response.text();
         return responseText;
     } catch (error) {
         console.error('Error consultando Gemini:', error);
         if (retryCount > 0) {
             console.log(`Reintentando consulta a Gemini... (${3 - retryCount} intento(s) restantes)`);
-            return consultarGemini(prompt, retryCount - 1);
+            return consultarGemini(prompt, retryCount - 1);  // Decrementar el contador
         } else {
             throw new Error('Error consultando Gemini después de varios intentos');
         }
@@ -362,51 +370,61 @@ app.post('/enviar-preferencias', async (req, res) => {
         actividadesEnCasa,
         motivacion,
     });
-    //Antiguo
-    // nuevasPreferencias.save()
-    //     .then(preferencias => {
-    //         res.status(200).send('Preferencias guardadas correctamente');
-    //     })
-    //     .catch(err => {
-    //         console.error('Error al guardar preferencias:', err);
-    //         res.status(500).send('Error al procesar las preferencias');
-    //     }); 
     try {
         // Guardar preferencias en la base de datos
         await nuevasPreferencias.save();
- 
-        // Obtener los datos adicionales del usuario en la tabla UserRegister
-        const usuario = await UserRegister.findOne({ email });
-        if (!usuario) {
-            return res.status(404).send('Usuario no encontrado');
-        }
 
-        // Generar el prompt para la consulta a Gemini
-        const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
-
-        // Hacer la consulta a la API de Gemini
-        const respuestaGemini = await consultarGemini(prompt);
-
-        // Guardar la respuesta de Gemini en la nueva tabla UserProfileGemini
-        const nuevoPerfilGemini = new UserProfileGemini({
-            email: email,
-            respuestaGemini: respuestaGemini,
-        });
-        await nuevoPerfilGemini.save();
-
-        // Enviar la respuesta al cliente
-        // res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
-         // Enviar un mensaje de éxito al cliente
-         res.status(200).send({ message: 'Preferencias guardadas y respuesta de Gemini almacenada correctamente.' });
+        // Encolar la consulta a Gemini
+        geminiQueue.add({ email, nuevasPreferencias });
+        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini encolada.' });
     } catch (err) {
         console.error('Error al procesar las preferencias:', err.message);
-
-        // Enviar un error de procesamiento y guardar las preferencias igualmente
         res.status(500).send({
-            error: 'Preferencias guardadas, pero hubo un problema al consultar Gemini.',
+            error: 'Preferencias guardadas, pero hubo un problema al encolar la consulta.',
             detalles: err.message
         });
     }
+ 
+    // try {
+    //     // Guardar preferencias en la base de datos
+    //     await nuevasPreferencias.save();
+ 
+    //     // Obtener los datos adicionales del usuario en la tabla UserRegister
+    //     // const usuario = await UserRegister.findOne({ email });
+    //     // if (!usuario) {
+    //     //     return res.status(404).send('Usuario no encontrado');
+    //     // }
+
+    //     // // Generar el prompt para la consulta a Gemini
+    //     // const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
+
+    //     // Hacer la consulta a la API de Gemini
+    //     // const respuestaGemini = await consultarGemini(prompt);
+
+    //      // Encolar la consulta a Gemini
+    //      geminiQueue.add({ email, nuevasPreferencias });
+    //      res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini encolada.' });
+
+    //     // Guardar la respuesta de Gemini en la nueva tabla UserProfileGemini
+    //     // const nuevoPerfilGemini = new UserProfileGemini({
+    //     //     email: email,
+    //     //     respuestaGemini: respuestaGemini,
+    //     // });
+    //     // await nuevoPerfilGemini.save();
+
+    //     // Enviar la respuesta al cliente
+    //     // res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
+    //      // Enviar un mensaje de éxito al cliente
+    //      res.status(200).send({ message: 'Preferencias guardadas y respuesta de Gemini almacenada correctamente.' });
+    // } catch (err) {
+    //     console.error('Error al procesar las preferencias:', err.message);
+
+    //     // Enviar un error de procesamiento y guardar las preferencias igualmente
+    //     res.status(500).send({
+    //         error: 'Preferencias guardadas, pero hubo un problema al consultar Gemini.',
+    //         detalles: err.message
+    //     });
+    // }
 });
 // Endpoint para obtener los datos de UserProfileGemini
 app.get('/get-user-profile-gemini', async (req, res) => {
@@ -429,4 +447,32 @@ app.post('/delete-user-profile-gemini', (req, res) => {
             res.redirect('/'); // Redirigir en caso de error
         });
 });
+
+geminiQueue.process(async (job) => {
+    const { email, nuevasPreferencias } = job.data;
+    try {
+        // Obtener los datos adicionales del usuario
+        const usuario = await UserRegister.findOne({ email });
+        if (!usuario) {
+            throw new Error('Usuario no encontrado');
+        }
+
+        // Generar el prompt para la consulta a Gemini
+        const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
+
+        // Hacer la consulta a la API de Gemini
+        const respuestaGemini = await consultarGemini(prompt);
+
+        // Guardar la respuesta de Gemini en la base de datos
+        const nuevoPerfilGemini = new UserProfileGemini({
+            email: email,
+            respuestaGemini: respuestaGemini,
+        });
+        await nuevoPerfilGemini.save();
+    } catch (err) {
+        console.error('Error procesando la tarea de Gemini:', err.message);
+        throw new Error(err.message);
+    }
+});
+
 module.exports = app;
