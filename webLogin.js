@@ -299,7 +299,7 @@ async function generarPromptGemini(usuario, preferencias) {
 
     const prompt = `Genera un texto personalizado de presentación para el usuario.
     El usuario tiene el siguiente perfil:
-    - Nombre: ${usuario.nombre || 'No disponible'}
+    - Nombre: ${usuario.email || 'No disponible'}
     - Edad: ${usuario.edad || 'No disponible'} años
     - Cédula: ${usuario.cedula || 'No disponible'}
     - Prefiere actividades en casa como: ${preferencias.actividadesEnCasa}
@@ -360,16 +360,8 @@ app.post('/enviar-preferencias', async (req, res) => {
     //     }); 
     try {
         // Guardar preferencias en la base de datos
-        // await nuevasPreferencias.save();
-         nuevasPreferencias.save()
-        .then(preferencias => {
-            res.status(200).send('Preferencias guardadas correctamente');
-        })
-        .catch(err => {
-            console.error('Error al guardar preferencias:', err);
-            res.status(500).send('Error al procesar las preferencias');
-        }); 
-
+        await nuevasPreferencias.save();
+ 
         // Obtener los datos adicionales del usuario en la tabla UserRegister
         const usuario = await UserRegister.findOne({ email });
         if (!usuario) {
