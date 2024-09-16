@@ -83,12 +83,18 @@ const userRegisterSchema = new mongoose.Schema({
     movilidad: { type: String, required: true },
     tiempoDiario: { type: String, required: true },
 });
+// Definir el esquema de respuesta de Gemini
+const userProfileGeminiSchema = new mongoose.Schema({
+    email: { type: String, required: true },
+    respuestaGemini: { type: String, required: true },
+});
 
 // Definir un modelo basado en el esquema
 const Reporte = mongoose.model('Reporte', reporteSchema);
 const User = mongoose.model('User', userSchema);
 const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
 const UserRegister= mongoose.model('UserRegister', userRegisterSchema);
+const UserProfileGemini = mongoose.model('UserProfileGemini', userProfileGeminiSchema);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -297,26 +303,27 @@ async function generarPromptGemini(usuario, preferencias) {
     const currentTime = await getCurrentTime();
     const weatherDescription = await getWeatherDescription();
 
-    const prompt = `Genera un texto personalizado de presentación para el usuario.
-    El usuario tiene el siguiente perfil:
-    - Nombre: ${usuario.email || 'No disponible'}
-    - Edad: ${usuario.edad || 'No disponible'} años
-    - Cédula: ${usuario.cedula || 'No disponible'}
-    - Prefiere actividades en casa como: ${preferencias.actividadesEnCasa}
-    - Prefiere actividades al aire libre como: ${preferencias.actividadesAireLibre}
-    - El usuario tiene mascota: ${preferencias.mascota ? 'Sí' : 'No'}
-    - Tareas universitarias: ${preferencias.tareasUniversitarias}
-    - El espacio está ordenado: ${preferencias.espacioOrdenado}
-    - La hora actual es: ${currentTime}
-    - El clima actual es: ${weatherDescription}.`;
+    const prompt = ` Genera un texto de 50 palabras, que describa el perfil de usuario para un estudiante universitario que tiene las siguientes especificaciones:
+    - Edad: ${usuario.edad} años,
+    - Genero: ${usuario.genero},
+    - Donde vive: ${usuario.movilidad},
+    - Dedica tiempo a sus tareas: ${usuario.tiempoDiario},
+    - Top 3 actividades en casa ${preferencias.actividadesEnCasa},
+    - Top 3 actividades fuera de casa: ${preferencias.actividadesAireLibre},
+    - Tiene mascota: ${preferencias.mascota}
+    - Realiza sus tareas universitarias: ${preferencias.tareasUniversitarias}
+    - Su cuarto esta: ${preferencias.espacioOrdenado}`;
+    // - La hora actual es: ${currentTime}
+    // - El clima actual es: ${weatherDescription}.`;
 
-    console.log(`Prompt generado: ${prompt}`);
+    console.log(`Consulta generada para: ${usuario.email}`);
     return prompt;
 }
 // Función para hacer la consulta a la API de Gemini
 async function consultarGemini(prompt) {
     try {
         const result = await model.generateContent(prompt);
+        // ${usuario.email},
         const responseText = await result.response.text();
         return responseText;
     } catch (error) {
@@ -379,8 +386,17 @@ app.post('/enviar-preferencias', async (req, res) => {
         // Hacer la consulta a la API de Gemini
         const respuestaGemini = await consultarGemini(prompt);
 
+        // Guardar la respuesta de Gemini en la nueva tabla UserProfileGemini
+        const nuevoPerfilGemini = new UserProfileGemini({
+            email: email,
+            respuestaGemini: respuestaGemini,
+        });
+        await nuevoPerfilGemini.save();
+
         // Enviar la respuesta al cliente
-        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
+        // res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
+         // Enviar un mensaje de éxito al cliente
+         res.status(200).send({ message: 'Preferencias guardadas y respuesta de Gemini almacenada correctamente.' });
     } catch (err) {
         console.error('Error al procesar las preferencias:', err.message);
 
@@ -391,6 +407,25 @@ app.post('/enviar-preferencias', async (req, res) => {
         });
     }
 });
-
-
+// Endpoint para obtener los datos de UserProfileGemini
+app.get('/get-user-profile-gemini', async (req, res) => {
+    try {
+        const userProfileGemini = await UserProfileGemini.find();
+        res.json(userProfileGemini);
+    } catch (error) {
+        console.error('Error al obtener UserProfileGemini:', error);
+        res.status(500).send('Error al obtener UserProfileGemini');
+    }
+});
+// Ruta para eliminar un perfil de usuario de Gemini
+app.post('/delete-user-profile-gemini', (req, res) => {
+    UserProfileGemini.findOneAndDelete({ _id: req.body.userProfileGeminiId })
+        .then(() => {
+            res.redirect('/main'); // Redirigir de vuelta a la página principal después de eliminar el registro
+        })
+        .catch(err => {
+            console.error('Error al eliminar perfil de usuario de Gemini:', err);
+            res.redirect('/'); // Redirigir en caso de error
+        });
+});
 module.exports = app;
