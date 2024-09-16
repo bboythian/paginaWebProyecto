@@ -10,7 +10,8 @@ const Queue = require('bull');
 const geminiQueue = new Queue('geminiQueue', {
     redis: {
         host: '127.0.0.1',
-        port: 6379
+        port: 6379,
+        maxRetriesPerRequest: null // Esto desactiva el límite de reintentos.
     }
 });
 
@@ -334,9 +335,10 @@ async function consultarGemini(prompt, retryCount = 3) {
     try {
         const result = await model.generateContent(prompt);
         const responseText = await result.response.text();
+        console.log(`Consulta a Gemini exitosa: ${responseText}`);
         return responseText;
     } catch (error) {
-        console.error('Error consultando Gemini:', error);
+        console.error(`Error consultando Gemini: ${error.message}`);
         if (retryCount > 0) {
             console.log(`Reintentando consulta a Gemini... (${3 - retryCount} intento(s) restantes)`);
             return consultarGemini(prompt, retryCount - 1);  // Decrementar el contador
@@ -374,44 +376,47 @@ app.post('/enviar-preferencias', async (req, res) => {
         // Guardar preferencias en la base de datos
         await nuevasPreferencias.save();
 
-        // Verificar si hay trabajos pendientes en la cola
-        const trabajosEnCola = await geminiQueue.count();
-        if (trabajosEnCola === 0) {
-            // Si no hay trabajos en cola, intentar ejecutar la consulta directamente
-            const usuario = await UserRegister.findOne({ email });
-            if (!usuario) {
-                return res.status(404).send('Usuario no encontrado');
-            }
+      // Verificar si hay trabajos pendientes en la cola
+      const trabajosEnCola = await geminiQueue.count();
+      if (trabajosEnCola === 0) {
+          // Si no hay trabajos en cola, intentar ejecutar la consulta directamente
+          const usuario = await UserRegister.findOne({ email });
+          if (!usuario) {
+              console.log(`Usuario no encontrado: ${email}`);
+              return res.status(404).send('Usuario no encontrado');
+          }
 
-            // Generar el prompt para la consulta a Gemini
-            const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
+          // Generar el prompt para la consulta a Gemini
+          const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
 
-            try {
-                // Intentar realizar la consulta a Gemini directamente
-                const respuestaGemini = await consultarGemini(prompt);
+          try {
+              // Intentar realizar la consulta a Gemini directamente
+              const respuestaGemini = await consultarGemini(prompt);
 
-                // Guardar la respuesta de Gemini en la base de datos
-                const nuevoPerfilGemini = new UserProfileGemini({
-                    email,
-                    respuestaGemini,
-                });
-                await nuevoPerfilGemini.save();
+              // Guardar la respuesta de Gemini en la base de datos
+              const nuevoPerfilGemini = new UserProfileGemini({
+                  email,
+                  respuestaGemini,
+              });
+              await nuevoPerfilGemini.save();
 
-                // Enviar una respuesta de éxito al cliente
-                return res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente.' });
-            } catch (err) {
-                // Si la consulta falla, encolar la tarea
-                console.error('Fallo en la consulta a Gemini, encolando la tarea:', err.message);
-                geminiQueue.add({ email, nuevasPreferencias });
-                return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada por error.' });
-            }
-        } else {
-            // Si hay trabajos en cola, encolar la tarea directamente
-            geminiQueue.add({ email, nuevasPreferencias });
-            return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada.' });
-        }
+              // Enviar una respuesta de éxito al cliente
+              console.log(`Consulta a Gemini realizada exitosamente para el usuario: ${email}`);
+              return res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente.' });
+          } catch (err) {
+              // Si la consulta falla, encolar la tarea
+              console.error(`Fallo en la consulta a Gemini para el usuario ${email}, encolando la tarea: ${err.message}`);
+              geminiQueue.add({ email, nuevasPreferencias });
+              return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada por error.' });
+          }
+      } else {
+          // Si hay trabajos en cola, encolar la tarea directamente
+          console.log(`Trabajo en cola para el usuario: ${email}. Encolando tarea...`);
+          geminiQueue.add({ email, nuevasPreferencias });
+          return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada.' });
+      }
     } catch (err) {
-        console.error('Error al procesar las preferencias:', err.message);
+        console.error(`Error al procesar las preferencias para el usuario ${email}: ${err.message}`);
         res.status(500).send({
             error: 'Preferencias guardadas, pero hubo un problema al encolar la consulta.',
             detalles: err.message
@@ -488,7 +493,7 @@ geminiQueue.process(async (job) => {
         // Obtener los datos adicionales del usuario
         const usuario = await UserRegister.findOne({ email });
         if (!usuario) {
-            throw new Error('Usuario no encontrado');
+            throw new Error(`Usuario no encontrado: ${email}`);
         }
 
         // Generar el prompt para la consulta a Gemini
@@ -503,10 +508,14 @@ geminiQueue.process(async (job) => {
             respuestaGemini,
         });
         await nuevoPerfilGemini.save();
+
+        // Log en consola al procesar exitosamente la tarea
+        console.log(`Tarea de Gemini procesada correctamente para el usuario: ${email}`);
     } catch (err) {
-        console.error('Error procesando la tarea de Gemini:', err.message);
+        console.error(`Error procesando la tarea de Gemini para el usuario ${email}: ${err.message}`);
         throw new Error(err.message);
     }
 });
+
 
 module.exports = app;
