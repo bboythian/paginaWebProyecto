@@ -321,7 +321,7 @@ async function generarPromptGemini(usuario, preferencias) {
     return prompt;
 }
 // Función para hacer la consulta a la API de Gemini
-async function consultarGemini(prompt, retryCount = 3) {
+async function consultarGemini(prompt, retryCount = 5) {
     try {
         const result = await model.generateContent(prompt);
         const responseText = await result.response.text();
@@ -329,12 +329,19 @@ async function consultarGemini(prompt, retryCount = 3) {
     } catch (error) {
         console.error('Error consultando Gemini:', error);
         if (retryCount > 0) {
-            console.log(`Reintentando consulta a Gemini... (${3 - retryCount} intento(s) restantes)`);
+            console.log(`Reintentando consulta a Gemini... (${5 - retryCount} intento(s) restantes) para `);
+              // Esperar 1 segundo (1000 milisegundos) antes de reintentar
+              await sleep(2000);
+              
             return consultarGemini(prompt, retryCount - 1);  // Decrementar el contador
         } else {
             throw new Error('Error consultando Gemini después de varios intentos');
         }
     }
+}
+// Función para pausar la ejecución durante una cantidad de milisegundos
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 app.post('/enviar-preferencias', async (req, res) => {
