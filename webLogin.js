@@ -304,6 +304,7 @@ async function generarPromptGemini(usuario, preferencias) {
     const weatherDescription = await getWeatherDescription();
 
     const prompt = ` Genera un texto de 50 palabras, que describa el perfil de usuario para un estudiante universitario que tiene las siguientes especificaciones:
+    - Identificador: ${usuario.email},
     - Edad: ${usuario.edad} años,
     - Genero: ${usuario.genero},
     - Donde vive: ${usuario.movilidad},
@@ -316,7 +317,7 @@ async function generarPromptGemini(usuario, preferencias) {
     // - La hora actual es: ${currentTime}
     // - El clima actual es: ${weatherDescription}.`;
 
-    console.log(`Consulta generada para: ${usuario.email}`);
+    console.log(`Consulta de perfil generada para: ${usuario.email}`);
     return prompt;
 }
 // Función para hacer la consulta a la API de Gemini
