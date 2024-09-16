@@ -321,7 +321,12 @@ async function consultarGemini(prompt) {
         return responseText;
     } catch (error) {
         console.error('Error consultando Gemini:', error);
-        throw new Error('Error consultando Gemini');
+        if (retryCount > 0) {
+            console.log(`Reintentando consulta a Gemini... (${3 - retryCount} intento(s) restantes)`);
+            return consultarGemini(prompt, retryCount - 1);
+        } else {
+            throw new Error('Error consultando Gemini después de varios intentos');
+        }
     }
 }
 
@@ -377,8 +382,13 @@ app.post('/enviar-preferencias', async (req, res) => {
         // Enviar la respuesta al cliente
         res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
     } catch (err) {
-        console.error('Error al procesar las preferencias:', err);
-        res.status(500).send('Error al procesar las preferencias');
+        console.error('Error al procesar las preferencias:', err.message);
+
+        // Enviar un error de procesamiento y guardar las preferencias igualmente
+        res.status(500).send({
+            error: 'Preferencias guardadas, pero hubo un problema al consultar Gemini.',
+            detalles: err.message
+        });
     }
 });
 
