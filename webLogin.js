@@ -362,7 +362,7 @@ app.post('/enviar-preferencias', async (req, res) => {
 
         // Enviar la respuesta de la IA como respuesta de la API
         res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: responseText });
-
+ 
     } catch (err) {
         console.error('Error al procesar las preferencias:', err);
         res.status(500).send('Error al procesar las preferencias');
