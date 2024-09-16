@@ -329,7 +329,7 @@ async function generarPromptGemini(usuario, preferencias) {
     console.log(`Consulta de perfil generada para: ${usuario.email}`);
     return prompt;
 }
-// Función para hacer la consulta a la API de Gemini
+// Función para hacer la consulta a la API de Gemini y manejar errores
 async function consultarGemini(prompt, retryCount = 3) {
     try {
         const result = await model.generateContent(prompt);
@@ -374,9 +374,42 @@ app.post('/enviar-preferencias', async (req, res) => {
         // Guardar preferencias en la base de datos
         await nuevasPreferencias.save();
 
-        // Encolar la consulta a Gemini
-        geminiQueue.add({ email, nuevasPreferencias });
-        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini encolada.' });
+        // Verificar si hay trabajos pendientes en la cola
+        const trabajosEnCola = await geminiQueue.count();
+        if (trabajosEnCola === 0) {
+            // Si no hay trabajos en cola, intentar ejecutar la consulta directamente
+            const usuario = await UserRegister.findOne({ email });
+            if (!usuario) {
+                return res.status(404).send('Usuario no encontrado');
+            }
+
+            // Generar el prompt para la consulta a Gemini
+            const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
+
+            try {
+                // Intentar realizar la consulta a Gemini directamente
+                const respuestaGemini = await consultarGemini(prompt);
+
+                // Guardar la respuesta de Gemini en la base de datos
+                const nuevoPerfilGemini = new UserProfileGemini({
+                    email,
+                    respuestaGemini,
+                });
+                await nuevoPerfilGemini.save();
+
+                // Enviar una respuesta de éxito al cliente
+                return res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente.' });
+            } catch (err) {
+                // Si la consulta falla, encolar la tarea
+                console.error('Fallo en la consulta a Gemini, encolando la tarea:', err.message);
+                geminiQueue.add({ email, nuevasPreferencias });
+                return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada por error.' });
+            }
+        } else {
+            // Si hay trabajos en cola, encolar la tarea directamente
+            geminiQueue.add({ email, nuevasPreferencias });
+            return res.status(200).send({ message: 'Preferencias guardadas, consulta a Gemini encolada.' });
+        }
     } catch (err) {
         console.error('Error al procesar las preferencias:', err.message);
         res.status(500).send({
@@ -448,6 +481,7 @@ app.post('/delete-user-profile-gemini', (req, res) => {
         });
 });
 
+// Procesamiento de la cola de Gemini
 geminiQueue.process(async (job) => {
     const { email, nuevasPreferencias } = job.data;
     try {
@@ -465,8 +499,8 @@ geminiQueue.process(async (job) => {
 
         // Guardar la respuesta de Gemini en la base de datos
         const nuevoPerfilGemini = new UserProfileGemini({
-            email: email,
-            respuestaGemini: respuestaGemini,
+            email,
+            respuestaGemini,
         });
         await nuevoPerfilGemini.save();
     } catch (err) {
