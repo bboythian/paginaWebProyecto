@@ -1,7 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const axios = require('axios');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const moment = require('moment-timezone');
 const app = express();
 const port = 8081;
+
+// Configuración de Google Generative AI
+const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+
+// Configuración de clima
+const apiKey = 'b12c8f9a8a6055055c1b0a02dd14d4e5';
+const lat = -2.858670;
+const lon = -78.962428;
+const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
 
 // Conexión a la base de datos
 mongoose.connect('mongodb://localhost:27017/baseUsage')
@@ -75,7 +89,6 @@ const Reporte = mongoose.model('Reporte', reporteSchema);
 const User = mongoose.model('User', userSchema);
 const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
 const UserRegister= mongoose.model('UserRegister', userRegisterSchema);
-// const Email = mongoose.model('Email', emailSchema);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -257,20 +270,11 @@ app.post('/delete-user-register', (req, res) => {
         });
 });
 
-const axios = require('axios');
-const { GoogleGenerativeAI } = require("@google/generative-ai"); //uso GEMINI
-const moment = require('moment-timezone');
+// const axios = require('axios');
+// const { GoogleGenerativeAI } = require("@google/generative-ai"); //uso GEMINI
+// const moment = require('moment-timezone');
 // const UserRegister = require('./models/UserRegister'); // Importa el modelo de usuarios
 
-// Configuración de claves y URL para el clima
-const apiKey = 'b12c8f9a8a6055055c1b0a02dd14d4e5'; 
-const lat = -2.858670;
-const lon = -78.962428;
-const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-// Configuración de Google Generative AI
-const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg");
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 // Función para obtener la hora actual en la zona horaria especificada
 async function getCurrentTime() {
@@ -288,7 +292,38 @@ async function getWeatherDescription() {
         return 'condiciones meteorológicas no disponibles';
     }
 }
+// Función para generar el prompt de la API de Gemini
+async function generarPromptGemini(usuario, preferencias) {
+    const currentTime = await getCurrentTime();
+    const weatherDescription = await getWeatherDescription();
 
+    const prompt = `Genera un texto personalizado de presentación para el usuario.
+    El usuario tiene el siguiente perfil:
+    - Nombre: ${usuario.nombre || 'No disponible'}
+    - Edad: ${usuario.edad || 'No disponible'} años
+    - Cédula: ${usuario.cedula || 'No disponible'}
+    - Prefiere actividades en casa como: ${preferencias.actividadesEnCasa}
+    - Prefiere actividades al aire libre como: ${preferencias.actividadesAireLibre}
+    - El usuario tiene mascota: ${preferencias.mascota ? 'Sí' : 'No'}
+    - Tareas universitarias: ${preferencias.tareasUniversitarias}
+    - El espacio está ordenado: ${preferencias.espacioOrdenado}
+    - La hora actual es: ${currentTime}
+    - El clima actual es: ${weatherDescription}.`;
+
+    console.log(`Prompt generado: ${prompt}`);
+    return prompt;
+}
+// Función para hacer la consulta a la API de Gemini
+async function consultarGemini(prompt) {
+    try {
+        const result = await model.generateContent(prompt);
+        const responseText = await result.response.text();
+        return responseText;
+    } catch (error) {
+        console.error('Error consultando Gemini:', error);
+        throw new Error('Error consultando Gemini');
+    }
+}
 
 app.post('/enviar-preferencias', async (req, res) => {
     const {
@@ -323,10 +358,17 @@ app.post('/enviar-preferencias', async (req, res) => {
     //         console.error('Error al guardar preferencias:', err);
     //         res.status(500).send('Error al procesar las preferencias');
     //     }); 
-
     try {
         // Guardar preferencias en la base de datos
-        await nuevasPreferencias.save();
+        // await nuevasPreferencias.save();
+         nuevasPreferencias.save()
+        .then(preferencias => {
+            res.status(200).send('Preferencias guardadas correctamente');
+        })
+        .catch(err => {
+            console.error('Error al guardar preferencias:', err);
+            res.status(500).send('Error al procesar las preferencias');
+        }); 
 
         // Obtener los datos adicionales del usuario en la tabla UserRegister
         const usuario = await UserRegister.findOne({ email });
@@ -334,40 +376,18 @@ app.post('/enviar-preferencias', async (req, res) => {
             return res.status(404).send('Usuario no encontrado');
         }
 
-        // Obtener la hora y el clima actual
-        const currentTime = await getCurrentTime();
-        const weatherDescription = await getWeatherDescription();
+        // Generar el prompt para la consulta a Gemini
+        const prompt = await generarPromptGemini(usuario, nuevasPreferencias);
 
-        // Crear el prompt para la API de IA de Gemini
-        const prompt = `Genera un texto personalizado de presentación para el usuario.
-        El usuario tiene el siguiente perfil:
-        - Nombre: ${usuario.nombre}
-        - Edad: ${usuario.edad} años
-        - Cédula: ${usuario.cedula}
-        - Prefiere actividades en casa como: ${actividadesEnCasa}
-        - Prefiere actividades al aire libre como: ${actividadesAireLibre}
-        - El usuario tiene mascota: ${mascota ? 'Sí' : 'No'}
-        - Tareas universitarias: ${tareasUniversitarias}
-        - El espacio está ordenado: ${espacioOrdenado}
-        - La hora actual es: ${currentTime}
-        - El clima actual es: ${weatherDescription}.`;
+        // Hacer la consulta a la API de Gemini
+        const respuestaGemini = await consultarGemini(prompt);
 
-        console.log(`Prompt generado: ${prompt}`);
-
-        // Llamada a la API de Gemini
-        const result = await model.generateContent(prompt);
-        const responseText = await result.response.text();
-        
-        console.log(`Respuesta de Gemini: ${responseText}`);
-
-        // Enviar la respuesta de la IA como respuesta de la API
-        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: responseText });
- 
+        // Enviar la respuesta al cliente
+        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
     } catch (err) {
         console.error('Error al procesar las preferencias:', err);
         res.status(500).send('Error al procesar las preferencias');
     }
-
 });
 
 
