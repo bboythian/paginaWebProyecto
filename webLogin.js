@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
 const app = express();
 const port = 8081;
 
@@ -258,80 +257,38 @@ app.post('/delete-user-register', (req, res) => {
         });
 });
 
+const axios = require('axios');
+const { GoogleGenerativeAI } = require("@google/generative-ai"); //uso GEMINI
+const moment = require('moment-timezone');
+// const UserRegister = require('./models/UserRegister'); // Importa el modelo de usuarios
 
-// Configurar OpenAI
-// const configuration = new Configuration({
-//     apiKey: 'YOUR_OPENAI_API_KEY',
-//   });
-//   const openai = new OpenAIApi(configuration);
-  
-  // Ruta para recibir la solicitud y consultar la IA
-//   app.post('/sugerir-actividad', async (req, res) => {
-//     const { cedula, hora, numeroAlerta } = req.body;
-  
-//     try {
-//       // Buscar el perfil del usuario en la base de datos
-//       const perfilUsuario = await UserPreferences.findOne({ cedula });
-  
-//       if (!perfilUsuario) {
-//         return res.status(404).send('Perfil del usuario no encontrado');
-//       }
-  
-//       // Preparar el mensaje para la API de OpenAI
-//       const prompt = `
-//       Perfil del usuario:
-//       Peliculas: ${perfilUsuario.peliculas}
-//       Musica: ${perfilUsuario.musica}
-//       Series: ${perfilUsuario.series}
-//       Libros: ${perfilUsuario.libros}
-//       Formato de Lectura: ${perfilUsuario.formatoLectura}
-//       Actividades al Aire Libre: ${perfilUsuario.actividadesAlAireLibre}
-//       Frecuencia de Actividades al Aire Libre: ${perfilUsuario.frecuenciaActividadesAlAireLibre}
-//       Actividades en Interiores: ${perfilUsuario.actividadesEnInteriores}
-//       Tiempo en Actividades en Interiores: ${perfilUsuario.tiempoActividadesEnInteriores}
-//       Destinos de Viaje: ${perfilUsuario.destinosDeViaje}
-//       Actividades en Viaje: ${perfilUsuario.actividadesEnViaje}
-//       Gadgets: ${perfilUsuario.gadgets}
-//       Aplicaciones: ${perfilUsuario.aplicaciones}
-//       Tipo de Comida: ${perfilUsuario.tipoComida}
-//       Frecuencia de Comer Fuera: ${perfilUsuario.frecuenciaComerFuera}
-//       Deportes: ${perfilUsuario.deportes}
-//       Frecuencia de Ejercicio: ${perfilUsuario.frecuenciaEjercicio}
-//       Hora del día: ${hora}
-  
-//       Sugerencia de actividad para desviar la atención del teléfono:
-//       `;
-  
-//       // Consultar a la API de OpenAI
-//       const response = await openai.createCompletion({
-//         model: 'text-davinci-003',
-//         prompt: prompt,
-//         max_tokens: 150,
-//       });
-  
-//       const sugerencia = response.data.choices[0].text.trim();
-//       console.log('Sugerencia de actividad:', sugerencia);
-//       res.send({ sugerencia });
-//     } catch (error) {
-//       console.error('Error al consultar la IA:', error);
-//       res.status(500).send('Error al procesar la solicitud');
-//     }
-//   });
+// Configuración de claves y URL para el clima
+const apiKey = 'b12c8f9a8a6055055c1b0a02dd14d4e5'; 
+const lat = -2.858670;
+const lon = -78.962428;
+const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
+// Configuración de Google Generative AI
+const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-// IMPLEMENTACION GENERACION PERFIL EN CHATGPT
-// const { Configuration, OpenAIApi } = require('openai');
-// // Configuración de la API de OpenAI
-// const configuration = new Configuration({
-//     apiKey: process.env.OPENAI_API_KEY, // Asegúrate de definir tu clave API en las variables de entorno
-// });
-// const openai = new OpenAIApi(configuration);
-// // Modelo adicional para obtener más parámetros
+// Función para obtener la hora actual en la zona horaria especificada
+async function getCurrentTime() {
+    const timezone = 'America/Guayaquil';
+    return moment().tz(timezone).format('YYYY-MM-DD HH:mm:ss');
+}
+// Función para obtener el clima actual
+async function getWeatherDescription() {
+    try {
+        const response = await axios.get(weatherUrl);
+        const data = response.data;
+        return data.weather[0].description;
+    } catch (error) {
+        console.error('Error fetching the weather data:', error.message);
+        return 'condiciones meteorológicas no disponibles';
+    }
+}
 
-// const preferencesRegister = mongoose.model('UserRegister', new mongoose.Schema({
-//     email: String,
-//     anotherField: String, // Define otros campos que necesites
-// }));
 
 app.post('/enviar-preferencias', async (req, res) => {
     const {
@@ -357,61 +314,60 @@ app.post('/enviar-preferencias', async (req, res) => {
         actividadesEnCasa,
         motivacion,
     });
+    //Antiguo
+    // nuevasPreferencias.save()
+    //     .then(preferencias => {
+    //         res.status(200).send('Preferencias guardadas correctamente');
+    //     })
+    //     .catch(err => {
+    //         console.error('Error al guardar preferencias:', err);
+    //         res.status(500).send('Error al procesar las preferencias');
+    //     }); 
 
-    nuevasPreferencias.save()
-        .then(preferencias => {
-            res.status(200).send('Preferencias guardadas correctamente');
-        })
-        .catch(err => {
-            console.error('Error al guardar preferencias:', err);
-            res.status(500).send('Error al procesar las preferencias');
-        }); 
+    try {
+        // Guardar preferencias en la base de datos
+        await nuevasPreferencias.save();
 
-    // try {
-    //     Guardar las preferencias primero
-    //     const preferenciasGuardadas = await nuevasPreferencias.save();
+        // Obtener los datos adicionales del usuario en la tabla UserRegister
+        const usuario = await UserRegister.findOne({ email });
+        if (!usuario) {
+            return res.status(404).send('Usuario no encontrado');
+        }
 
-    //     Obtener más parámetros desde otra tabla (colección)
-    //     const extraData = await ExtraData.findOne({ email });
+        // Obtener la hora y el clima actual
+        const currentTime = await getCurrentTime();
+        const weatherDescription = await getWeatherDescription();
 
-    //     if (extraData) {
-    //         Realizar la consulta a la API de ChatGPT
-    //         const prompt = `El usuario con el correo ${email} tiene las siguientes preferencias: 
-    //             Periodo: ${periodo}, 
-    //             Edad: ${edad}, 
-    //             Genero: ${genero}, 
-    //             Residencia: ${residencia}, 
-    //             Mascota: ${mascota}, 
-    //             Cómo Vive: ${comoVive}, 
-    //             Responsabilidades en Casa: ${responsabilidadesEnCasa}, 
-    //             Gestión del Tiempo de Estudio: ${gestionTiempoEstudio}, 
-    //             Tareas Universitarias: ${tareasUniversitarias}, 
-    //             Actividades al Aire Libre: ${actividadesAireLibre}, 
-    //             Actividades en Casa: ${actividadesEnCasa}, 
-    //             Espacio Ordenado: ${espacioOrdenado}, 
-    //             Motivación: ${motivacion}, 
-    //             Datos extra: ${extraData.anotherField}.
-    //             ¿Puedes generar una recomendación basada en estas preferencias?`;
+        // Crear el prompt para la API de IA de Gemini
+        const prompt = `Genera un texto personalizado de presentación para el usuario.
+        El usuario tiene el siguiente perfil:
+        - Nombre: ${usuario.nombre}
+        - Edad: ${usuario.edad} años
+        - Cédula: ${usuario.cedula}
+        - Prefiere actividades en casa como: ${actividadesEnCasa}
+        - Prefiere actividades al aire libre como: ${actividadesAireLibre}
+        - El usuario tiene mascota: ${mascota ? 'Sí' : 'No'}
+        - Tareas universitarias: ${tareasUniversitarias}
+        - El espacio está ordenado: ${espacioOrdenado}
+        - La hora actual es: ${currentTime}
+        - El clima actual es: ${weatherDescription}.`;
 
-    //         const response = await openai.createCompletion({
-    //             model: 'text-davinci-003',
-    //             prompt: prompt,
-    //             max_tokens: 150,
-    //         });
+        console.log(`Prompt generado: ${prompt}`);
 
-    //         const respuestaAPI = response.data.choices[0].text;
+        // Llamada a la API de Gemini
+        const result = await model.generateContent(prompt);
+        const responseText = await result.response.text();
+        
+        console.log(`Respuesta de Gemini: ${responseText}`);
 
-    //         Imprimir la respuesta en consola (puedes cambiarlo más adelante)
-    //         console.log('Respuesta de ChatGPT:', respuestaAPI);
+        // Enviar la respuesta de la IA como respuesta de la API
+        res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: responseText });
 
-    //         res.status(200).send('Preferencias guardadas correctamente y consulta a ChatGPT realizada');
-    //     } else {
-    //         res.status(404).send('No se encontraron datos adicionales para el email proporcionado');
-    //     }
-    // } catch (err) {
-    //     console.error('Error al guardar preferencias o realizar la consulta a ChatGPT:', err);
-    //     res.status(500).send('Error al procesar las preferencias');
-    // }
+    } catch (err) {
+        console.error('Error al procesar las preferencias:', err);
+        res.status(500).send('Error al procesar las preferencias');
+    }
+
 });
 
 
