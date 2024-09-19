@@ -275,13 +275,41 @@ app.post('/delete-user-register', (req, res) => {
             res.redirect('/'); // Redirigir de vuelta a la página principal en caso de error
         });
 });
+app.post('/generar-consulta', async (req, res) => {
+    const { email } = req.body;
 
-// const axios = require('axios');
-// const { GoogleGenerativeAI } = require("@google/generative-ai"); //uso GEMINI
-// const moment = require('moment-timezone');
-// const UserRegister = require('./models/UserRegister'); // Importa el modelo de usuarios
+    if (!email) {
+        return res.status(400).send({ error: 'Email is required' });
+    }
 
+    try {
+        // Buscar el perfil de usuario en la tabla UserProfileGemini
+        const userProfile = await UserProfileGemini.findOne({ email });
 
+        // Si no se encuentra el perfil, devolver un error
+        if (!userProfile) {
+            return res.status(404).send({ error: 'Perfil de usuario no encontrado' });
+        }
+
+        // Obtener el campo 'respuestaGemini' de la base de datos
+        const respuestaGemini = userProfile.respuestaGemini;
+
+        // Generar el nuevo prompt con el valor de 'respuestaGemini'
+        const nuevoPrompt = `Según este perfil de usuario: ${respuestaGemini}, dime qué actividad le podría gustar para que desvíe la atención del uso del teléfono.`;
+
+        // Realizar la consulta a la API de Gemini con el nuevo prompt
+        const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
+
+        // Enviar la respuesta generada de vuelta al teléfono (cliente Flutter)
+        return res.status(200).send({ respuesta: respuestaGeminiNueva });
+
+    } catch (error) {
+        console.error('Error en la ruta /generar-consulta:', error.message);
+        return res.status(500).send({ error: 'Error al procesar la solicitud', details: error.message });
+    }
+});
+
+ 
 // Función para obtener la hora actual en la zona horaria especificada
 async function getCurrentTime() {
     const timezone = 'America/Guayaquil';
@@ -331,7 +359,7 @@ async function consultarGemini(prompt, retryCount = 5) {
         if (retryCount > 0) {
             console.log(`Reintentando consulta a Gemini... (${5 - retryCount} intento(s) restantes) para `);
               // Esperar 1 segundo (1000 milisegundos) antes de reintentar
-              await sleep(2000);
+              await sleep(3000);
               
             return consultarGemini(prompt, retryCount - 1);  // Decrementar el contador
         } else {
