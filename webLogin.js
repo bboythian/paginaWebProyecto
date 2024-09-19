@@ -52,14 +52,6 @@ const reporteSchema = new mongoose.Schema({
     tiempoUso5: { type: String, required: true }
 });
 
-// Definir el esquema y el modelo de correo electrónico
-// const emailSchema = new mongoose.Schema({
-//     email: { type: String, required: true, unique: true }
-// });
-
-// emailSchema.index({ email: 1 }, { unique: true });
-
-
 // Guardar sección de preferencias y gustos
 const userPreferencesSchema = new mongoose.Schema({
     email: { type: String, required: true },
@@ -277,6 +269,8 @@ app.post('/delete-user-register', (req, res) => {
 });
 app.post('/generar-consulta', async (req, res) => {
     const { email } = req.body;
+    const currentTime = await getCurrentTime();
+    const weatherDescription = await getWeatherDescription();
 
     if (!email) {
         return res.status(400).send({ error: 'Email is required' });
@@ -293,15 +287,18 @@ app.post('/generar-consulta', async (req, res) => {
 
         // Obtener el campo 'respuestaGemini' de la base de datos
         const respuestaGemini = userProfile.respuestaGemini;
+        
+            // - La hora actual es: ${currentTime}
+    // - El clima actual es: ${weatherDescription}.`;
 
         // Generar el nuevo prompt con el valor de 'respuestaGemini'
-        const nuevoPrompt = `Según este perfil de usuario: ${respuestaGemini}, dime qué actividad le podría gustar para que desvíe la atención del uso del teléfono.`;
+        const nuevoPrompt = `Según este perfil de usuario: ${respuestaGemini}, dime una actividad acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar al usuario para que desvíe la atención del uso del teléfono.`;
 
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
 
         // Enviar la respuesta generada de vuelta al teléfono (cliente Flutter)
-        return res.status(200).send({ respuesta: respuestaGeminiNueva });
+        return res.status(200).send(respuestaGeminiNueva);
 
     } catch (error) {
         console.error('Error en la ruta /generar-consulta:', error.message);
@@ -328,10 +325,7 @@ async function getWeatherDescription() {
 }
 // Función para generar el prompt de la API de Gemini
 async function generarPromptGemini(usuario, preferencias) {
-    const currentTime = await getCurrentTime();
-    const weatherDescription = await getWeatherDescription();
-
-    const prompt = ` Genera un texto de 50 palabras, que describa el perfil de usuario para un estudiante universitario que tiene las siguientes especificaciones:
+    const prompt = ` Genera un texto de 40 palabras, que describa el perfil de usuario para un estudiante universitario que tiene las siguientes preferencias:
     - Identificador: ${usuario.email},
     - Edad: ${usuario.edad} años,
     - Genero: ${usuario.genero},
@@ -342,8 +336,6 @@ async function generarPromptGemini(usuario, preferencias) {
     - Tiene mascota: ${preferencias.mascota}
     - Realiza sus tareas universitarias: ${preferencias.tareasUniversitarias}
     - Su cuarto esta: ${preferencias.espacioOrdenado}`;
-    // - La hora actual es: ${currentTime}
-    // - El clima actual es: ${weatherDescription}.`;
 
     console.log(`Consulta de perfil generada para: ${usuario.email}`);
     return prompt;
