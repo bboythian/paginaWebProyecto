@@ -289,7 +289,12 @@ app.post('/generar-consulta', async (req, res) => {
         const respuestaGemini = userProfile.respuestaGemini;
         
         // Generar el nuevo prompt con el valor de 'respuestaGemini'
-        const nuevoPrompt = `Se concreto y en un texto de 30 palabras, según este perfil de usuario: ${respuestaGemini}.Genera una actividad aleatoria acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar para que desvíe la atención del uso del teléfono.`;
+        // const nuevoPrompt = `Se concreto y en un texto de 30 palabras, según este perfil de usuario: ${respuestaGemini}.Genera una actividad aleatoria acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar para que desvíe la atención del uso del teléfono.`;
+        const nuevoPrompt = `Genera una actividad alternativa interesante para un ${respuestaGemini}.
+        La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular. 
+        Considera que son las ${currentTime} y el clima actual es ${weatherDescription}, en Cuenca, Ecuador. 
+        La actividad debe ser realista, divertida, adecuada para su bienestar académico/personal, y coherente para la hora actual. 
+        Utiliza máximo 40 palabras. `;
 
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
@@ -323,8 +328,11 @@ async function getWeatherDescription() {
 // Función para generar el prompt de la API de Gemini
 // - Identificador: ${usuario.email},
 
+    // - Su cuarto esta: ${preferencias.espacioOrdenado},
+    // - Tiene mascota: ${preferencias.mascota}`;
+
 async function generarPromptGemini(usuario, preferencias) {
-    const prompt = ` Genera un texto de 30 palabras, que describa concretamente el perfil de usuario para un/a estudiante universitario que tiene las siguientes preferencias:
+    const prompt = ` Escribe un texto de 50 palabras que describa claramente el perfil de un/a estudiante universitario/a con las siguientes características:
     - Edad: ${usuario.edad} años,
     - Genero: ${usuario.genero},
     - Donde vive: ${usuario.movilidad},
@@ -332,8 +340,9 @@ async function generarPromptGemini(usuario, preferencias) {
     - Top 3 actividades en casa ${preferencias.actividadesEnCasa},
     - Top 3 actividades fuera de casa: ${preferencias.actividadesAireLibre},
     - Realiza sus tareas universitarias: ${preferencias.tareasUniversitarias}
-    - Su cuarto esta: ${preferencias.espacioOrdenado},
-    - Tiene mascota: ${preferencias.mascota}`;
+    - Organizacion de su espacio: ${preferencias.espacioOrdenado},
+    - Tiene mascota: ${preferencias.mascota}
+    El texto debe describir al usuario de manera coherente y fluida, integrando estos datos para formar un perfil completo y preciso.`;
 
     console.log(`Consulta de perfil generada para: ${usuario.email}`);
     return prompt;
