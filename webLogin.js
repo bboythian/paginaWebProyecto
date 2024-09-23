@@ -288,11 +288,8 @@ app.post('/generar-consulta', async (req, res) => {
         // Obtener el campo 'respuestaGemini' de la base de datos
         const respuestaGemini = userProfile.respuestaGemini;
         
-            // - La hora actual es: ${currentTime}
-    // - El clima actual es: ${weatherDescription}.`;
-
         // Generar el nuevo prompt con el valor de 'respuestaGemini'
-        const nuevoPrompt = `Según este perfil de usuario: ${respuestaGemini}, dime una actividad acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar al usuario para que desvíe la atención del uso del teléfono.`;
+        const nuevoPrompt = `Se concreto y en un texto de 30 palabras, según este perfil de usuario: ${respuestaGemini}.Genera una actividad aleatoria acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar para que desvíe la atención del uso del teléfono.`;
 
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
@@ -324,18 +321,19 @@ async function getWeatherDescription() {
     }
 }
 // Función para generar el prompt de la API de Gemini
+// - Identificador: ${usuario.email},
+
 async function generarPromptGemini(usuario, preferencias) {
-    const prompt = ` Genera un texto de 40 palabras, que describa el perfil de usuario para un estudiante universitario que tiene las siguientes preferencias:
-    - Identificador: ${usuario.email},
+    const prompt = ` Genera un texto de 30 palabras, que describa concretamente el perfil de usuario para un/a estudiante universitario que tiene las siguientes preferencias:
     - Edad: ${usuario.edad} años,
     - Genero: ${usuario.genero},
     - Donde vive: ${usuario.movilidad},
     - Dedica tiempo a sus tareas: ${usuario.tiempoDiario},
     - Top 3 actividades en casa ${preferencias.actividadesEnCasa},
     - Top 3 actividades fuera de casa: ${preferencias.actividadesAireLibre},
-    - Tiene mascota: ${preferencias.mascota}
     - Realiza sus tareas universitarias: ${preferencias.tareasUniversitarias}
-    - Su cuarto esta: ${preferencias.espacioOrdenado}`;
+    - Su cuarto esta: ${preferencias.espacioOrdenado},
+    - Tiene mascota: ${preferencias.mascota}`;
 
     console.log(`Consulta de perfil generada para: ${usuario.email}`);
     return prompt;
