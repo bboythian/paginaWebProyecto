@@ -56,9 +56,9 @@ const reporteSchema = new mongoose.Schema({
 const userPreferencesSchema = new mongoose.Schema({
     email: { type: String, required: true },
     periodo: { type: String, required: true },
+    horarioClases: { type: String, required: true },
     mascota: { type: String, required: true },
     responsabilidadesEnCasa: { type: String, required: true },
-    tareasUniversitarias: { type: String, required: true },
     espacioOrdenado: { type: String, required: true },
     actividadesAireLibre: { type: String, required: true },
     actividadesEnCasa: { type: String, required: true },
@@ -81,12 +81,23 @@ const userProfileGeminiSchema = new mongoose.Schema({
     respuestaGemini: { type: String, required: true },
 });
 
+// Definir el esquema para la nueva tabla actividadesAlternativas
+const actividadesAlternativasSchema = new mongoose.Schema({
+    emailUser: { type: String, required: true },
+    fechaActual: { type: String, required: true },
+    horaActual: { type: String, required: true },
+    promptConsultaGemini: { type: String, required: true },
+    respuestaConsultaGemini: { type: String, required: true }
+});
+
+
 // Definir un modelo basado en el esquema
 const Reporte = mongoose.model('Reporte', reporteSchema);
 const User = mongoose.model('User', userSchema);
 const UserPreferences = mongoose.model('UserPreferences', userPreferencesSchema);
 const UserRegister= mongoose.model('UserRegister', userRegisterSchema);
 const UserProfileGemini = mongoose.model('UserProfileGemini', userProfileGeminiSchema);
+const ActividadesAlternativas = mongoose.model('ActividadesAlternativas', actividadesAlternativasSchema);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -271,6 +282,9 @@ app.post('/generar-consulta', async (req, res) => {
     const { email } = req.body;
     const currentTime = await getCurrentTime();
     const weatherDescription = await getWeatherDescription();
+    // Obtener el día actual
+    const options = { weekday: 'long' }; // Devuelve el nombre completo del día (Lunes, Martes, etc.)
+    const currentDay = new Date().toLocaleDateString('es-ES', options);
 
     if (!email) {
         return res.status(400).send({ error: 'Email is required' });
@@ -279,22 +293,42 @@ app.post('/generar-consulta', async (req, res) => {
     try {
         // Buscar el perfil de usuario en la tabla UserProfileGemini
         const userProfile = await UserProfileGemini.findOne({ email });
+        const preferencesUserProfile = await UserPreferences.findOne({ email });
 
         // Si no se encuentra el perfil, devolver un error
         if (!userProfile) {
             return res.status(404).send({ error: 'Perfil de usuario no encontrado' });
         }
+        if (!preferencesUserProfile) {
+            return res.status(404).send({ error: 'Preferencias de usuario no encontrado' });
+        }
 
         // Obtener el campo 'respuestaGemini' de la base de datos
         const respuestaGemini = userProfile.respuestaGemini;
+        const scheduleClass = preferencesUserProfile.horarioClases; // cambiar a horario
         
         // Generar el nuevo prompt con el valor de 'respuestaGemini'
-        // const nuevoPrompt = `Se concreto y en un texto de 30 palabras, según este perfil de usuario: ${respuestaGemini}.Genera una actividad aleatoria acorde a la hora actual ${currentTime} y el clima ${weatherDescription}, que le podría gustar para que desvíe la atención del uso del teléfono.`;
-        const nuevoPrompt = `Genera una actividad alternativa interesante para un ${respuestaGemini}.
+        // const nuevoPrompt = `Genera una actividad alternativa interesante para un ${respuestaGemini}.
+        // La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular. 
+        // Considera que hoy es ${currentDay}, son las ${currentTime} y el clima actual es ${weatherDescription}, en Cuenca, Ecuador. 
+        // Además, considera que de Lunes a Viernes el estudiante debe asistir a clases en horario ${scheduleClass} y durante el día cumplir sus tareas. 
+        // La actividad debe ser realista, divertida, adecuada para su bienestar académico/personal, y coherente para la hora actual. 
+        // Si la hora actual oscila entre 20:00 y 06:00, sugerir actividades dentro de casa. 
+        // Ademas, considera que si la hora actual es entre la 23:00 y 04:00, sugerir que se debe dormir. 
+        // Utiliza máximo 40 palabras. `;
+
+        const nuevoPrompt = `Genera una sola actividad y de ejecución inmediata que no involucre gastos para el siguiente perfil ${respuestaGemini}.
         La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular. 
-        Considera que son las ${currentTime} y el clima actual es ${weatherDescription}, en Cuenca, Ecuador. 
-        La actividad debe ser realista, divertida, adecuada para su bienestar académico/personal, y coherente para la hora actual. 
-        Utiliza máximo 40 palabras. `;
+        Se debe prestar atención a las siguientes condiciones:  
+        1. La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular, mediante actividades que promuevan el bienestar, salud y rendimiento académico.
+        2. Hoy es ${currentDay} son las ${currentTime} y el clima actual es ${weatherDescription},
+        3. De lunes a viernes el estudiante está en clases en horario ${scheduleClass} , por lo que la recomendación debe ser dejar de usar el teléfono y prestar atención a clases y cumplir con las actividades sugeridas por el docente.
+        4. La actividad debe ser posible de realizarla en Cuenca - Ecuador y coherente para la hora actual.
+        5. Si la hora actual es entre 20:00 y 06:00, sugerir actividades dentro de casa.
+        6. Si la hora actual es entre la 23:00 y 04:00, sugerir que se debe dormir.
+        7. Si la hora actual es entre las 12:30 y las 14:30 el estudiante debe almorzar
+        8. Ya ha utilizado en lo que va del día 6 horas su celular
+        Utiliza máximo 40 palabras con lenguaje cercano a la población Ecuatoriana. `;
 
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
@@ -325,21 +359,15 @@ async function getWeatherDescription() {
         return 'condiciones meteorológicas no disponibles';
     }
 }
-// Función para generar el prompt de la API de Gemini
-// - Identificador: ${usuario.email},
-
-    // - Su cuarto esta: ${preferencias.espacioOrdenado},
-    // - Tiene mascota: ${preferencias.mascota}`;
-
+// - Su horario de clases es: ${preferencias.horarioClases}
 async function generarPromptGemini(usuario, preferencias) {
-    const prompt = ` Escribe un texto de 50 palabras que describa claramente el perfil de un/a estudiante universitario/a con las siguientes características:
+    const prompt = ` Escribe un texto de 30 palabras que describa claramente el perfil de un/a estudiante universitario/a con las siguientes características:
     - Edad: ${usuario.edad} años,
     - Genero: ${usuario.genero},
-    - Donde vive: ${usuario.movilidad},
+    - Situación de movilidad: ${usuario.movilidad},
     - Dedica tiempo a sus tareas: ${usuario.tiempoDiario},
     - Top 3 actividades en casa ${preferencias.actividadesEnCasa},
     - Top 3 actividades fuera de casa: ${preferencias.actividadesAireLibre},
-    - Realiza sus tareas universitarias: ${preferencias.tareasUniversitarias}
     - Organizacion de su espacio: ${preferencias.espacioOrdenado},
     - Tiene mascota: ${preferencias.mascota}
     El texto debe describir al usuario de manera coherente y fluida, integrando estos datos para formar un perfil completo y preciso.`;
@@ -377,7 +405,7 @@ app.post('/enviar-preferencias', async (req, res) => {
         periodo,
         mascota,
         responsabilidadesEnCasa,
-        tareasUniversitarias,
+        horarioClases,
         espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
@@ -389,21 +417,13 @@ app.post('/enviar-preferencias', async (req, res) => {
         periodo,
         mascota,
         responsabilidadesEnCasa,
-        tareasUniversitarias,
+        horarioClases,
         espacioOrdenado,
         actividadesAireLibre,
         actividadesEnCasa,
         motivacion,
     });
-    //Antiguo
-    // nuevasPreferencias.save()
-    //     .then(preferencias => {
-    //         res.status(200).send('Preferencias guardadas correctamente');
-    //     })
-    //     .catch(err => {
-    //         console.error('Error al guardar preferencias:', err);
-    //         res.status(500).send('Error al procesar las preferencias');
-    //     }); 
+
     try {
         // Guardar preferencias en la base de datos
         await nuevasPreferencias.save();
@@ -427,9 +447,7 @@ app.post('/enviar-preferencias', async (req, res) => {
         });
         await nuevoPerfilGemini.save();
 
-        // Enviar la respuesta al cliente
-        // res.status(200).send({ message: 'Preferencias guardadas y consulta a Gemini realizada correctamente', respuestaIA: respuestaGemini });
-         // Enviar un mensaje de éxito al cliente
+        // Enviar un mensaje de éxito al cliente
          res.status(200).send({ message: 'Preferencias guardadas y respuesta de Gemini almacenada correctamente.' });
     } catch (err) {
         console.error('Error al procesar las preferencias:', err.message);
