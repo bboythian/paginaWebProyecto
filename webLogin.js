@@ -291,6 +291,11 @@ app.post('/delete-user-register', (req, res) => {
 app.post('/generar-consulta', async (req, res) => {
     const { email } = req.body;
     const currentTime = await getCurrentTime();
+    const date = new Date(currentTime);
+    const hours = String(date.getHours()).padStart(2, '0');  // Obtiene las horas
+    const minutes = String(date.getMinutes()).padStart(2, '0');  // Obtiene los minutos
+
+
     const weatherDescription = await getWeatherDescription();
     // Obtener el día actual
     const options = { weekday: 'long' }; // Devuelve el nombre completo del día (Lunes, Martes, etc.)
@@ -317,36 +322,26 @@ app.post('/generar-consulta', async (req, res) => {
         const respuestaGemini = userProfile.respuestaGemini;
         const scheduleClass = preferencesUserProfile.horarioClases; // cambiar a horario
         
-        // Generar el nuevo prompt con el valor de 'respuestaGemini'
-        // const nuevoPrompt = `Genera una actividad alternativa interesante para un ${respuestaGemini}.
-        // La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular. 
-        // Considera que hoy es ${currentDay}, son las ${currentTime} y el clima actual es ${weatherDescription}, en Cuenca, Ecuador. 
-        // Además, considera que de Lunes a Viernes el estudiante debe asistir a clases en horario ${scheduleClass} y durante el día cumplir sus tareas. 
-        // La actividad debe ser realista, divertida, adecuada para su bienestar académico/personal, y coherente para la hora actual. 
-        // Si la hora actual oscila entre 20:00 y 06:00, sugerir actividades dentro de casa. 
-        // Ademas, considera que si la hora actual es entre la 23:00 y 04:00, sugerir que se debe dormir. 
-        // Utiliza máximo 40 palabras. `;
 
-        const nuevoPrompt = `Genera una sola actividad y de ejecución inmediata que no involucre gastos para el siguiente perfil ${respuestaGemini}.
-        La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular. 
+        const nuevoPrompt = `Genera una sola actividad y de ejecución inmediata que no involucre gastos, para el siguiente perfil: ${respuestaGemini}.
+        La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular, mediante actividades que promuevan el bienestar, salud y rendimiento académico.
         Se debe prestar atención a las siguientes condiciones:  
-        1. La actividad debe estar alineada con sus intereses y ayudar a fomentar una desconexión saludable del uso continuo del celular, mediante actividades que promuevan el bienestar, salud y rendimiento académico.
-        2. Hoy es ${currentDay} son las ${currentTime} y el clima actual es ${weatherDescription},
-        3. De lunes a viernes el estudiante está en clases en horario ${scheduleClass} , por lo que la recomendación debe ser dejar de usar el teléfono y prestar atención a clases y cumplir con las actividades sugeridas por el docente.
-        4. La actividad debe ser posible de realizarla en Cuenca - Ecuador y coherente para la hora actual.
-        5. Si la hora actual es entre 20:00 y 06:00, sugerir actividades dentro de casa.
-        6. Si la hora actual es entre la 23:00 y 04:00, sugerir que se debe dormir.
-        7. Si la hora actual es entre las 12:30 y las 14:30 el estudiante debe almorzar
-        8. Ya ha utilizado en lo que va del día 6 horas su celular
+        1. Hoy es ${currentDay}, son las ${hours}:${minutes}H y el clima actual es ${weatherDescription}.
+        2. De lunes a viernes el estudiante está en clases en horario ${scheduleClass} , por lo que según hora, la recomendación debe ser dejar de usar el teléfono y prestar atención a clases.
+        3. La actividad debe ser posible de realizarla en Cuenca - Ecuador y coherente para la hora actual.
+        4. Si de noche entre las 23:00pm y 04:00am, sugerir que se debe dormir, si esta fuera del rango sugerir actividades en casa.
+        5. Si la hora actual es entre las 12:30 y las 14:30 el estudiante debe almorzar
         Utiliza máximo 40 palabras con lenguaje cercano a la población Ecuatoriana. `;
 
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
 
+        const resumePromt= `Día: ${currentDay}, clima ${weatherDescription}`;
+
         const actividadGeneradaGemini = new ActividadesAlternativas({
             emailUser: email,
             horaActual: currentTime,
-            promptConsultaGemini: nuevoPrompt,
+            promptConsultaGemini: resumePromt,
             respuestaConsultaGemini: respuestaGeminiNueva
         });
         // Llamar a la función para guardar la actividad
