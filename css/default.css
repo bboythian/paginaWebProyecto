@@ -16,10 +16,11 @@
  /* Estilos personalizados */
  .table-custom {
     border-collapse: collapse;
-    width: 150%;
-    max-width: 150%;
+    width: 120%;
+    max-width: 120%;
         overflow-x: auto;
 }
+
 
 .table-custom th, .table-custom td {
     white-space: nowrap;
