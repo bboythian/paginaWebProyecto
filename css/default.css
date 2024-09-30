@@ -16,7 +16,7 @@
  /* Estilos personalizados */
  .table-custom {
     border-collapse: collapse;
-    width: 100%;
+    width: 150%;
     max-width: 100%;
         overflow-x: auto;
 }
