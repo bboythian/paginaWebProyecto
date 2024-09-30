@@ -84,7 +84,6 @@ const userProfileGeminiSchema = new mongoose.Schema({
 // Definir el esquema para la nueva tabla actividadesAlternativas
 const actividadesAlternativasSchema = new mongoose.Schema({
     emailUser: { type: String, required: true },
-    fechaActual: { type: String, required: true },
     horaActual: { type: String, required: true },
     promptConsultaGemini: { type: String, required: true },
     respuestaConsultaGemini: { type: String, required: true }
@@ -346,7 +345,6 @@ app.post('/generar-consulta', async (req, res) => {
 
         const actividadGeneradaGemini = new ActividadesAlternativas({
             emailUser: email,
-            fechaActual: respuestaGemini,
             horaActual: currentTime,
             promptConsultaGemini: nuevoPrompt,
             respuestaConsultaGemini: respuestaGeminiNueva
