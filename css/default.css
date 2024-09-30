@@ -17,7 +17,7 @@
  .table-custom {
     border-collapse: collapse;
     width: 150%;
-    max-width: 100%;
+    max-width: 150%;
         overflow-x: auto;
 }
 
