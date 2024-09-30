@@ -17,6 +17,8 @@
  .table-custom {
     border-collapse: collapse;
     width: 100%;
+    max-width: 100%;
+        overflow-x: auto;
 }
 
 .table-custom th, .table-custom td {
@@ -24,6 +26,8 @@
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word;  
+    white-space: normal; 
 }
 
 .table-custom thead th {
@@ -43,9 +47,10 @@
     background-color: rgba(0, 40, 86, 0.25); /* Azul con opacidad */;
 }
 
-.table-custom tbody td {
-    /* color: #6F6F6F; Gris */
+.table-custom td {
+    max-width: 300px;  /* Establece un ancho máximo para las celdas, ajusta el valor según tu necesidad */
 }
+
 
 .table-custom tbody td.highlight {
     color: #A51008; /* Rojo */
