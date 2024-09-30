@@ -267,6 +267,17 @@ app.get('/get-user-register', async (req, res) => {
     }
 });
 
+// Endpoint para obtener los datos de userPreferences
+app.get('/get-activity-gemini', async (req, res) => {
+    try {
+        const actividadesAlternativas = await ActividadesAlternativas.find();
+        res.json(actividadesAlternativas);
+    } catch (error) {
+        console.error('Error al obtener actividaes alternativas gemini:', error);
+        res.status(500).send('Error al obtener actividaes alternativas gemini');
+    }
+});
+
 // Ruta para eliminar un user-preference
 app.post('/delete-user-register', (req, res) => {
     UserRegister.findOneAndDelete({ _id: req.body.userRegisterId })
@@ -333,6 +344,16 @@ app.post('/generar-consulta', async (req, res) => {
         // Realizar la consulta a la API de Gemini con el nuevo prompt
         const respuestaGeminiNueva = await consultarGemini(nuevoPrompt);
 
+        const actividadGeneradaGemini = new ActividadesAlternativas({
+            emailUser: email,
+            fechaActual: respuestaGemini,
+            horaActual: currentTime,
+            promptConsultaGemini: nuevoPrompt,
+            respuestaConsultaGemini: respuestaGeminiNueva
+        });
+        // Llamar a la función para guardar la actividad
+        await guardarActividadGenerada(actividadGeneradaGemini);
+
         // Enviar la respuesta generada de vuelta al teléfono (cliente Flutter)
         return res.status(200).send(respuestaGeminiNueva);
 
@@ -341,6 +362,17 @@ app.post('/generar-consulta', async (req, res) => {
         return res.status(500).send({ error: 'Error al procesar la solicitud', details: error.message });
     }
 });
+
+// Función para guardar la actividad generada
+async function guardarActividadGenerada(actividad) {
+    try {
+        await actividad.save();
+        console.log('Actividad guardada exitosamente');
+    } catch (error) {
+        console.error('Error al guardar la actividad:', error.message);
+    }
+}
+
 
  
 // Función para obtener la hora actual en la zona horaria especificada
@@ -472,6 +504,17 @@ app.get('/get-user-profile-gemini', async (req, res) => {
 // Ruta para eliminar un perfil de usuario de Gemini
 app.post('/delete-user-profile-gemini', (req, res) => {
     UserProfileGemini.findOneAndDelete({ _id: req.body.userProfileGeminiId })
+        .then(() => {
+            res.redirect('/main'); // Redirigir de vuelta a la página principal después de eliminar el registro
+        })
+        .catch(err => {
+            console.error('Error al eliminar perfil de usuario de Gemini:', err);
+            res.redirect('/'); // Redirigir en caso de error
+        });
+});
+// Ruta para eliminar un perfil de usuario de Gemini
+app.post('/delete-activity-gemini', (req, res) => {
+    ActividadesAlternativas.findOneAndDelete({ _id: req.body.ActividadesAlternativasId })
         .then(() => {
             res.redirect('/main'); // Redirigir de vuelta a la página principal después de eliminar el registro
         })
