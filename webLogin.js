@@ -12,8 +12,8 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 // Configuración de clima
 const apiKey = 'b12c8f9a8a6055055c1b0a02dd14d4e5';
-const lat = -2.858670;
-const lon = -78.962428;
+const lat = -2.897394;
+const lon = -78.004438;
 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
 
