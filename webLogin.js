@@ -8,7 +8,7 @@ const port = 8081;
 
 // Configuración de Google Generative AI
 // const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg"); //Antigua
-const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-AIzaSyCkINsxeMRBudr_DXsLdKewRSP2jajNyw4"); //Nuevo Correo
+const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-AIzaSyDdJ56qyCyTS8e8rQU6kXiy3PS3c9_e0Hs"); //Nuevo Correo
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 // Configuración de clima
