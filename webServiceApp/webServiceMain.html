@@ -220,9 +220,19 @@
                     </table>
                 </div>
             </div>
-
+           
             <!-- graficos pastel , barras -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="form-group col-4">
+                    <label for="user-select">Seleccionar Usuario</label>
+                    <select id="user-select" class="form-control">
+                        <option value="">General</option>
+                        <option value="max.samaniego@ucuenca.edu.ec">max.samaniego@ucuenca.edu.ec</option>
+                        <option value="elian.trelles@ucuenca.edu.ec">elian.trelles@ucuenca.edu.ec</option>
+                        <option value="veronica.penafiel@ucuenca.edu.ec">veronica.penafiel@ucuenca.edu.ec</option>
+                        <option value="jhustyn.carvajal@ucuenca.edu.ec">jhustyn.carvajal@ucuenca.edu.ec</option>
+                    </select>
+                </div>
                 <div class="row">
                     <div class="containerGrafico col-md-7 my-3">
                         <div class=" p-2" style="background-color: rgba(108, 117, 125, 0.25);">Aplicaciones más
@@ -235,8 +245,11 @@
                             utilizadas en el mes</div>
                         <canvas id="pieChart" class="mx-4"></canvas>
                     </div>
+                    
+
                 </div>
             </div>
+
             <!-- estadisticas graficas -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <h2 class="mt-4">Gráficos lineales</h2>
@@ -280,7 +293,7 @@
                 </div> -->
 
     <script>
-        const data = [{
+        /*const data = [{
             "cedula": "78979846546",
             "fecha": "2024-03-06",
             "mayorConsumo": "26",
@@ -373,9 +386,137 @@
                 responsive: true
             }
         });
+*/
+    const userSelect = document.getElementById('user-select');
+    const pieChartCtx = document.getElementById('pieChart').getContext('2d');
+    const barChartCtx = document.getElementById('barChart').getContext('2d');
 
+    let pieChart, barChart;
+
+    async function fetchReportes(email = '') {
+        const response = await fetch(`/get-reportes?email=${email}`);
+        const reportes = await response.json();
+        return reportes;
+    }
+    function generateCharts(reportes) {
+        const now = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(now.getDate() - 1);
+    
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    
+        // **Datos para el gráfico de barras (día anterior)**
+        const appUsageYesterday = {};
+        reportes.forEach(reporte => {
+            const reportDate = new Date(reporte.fecha);
+            if (
+                reportDate.getDate() === yesterday.getDate() &&
+                reportDate.getMonth() === yesterday.getMonth() &&
+                reportDate.getFullYear() === yesterday.getFullYear()
+            ) {
+                const apps = [
+                    { name: reporte.packageName1, time: reporte.tiempoUso1 },
+                    { name: reporte.packageName2, time: reporte.tiempoUso2 },
+                    { name: reporte.packageName3, time: reporte.tiempoUso3 },
+                    { name: reporte.packageName4, time: reporte.tiempoUso4 },
+                    { name: reporte.packageName5, time: reporte.tiempoUso5 },
+                ];
+    
+                apps.forEach(app => {
+                    if (app.name in appUsageYesterday) {
+                        appUsageYesterday[app.name] += app.time;
+                    } else {
+                        appUsageYesterday[app.name] = app.time;
+                    }
+                });
+            }
+        });
+    
+        const labelsBar = Object.keys(appUsageYesterday);
+        const dataBar = Object.values(appUsageYesterday);
+    
+        // **Datos para el gráfico de pastel (mes)**
+        const appUsageMonth = {};
+        reportes.forEach(reporte => {
+            const reportDate = new Date(reporte.fecha);
+            if (reportDate >= startOfMonth && reportDate <= now) {
+                const apps = [
+                    { name: reporte.packageName1, time: reporte.tiempoUso1 },
+                    { name: reporte.packageName2, time: reporte.tiempoUso2 },
+                    { name: reporte.packageName3, time: reporte.tiempoUso3 },
+                    { name: reporte.packageName4, time: reporte.tiempoUso4 },
+                    { name: reporte.packageName5, time: reporte.tiempoUso5 },
+                ];
+    
+                apps.forEach(app => {
+                    if (app.name in appUsageMonth) {
+                        appUsageMonth[app.name] += app.time;
+                    } else {
+                        appUsageMonth[app.name] = app.time;
+                    }
+                });
+            }
+        });
+    
+        const sortedAppUsageMonth = Object.entries(appUsageMonth).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const labelsPie = sortedAppUsageMonth.map(item => item[0]);
+        const dataPie = sortedAppUsageMonth.map(item => item[1]);
+    
+        // **Actualizar gráfico de barras**
+        if (barChart) barChart.destroy();
+        barChart = new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: labelsBar,
+                datasets: [{
+                    label: 'Tiempo de Uso (min)',
+                    data: dataBar,
+                    backgroundColor: '#FF6384',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+    
+        // **Actualizar gráfico de pastel**
+        if (pieChart) pieChart.destroy();
+        pieChart = new Chart(pieChartCtx, {
+            type: 'pie',
+            data: {
+                labels: labelsPie,
+                datasets: [{
+                    data: dataPie,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+    }
+    
+    async function updateCharts() {
+        const email = userSelect.value;
+        const reportes = await fetchReportes(email);
+        generateCharts(reportes);
+    }
+    
+    // Evento para actualizar gráficos al cambiar el usuario
+    userSelect.addEventListener('change', updateCharts);
+    
+    // Inicializar gráficos con datos generales
+    updateCharts();
+
+
+        
         // Crear gráfico de barras
-        const barChartCtx = document.getElementById('barChart').getContext('2d');
+        /*const barChartCtx = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(barChartCtx, {
             type: 'bar',
             data: {
@@ -410,6 +551,8 @@
                 }
             }
         });
+        
+        */
         // Crear gráfico lineal del último mes
         const monthlyLineChartCtx = document.getElementById('monthlyLineChart').getContext('2d');
         const monthlyLineChart = new Chart(monthlyLineChartCtx, {
