@@ -252,141 +252,495 @@
 
             <!-- estadisticas graficas -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <h2 class="mt-4">Gráficos lineales</h2>
+                <h2 class="mt-4">Análisis Estadístico</h2>
                 <div class="row">
-
-                    <div class="col-md-6 mt-4 d-none">
-                        <h3>Uso de Aplicaciones en el Último Mes</h3>
-                        <canvas id="monthlyLineChart"></canvas>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <h3>Hora del día de mas consumo</h3>
-                        <canvas id="dailyLineChart"></canvas>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <h3>Uso de Aplicaciones en la Última Semana</h3>
-                        <canvas id="weeklyLineChart"></canvas>
-                    </div>
-
+                    <label for="weekSelector">Seleccionar semana:</label>
+                    <select id="weekSelector" onchange="updateGraph()">
+                        <!-- Opciones de semanas serán añadidas con JS -->
+                    </select>
+                  </div>
+                  <!-- Gráfico por hora de mayor consumo -->
+                <div class="col-md-10 mt-4">
+                    <h3>Horas de Mayor consumo semanal</h3>
+                    <canvas id="weeklyConsumptionChart" width="400" height="200"></canvas>
+                </div>
+                <!-- Gráfico de tiempo total por día (nuevo) -->
+                <div class="col-md-10 mt-4">
+                    <h3>Tiempo total de uso diario</h3>
+                    <canvas id="myChart1" width="400" height="200"></canvas>
+                </div>
+                <!-- Gráfico de tiempo de uso diario por aplicaciones -->
+                <div class="col-md-10 mt-4">
+                    <h3>Uso Diario por Aplicaciones</h3>
+                    <canvas id="stackedBarChart" width="400" height="200"></canvas>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- metodos de busqueda avanzada -->
-    <!-- <div class="col-6 d-flex justify-content-end">
-                        <button class="btn btn-secondary m-2" type="button" data-toggle="collapse" data-target="#filterPanel"
-                            aria-expanded="false" aria-controls="filterPanel">
-                            Filtros de búsqueda 
-                        </button>
-                    </div> -->
-    <!-- <div class="collapse" id="filterPanel">
-                    <div class="row p-2 m-2" style="background-color: rgba(108, 117, 125, 0.25);">
-                        <div class="col-6">
-                            Búsqueda por correo electrónico:
-                            <input type="text" id="search-input" placeholder="Ingrese correo" class="form-control">
-                        </div>
-                        <div class="col-6">
-                            Búsqueda por fecha:
-                            <input type="text" id="date-range-picker" class="form-control" placeholder="Seleccionar rango de fechas">
-                        </div>
-                    </div>
-                </div> -->
+    </div>        
+<script>
 
-    <script>
-        /*const data = [{
-            "cedula": "78979846546",
-            "fecha": "2024-03-06",
-            "mayorConsumo": "26",
-            "packageName1": "Youtube",
-            "tiempoUso1": "58",
-            "packageName2": "Miapp",
-            "tiempoUso2": "175",
-            "packageName3": "Twitter",
-            "tiempoUso3": "19",
-            "packageName4": "NexusLauncher",
-            "tiempoUso4": "17",
-            "packageName5": "-",
-            "tiempoUso5": "-"
-        },
-        {
-            "cedula": "123456987",
-            "fecha": "2024-03-06",
-            "mayorConsumo": "26",
-            "packageName1": "Miapp",
-            "tiempoUso1": "12",
-            "packageName2": "NexusLauncher",
-            "tiempoUso2": "8",
-            "packageName3": "com.android.settings",
-            "tiempoUso3": "5",
-            "packageName4": "-",
-            "tiempoUso4": "-",
-            "packageName5": "-",
-            "tiempoUso5": "-"
-        },
-        {
-            "cedula": "0105467260",
-            "fecha": "2024-03-06",
-            "mayorConsumo": "26",
-            "packageName1": "Miapp",
-            "tiempoUso1": "27",
-            "packageName2": "NexusLauncher",
-            "tiempoUso2": "12",
-            "packageName3": "com.android.settings",
-            "tiempoUso3": "5",
-            "packageName4": "-",
-            "tiempoUso4": "-",
-            "packageName5": "-",
-            "tiempoUso5": "-"
-        },
-        {
-            "cedula": "0106770761",
-            "fecha": "2024-03-26",
-            "mayorConsumo": "26",
-            "packageName1": "Instagram",
-            "tiempoUso1": "26",
-            "packageName2": "Miapp",
-            "tiempoUso2": "17",
-            "packageName3": "NexusLauncher",
-            "tiempoUso3": "6",
-            "packageName4": "-",
-            "tiempoUso4": "-",
-            "packageName5": "-",
-            "tiempoUso5": "-"
-        },
-        {
-            "cedula": "7894561235",
-            "fecha": "2024-04-09",
-            "mayorConsumo": "26",
-            "packageName1": "NexusLauncher",
-            "tiempoUso1": "11",
-            "packageName2": "-",
-            "tiempoUso2": "-",
-            "packageName3": "-",
-            "tiempoUso3": "-",
-            "packageName4": "-",
-            "tiempoUso4": "-",
-            "packageName5": "-",
-            "tiempoUso5": "-"
-        }
-        ];
+   // Datos de ejemplo MAX SAMANIEGO
+   const data = [
+   {
+       date: '2024-10-28 23:52:35',
+       hour: 22,
+       apps: [
+           { name: 'WhatsApp', minutes: 116 },
+           { name: 'Instagram', minutes: 54 },
+           { name: 'Facebook', minutes: 51 },
+           { name: 'Brave', minutes: 28 },
+           { name: 'Youtube', minutes: 25 }
+       ]
+   },
+   {
+       date: '2024-10-29 12:32:35',
+       hour: 17,
+       apps: [
+           { name: 'WhatsApp', minutes: 93 },
+           { name: 'Facebook', minutes: 73 },
+           { name: 'Youtube', minutes: 58 },
+           { name: 'The Battle Cats', minutes: 57 },
+           { name: 'Telegram', minutes: 53 }
+       ]
+   },
+   {
+       date: '2024-10-30 18:45:35',
+       hour: 18,
+       apps: [
+           { name: 'Facebook', minutes: 112 },
+           { name: 'The Battle Cats', minutes: 71 },
+           { name: 'Brave', minutes: 65 },
+           { name: 'Telegram', minutes: 45 },
+           { name: 'WhatsApp', minutes: 36 }
+       ]
+   },
+   {
+       date: '2024-10-31 09:22:35',
+       hour: 15,
+       apps: [
+           { name: 'WhatsApp', minutes: 116 },
+           { name: 'Facebook', minutes: 105 },
+           { name: 'Instagram', minutes: 73 },
+           { name: 'Reddit', minutes: 52 },
+           { name: 'X', minutes: 34 }
+       ]
+   },
+   {
+       date: '2024-11-01 14:45:35',
+       hour: 14,
+       apps: [
+           { name: 'Facebook', minutes: 87 },
+           { name: 'WhatsApp', minutes: 61 },
+           { name: 'The Battle Cats', minutes: 35 },
+           { name: 'PedidosYa', minutes: 27 },
+           { name: 'Instagram', minutes: 18 }
+       ]
+   },
+   {
+    date: '2024-11-02 14:45:35',
+    hour: 15,
+    apps: [
+        { name: 'Youtube', minutes: 123 },
+        { name: 'Telegram', minutes: 89 },
+        { name: 'Facebook', minutes: 77 },
+        { name: 'WhatsApp', minutes: 52 },
+        { name: 'Instagram', minutes: 43 }
+    ]
+}, 
+{
+    date: '2024-11-03 14:45:35',
+    hour: 18,
+    apps: [
+        { name: 'Facebook', minutes: 220 },
+        { name: 'Youtube', minutes: 193 },
+        { name: 'WhatsApp', minutes: 68 },
+        { name: 'Brave', minutes: 56 },
+        { name: 'Telegram', minutes: 22 }
+    ]
+}, 
+   // Semana 1: 2024-11-04 a 2024-11-10
+   {
+    date: '2024-11-04 09:00:00',
+    hour: 18,
+    apps: [
+        { name: 'WhatsApp', minutes: 87 },
+        { name: 'Instagram', minutes: 62 },
+        { name: 'Facebook', minutes: 58 },
+        { name: 'Telegram', minutes: 43 },
+        { name: 'Youtube', minutes: 24 }
+    ]
+},
+{
+    date: '2024-11-05 18:00:00',
+    hour: 18,
+    apps: [
+        { name: 'WhatsApp', minutes: 92 },
+        { name: 'Facebook', minutes: 85 },
+        { name: 'Instagram', minutes: 70 },
+        { name: 'The Battle Cats', minutes: 56 },
+        { name: 'Telegram', minutes: 50 }
+    ]
+},
+{
+    date: '2024-11-06 12:00:00',
+    hour: 19,
+    apps: [
+        { name: 'WhatsApp', minutes: 75 },
+        { name: 'Facebook', minutes: 110 },
+        { name: 'Instagram', minutes: 62 },
+        { name: 'Youtube', minutes: 50 },
+        { name: 'Telegram', minutes: 40 }
+    ]
+},
+{
+    date: '2024-11-07 15:00:00',
+    hour: 15,
+    apps: [
+        { name: 'WhatsApp', minutes: 106 },
+        { name: 'Instagram', minutes: 55 },
+        { name: 'Facebook', minutes: 75 },
+        { name: 'Telegram', minutes: 35 },
+        { name: 'Reddit', minutes: 28 }
+    ]
+},
+{
+    date: '2024-11-08 21:00:00',
+    hour: 21,
+    apps: [
+        { name: 'Facebook', minutes: 110 },
+        { name: 'WhatsApp', minutes: 95 },
+        { name: 'Instagram', minutes: 60 },
+        { name: 'Youtube', minutes: 42 },
+        { name: 'Telegram', minutes: 45 }
+    ]
+},
+{
+    date: '2024-11-09 14:45:35',
+    hour: 13,
+    apps: [
+        { name: 'Youtube', minutes: 135 },
+        { name: 'Telegram', minutes: 98 },
+        { name: 'Facebook', minutes: 110 },
+        { name: 'WhatsApp', minutes: 60 },
+        { name: 'Instagram', minutes: 55 }
+    ]
+},
+{
+    date: '2024-11-10 14:45:35',
+    hour: 10,
+    apps: [
+        { name: 'Facebook', minutes: 220 },
+        { name: 'Youtube', minutes: 190 },
+        { name: 'WhatsApp', minutes: 85 },
+        { name: 'Brave', minutes: 60 },
+        { name: 'Telegram', minutes: 30 }
+    ]
+},
 
-        // Crear gráfico de pastel
-        const pieChartCtx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(pieChartCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Youtube', 'Miapp', 'Twitter', 'NexusLauncher'],
-                datasets: [{
-                    label: 'Tiempo de Uso',
-                    data: [58, 175, 19, 17],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
-*/
+// Semana 2: 2024-11-11 a 2024-11-17
+{
+    date: '2024-11-11 23:52:35',
+    hour: 19,
+    apps: [
+        { name: 'WhatsApp', minutes: 105 },
+        { name: 'Instagram', minutes: 55 },
+        { name: 'Facebook', minutes: 75 },
+        { name: 'Telegram', minutes: 42 },
+        { name: 'Youtube', minutes: 38 }
+    ]
+},
+{
+    date: '2024-11-12 12:32:35',
+    hour: 17,
+    apps: [
+        { name: 'WhatsApp', minutes: 80 },
+        { name: 'Facebook', minutes: 90 },
+        { name: 'Instagram', minutes: 65 },
+        { name: 'The Battle Cats', minutes: 55 },
+        { name: 'Telegram', minutes: 50 }
+    ]
+},
+{
+    date: '2024-11-13 18:45:35',
+    hour: 19,
+    apps: [
+        { name: 'Facebook', minutes: 110 },
+        { name: 'Telegram', minutes: 85 },
+        { name: 'WhatsApp', minutes: 60 },
+        { name: 'Brave', minutes: 40 },
+        { name: 'Instagram', minutes: 50 }
+    ]
+},
+{
+    date: '2024-11-14 09:22:35',
+    hour: 21,
+    apps: [
+        { name: 'WhatsApp', minutes: 95 },
+        { name: 'Facebook', minutes: 80 },
+        { name: 'Instagram', minutes: 50 },
+        { name: 'Reddit', minutes: 30 },
+        { name: 'X', minutes: 22 }
+    ]
+},
+{
+    date: '2024-11-15 14:45:35',
+    hour: 22,
+    apps: [
+        { name: 'Facebook', minutes: 120 },
+        { name: 'WhatsApp', minutes: 85 },
+        { name: 'The Battle Cats', minutes: 65 },
+        { name: 'PedidosYa', minutes: 30 },
+        { name: 'Instagram', minutes: 45 }
+    ]
+},
+{
+    date: '2024-11-16 14:45:35',
+    hour: 15,
+    apps: [
+        { name: 'Youtube', minutes: 145 },
+        { name: 'Telegram', minutes: 105 },
+        { name: 'Facebook', minutes: 120 },
+        { name: 'WhatsApp', minutes: 70 },
+        { name: 'Instagram', minutes: 50 }
+    ]
+},
+{
+    date: '2024-11-17 14:45:35',
+    hour: 10,
+    apps: [
+        { name: 'Facebook', minutes: 225 },
+        { name: 'Youtube', minutes: 200 },
+        { name: 'WhatsApp', minutes: 95 },
+        { name: 'Brave', minutes: 65 },
+        { name: 'Telegram', minutes: 40 }
+    ]
+}
+];
+  // Variables globales
+  let lineChartWeeklyConsumption;
+  let myChart1;
+  let stackedBarChart; // Nueva variable para el gráfico apilado
+
+
+  // Función para obtener el número de semana (ISO-8601)
+  function getISOWeekNumber(date) {
+      const d = new Date(date);
+      d.setHours(0, 0, 0, 0); // Ajustar la hora para evitar problemas con las fechas
+      d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7); // Ajustar al jueves de la semana
+      const week1 = new Date(d.getFullYear(), 0, 4); // Primer jueves del año
+      return Math.ceil(((d - week1) / 86400000 + 1) / 7);
+  }
+
+  // Agrupar los datos por semana utilizando la nueva función de semana ISO-8601
+  function groupDataByWeek(data) {
+      const groupedData = {};
+      data.forEach(item => {
+          const weekNumber = getISOWeekNumber(item.date); // Usamos la nueva función
+          if (!groupedData[weekNumber]) {
+              groupedData[weekNumber] = [];
+          }
+          groupedData[weekNumber].push(item);
+      });
+      return groupedData;
+  }
+
+  // Agrupar los datos por semana
+  const dataGroupedByWeek = groupDataByWeek(data);
+
+  // Función para llenar el selector de semanas con las semanas disponibles
+  function populateWeekSelector() {
+      const weeks = Object.keys(dataGroupedByWeek);
+      const weekSelector = document.getElementById('weekSelector');
+      weekSelector.innerHTML = ''; // Limpiar el selector antes de agregar opciones
+      weeks.forEach(week => {
+          const option = document.createElement('option');
+          option.value = week;
+          option.innerText = `Semana ${week}`;
+          weekSelector.appendChild(option);
+      });
+      // Asegurarse de que haya una semana seleccionada al principio
+      if (weeks.length > 0) {
+          weekSelector.value = weeks[0];
+      }
+  }
+
+  // Función para obtener los datos procesados por día y hora de mayor consumo
+  function getProcessedDataForWeek(week) {
+      const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const dailyMaxConsumption = {
+          Lunes: null,
+          Martes: null,
+          Miércoles: null,
+          Jueves: null,
+          Viernes: null,
+          Sábado: null,
+          Domingo: null
+      };
+
+      const weekData = dataGroupedByWeek[week];
+      weekData.forEach(item => {
+          const date = new Date(item.date);
+          const dayOfWeek = daysOfWeek[date.getDay()];
+          const hour = item.hour;
+          const maxConsumption = Math.max(...item.apps.map(app => app.minutes));
+
+          if (!dailyMaxConsumption[dayOfWeek] || dailyMaxConsumption[dayOfWeek].minutes < maxConsumption) {
+              dailyMaxConsumption[dayOfWeek] = { hour, minutes: maxConsumption };
+          }
+      });
+
+      return dailyMaxConsumption;
+  }
+
+  // Función para generar el gráfico de la hora de mayor consumo por día
+  function generateWeeklyConsumptionGraph(week) {
+      const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+      const consumptionData = getProcessedDataForWeek(week); // Datos procesados para la semana seleccionada
+
+      const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
+
+      // Si ya existe un gráfico, destrúyelo para evitar duplicados
+      if (lineChartWeeklyConsumption) {
+          lineChartWeeklyConsumption.destroy();
+      }
+
+      // Crear el gráfico
+      lineChartWeeklyConsumption = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: daysOfWeek,  // Eje X con los días de la semana
+              datasets: [{
+                  label: 'Hora de Mayor Consumo',
+                  data: daysOfWeek.map(day => {
+                      const dayData = consumptionData[day];
+                      return dayData ? dayData.hour : null; // Si no hay datos, poner null
+                  }),
+                  borderColor: 'rgba(75, 192, 192, 1)',  // Color de la línea
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  fill: false,
+                  tension: 0.1,
+              }]
+          },
+          options: {
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Días de la Semana',
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Hora del Día',
+                      },
+                      beginAtZero: true,
+                      ticks: {
+                          callback: function(value) {
+                              return `${value}:00`; // Mostrar las horas en formato 24h
+                          }
+                      },
+                      reverse: true,
+                      max: 23 // Límite superior para las horas
+                  }
+              },
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: function(tooltipItem) {
+                              const day = daysOfWeek[tooltipItem.dataIndex];
+                              const hour = tooltipItem.raw;
+                              const consumption = consumptionData[day]
+                                  ? consumptionData[day].minutes
+                                  : 0;
+                              return `Hora: ${hour}:00, Consumo: ${consumption} minutos`;
+                          }
+                      }
+                  }
+              }
+          }
+      });
+  }
+
+  // Función para generar el gráfico de tiempo total de consumo por día
+  function generateGraph1(week) {
+      const weekData = dataGroupedByWeek[week];
+
+      // Estructura para almacenar el tiempo total de uso por día de la semana
+      const dailyTotalUsage = {
+          Lunes: 0,
+          Martes: 0,
+          Miércoles: 0,
+          Jueves: 0,
+          Viernes: 0,
+          Sábado: 0,
+          Domingo: 0
+      };
+
+      const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+      // Calcular el tiempo total de uso por día
+      weekData.forEach(item => {
+          const date = new Date(item.date);
+          const dayOfWeek = daysOfWeek[date.getDay()];
+          item.apps.forEach(app => {
+              dailyTotalUsage[dayOfWeek] += app.minutes;
+          });
+      });
+
+      // Crear el gráfico en base al tiempo total de uso por día de la semana
+      const ctx = document.getElementById('myChart1').getContext('2d');
+      if (myChart1) {
+          myChart1.destroy(); // Destruir gráfico anterior si existe
+      }
+
+      myChart1 = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: daysOfWeek,
+              datasets: [{
+                  label: 'Tiempo Total de Consumo (minutos)',
+                  data: daysOfWeek.map(day => (dailyTotalUsage[day] / 60).toFixed(2)), // Conversión de minutos a horas con 2 decimales
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              responsive: true,
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Día de la Semana'
+                      }
+                  },
+                  y: {
+                      title: {
+                          display: true,
+                          text: 'Horas'
+                      },
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+  }
+
+  // Función para actualizar los gráficos cuando se selecciona una nueva semana
+  function updateGraph() {
+      const selectedWeek = document.getElementById('weekSelector').value;
+      generateWeeklyConsumptionGraph(selectedWeek);  // Actualizar gráfico de horas de mayor consumo
+      generateGraph1(selectedWeek);  // Actualizar gráfico de tiempo total de consumo
+  }
+
+  // Inicializar el gráfico con la primera semana
+  populateWeekSelector();
+  updateGraph();
+</script>
+
+<script>
+    //PARA PASTEL    
     const userSelect = document.getElementById('user-select');
     const pieChartCtx = document.getElementById('pieChart').getContext('2d');
     const barChartCtx = document.getElementById('barChart').getContext('2d');
@@ -553,6 +907,7 @@
         });
         
         */
+        /*
         // Crear gráfico lineal del último mes
         const monthlyLineChartCtx = document.getElementById('monthlyLineChart').getContext('2d');
         const monthlyLineChart = new Chart(monthlyLineChartCtx, {
@@ -660,7 +1015,7 @@
                 responsive: true
             }
         });
-
+*/
 
         fetch('/get-reportes')
             .then(response => response.json())
@@ -959,17 +1314,4 @@
 </body>
 
 </html>
-<!-- dataTableBody.appendChild(row);
-// Agregar datos a la colección 'data'
-data.push({
-packageName1: item.packageName1,
-tiempoUso1: item.tiempoUso1,
-packageName2: item.packageName2,
-tiempoUso2: item.tiempoUso2,
-packageName3: item.packageName3,
-tiempoUso3: item.tiempoUso3,
-packageName4: item.packageName4,
-tiempoUso4: item.tiempoUso4,
-packageName5: item.packageName5,
-tiempoUso5: item.tiempoUso5
-}); -->
+ 
