@@ -259,6 +259,11 @@
                         <!-- Opciones de semanas serán añadidas con JS -->
                     </select>
                   </div>
+                   <!-- Mapa de calor -->
+                <div class="col-md-10 mt-4">
+                    <h3>Mapa de Calor: Uso por Rango Horario</h3>
+                    <canvas id="heatmapChart" width="400" height="300"></canvas>
+                </div>
                   <!-- Gráfico por hora de mayor consumo -->
                 <div class="col-md-10 mt-4">
                     <h3>Horas de Mayor consumo semanal</h3>
@@ -274,12 +279,13 @@
                     <h3>Uso Diario por Aplicaciones</h3>
                     <canvas id="stackedBarChart" width="400" height="200"></canvas>
                 </div>
+               
             </div>
         </div>
     </div>        
 <script>
 
-   // Datos de ejemplo MAX SAMANIEGO
+   // Datos de ejemplo MS
    const data = [
    {
        date: '2024-10-28 23:52:35',
@@ -290,7 +296,8 @@
            { name: 'Facebook', minutes: 51 },
            { name: 'Brave', minutes: 28 },
            { name: 'Youtube', minutes: 25 }
-       ]
+       ],
+       ranges: [23, 12, 0, 63,63, 44, 85, 21]
    },
    {
        date: '2024-10-29 12:32:35',
@@ -301,7 +308,8 @@
            { name: 'Youtube', minutes: 58 },
            { name: 'The Battle Cats', minutes: 57 },
            { name: 'Telegram', minutes: 53 }
-       ]
+       ],
+       ranges: [23, 12, 0, 63,63, 32, 85, 21]
    },
    {
        date: '2024-10-30 18:45:35',
@@ -312,7 +320,8 @@
            { name: 'Brave', minutes: 65 },
            { name: 'Telegram', minutes: 45 },
            { name: 'WhatsApp', minutes: 36 }
-       ]
+       ],
+       ranges: [23, 12, 0, 63, 66, 85,63, 21]
    },
    {
        date: '2024-10-31 09:22:35',
@@ -323,7 +332,8 @@
            { name: 'Instagram', minutes: 73 },
            { name: 'Reddit', minutes: 52 },
            { name: 'X', minutes: 34 }
-       ]
+       ],
+       ranges: [23, 12, 0, 63, 67, 85,63, 21]
    },
    {
        date: '2024-11-01 14:45:35',
@@ -334,7 +344,8 @@
            { name: 'The Battle Cats', minutes: 35 },
            { name: 'PedidosYa', minutes: 27 },
            { name: 'Instagram', minutes: 18 }
-       ]
+       ],
+       ranges: [23, 12, 0, 63, 97, 85, 21,63]
    },
    {
     date: '2024-11-02 14:45:35',
@@ -345,7 +356,8 @@
         { name: 'Facebook', minutes: 77 },
         { name: 'WhatsApp', minutes: 52 },
         { name: 'Instagram', minutes: 43 }
-    ]
+    ],
+    ranges: [23,63, 12, 0, 63, 32, 85, 21]
 }, 
 {
     date: '2024-11-03 14:45:35',
@@ -356,7 +368,8 @@
         { name: 'WhatsApp', minutes: 68 },
         { name: 'Brave', minutes: 56 },
         { name: 'Telegram', minutes: 22 }
-    ]
+    ],
+    ranges: [23, 12,63, 0, 63, 88, 85, 21]
 }, 
    // Semana 1: 2024-11-04 a 2024-11-10
    {
@@ -368,7 +381,8 @@
         { name: 'Facebook', minutes: 58 },
         { name: 'Telegram', minutes: 43 },
         { name: 'Youtube', minutes: 24 }
-    ]
+    ],
+    ranges: [23, 12, 0, 63, 123, 85,63, 21]
 },
 {
     date: '2024-11-05 18:00:00',
@@ -379,7 +393,8 @@
         { name: 'Instagram', minutes: 70 },
         { name: 'The Battle Cats', minutes: 56 },
         { name: 'Telegram', minutes: 50 }
-    ]
+    ],
+    ranges: [23, 12, 0, 63, 89, 85,63,21]
 },
 {
     date: '2024-11-06 12:00:00',
@@ -390,7 +405,8 @@
         { name: 'Instagram', minutes: 62 },
         { name: 'Youtube', minutes: 50 },
         { name: 'Telegram', minutes: 40 }
-    ]
+    ],
+    ranges: [23,63, 12, 0, 163, 123, 85, 21]
 },
 {
     date: '2024-11-07 15:00:00',
@@ -401,7 +417,8 @@
         { name: 'Facebook', minutes: 75 },
         { name: 'Telegram', minutes: 35 },
         { name: 'Reddit', minutes: 28 }
-    ]
+    ],
+    ranges: [23, 12,63, 0, 63, 123, 85, 21]
 },
 {
     date: '2024-11-08 21:00:00',
@@ -412,7 +429,8 @@
         { name: 'Instagram', minutes: 60 },
         { name: 'Youtube', minutes: 42 },
         { name: 'Telegram', minutes: 45 }
-    ]
+    ],
+    ranges: [23, 12,63, 0, 63, 123, 85, 21]
 },
 {
     date: '2024-11-09 14:45:35',
@@ -423,7 +441,8 @@
         { name: 'Facebook', minutes: 110 },
         { name: 'WhatsApp', minutes: 60 },
         { name: 'Instagram', minutes: 55 }
-    ]
+    ],
+    ranges: [23,163, 12, 0, 63, 123, 85, 21]
 },
 {
     date: '2024-11-10 14:45:35',
@@ -434,7 +453,8 @@
         { name: 'WhatsApp', minutes: 85 },
         { name: 'Brave', minutes: 60 },
         { name: 'Telegram', minutes: 30 }
-    ]
+    ],
+    ranges: [23, 12,63, 0, 63, 123, 85, 21]
 },
 
 // Semana 2: 2024-11-11 a 2024-11-17
@@ -447,7 +467,8 @@
         { name: 'Facebook', minutes: 75 },
         { name: 'Telegram', minutes: 42 },
         { name: 'Youtube', minutes: 38 }
-    ]
+    ],
+    ranges: [11, 45,63, 30, 134, 12, 98, 0]
 },
 {
     date: '2024-11-12 12:32:35',
@@ -458,7 +479,8 @@
         { name: 'Instagram', minutes: 65 },
         { name: 'The Battle Cats', minutes: 55 },
         { name: 'Telegram', minutes: 50 }
-    ]
+    ],
+    ranges: [23,63, 12, 0, 63, 123, 85, 21]
 },
 {
     date: '2024-11-13 18:45:35',
@@ -469,7 +491,8 @@
         { name: 'WhatsApp', minutes: 60 },
         { name: 'Brave', minutes: 40 },
         { name: 'Instagram', minutes: 50 }
-    ]
+    ],
+    ranges: [0, 32,63, 56, 112, 32, 0, 53]
 },
 {
     date: '2024-11-14 09:22:35',
@@ -480,7 +503,8 @@
         { name: 'Instagram', minutes: 50 },
         { name: 'Reddit', minutes: 30 },
         { name: 'X', minutes: 22 }
-    ]
+    ],
+    ranges: [123, 12, 0,63, 63, 123, 85, 21]
 },
 {
     date: '2024-11-15 14:45:35',
@@ -491,7 +515,8 @@
         { name: 'The Battle Cats', minutes: 65 },
         { name: 'PedidosYa', minutes: 30 },
         { name: 'Instagram', minutes: 45 }
-    ]
+    ],
+    ranges: [87, 12, 0, 63, 123, 85,63, 21]
 },
 {
     date: '2024-11-16 14:45:35',
@@ -502,7 +527,8 @@
         { name: 'Facebook', minutes: 120 },
         { name: 'WhatsApp', minutes: 70 },
         { name: 'Instagram', minutes: 50 }
-    ]
+    ],
+    ranges: [0, 12, 0, 63, 123, 85, 21,63]
 },
 {
     date: '2024-11-17 14:45:35',
@@ -513,13 +539,15 @@
         { name: 'WhatsApp', minutes: 95 },
         { name: 'Brave', minutes: 65 },
         { name: 'Telegram', minutes: 40 }
-    ]
+    ],
+    ranges: [0, 12, 0, 63, 123, 85,168, 21]
 }
 ];
   // Variables globales
   let lineChartWeeklyConsumption;
   let myChart1;
   let stackedBarChart; // Nueva variable para el gráfico apilado
+  let heatmapChart;
 
 
   // Función para obtener el número de semana (ISO-8601)
@@ -564,179 +592,257 @@
       }
   }
 
-  // Función para obtener los datos procesados por día y hora de mayor consumo
-  function getProcessedDataForWeek(week) {
-      const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const dailyMaxConsumption = {
-          Lunes: null,
-          Martes: null,
-          Miércoles: null,
-          Jueves: null,
-          Viernes: null,
-          Sábado: null,
-          Domingo: null
-      };
+// Obtener el máximo consumo por día
+function getProcessedDataForWeek(week) {
+    const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const dailyMaxConsumption = {};
+    const weekData = dataGroupedByWeek[week];
+    weekData.forEach(item => {
+        const date = new Date(item.date);
+        const dayOfWeek = daysOfWeek[date.getDay()];
+        const maxConsumption = Math.max(...item.apps.map(app => app.minutes));
+        dailyMaxConsumption[dayOfWeek] = maxConsumption;
+    });
+    return dailyMaxConsumption;
+}
+// Gráfico de línea: Hora de mayor consumo por día
+function generateWeeklyConsumptionGraph(week) {
+    const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
+    if (lineChartWeeklyConsumption) lineChartWeeklyConsumption.destroy();
+    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const consumptionData = getProcessedDataForWeek(week);
+    lineChartWeeklyConsumption = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: daysOfWeek,
+            datasets: [{
+                label: 'Hora de Mayor Consumo',
+                data: daysOfWeek.map(day => consumptionData[day] || null),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: { responsive: true }
+    });
+}
 
-      const weekData = dataGroupedByWeek[week];
-      weekData.forEach(item => {
-          const date = new Date(item.date);
-          const dayOfWeek = daysOfWeek[date.getDay()];
-          const hour = item.hour;
-          const maxConsumption = Math.max(...item.apps.map(app => app.minutes));
+// Gráfico de barras: Tiempo total por día
+function generateGraph1(week) {
+    const ctx = document.getElementById('myChart1').getContext('2d');
+    if (myChart1) myChart1.destroy();
+    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const weekData = dataGroupedByWeek[week];
+    const dailyTotalUsage = daysOfWeek.reduce((acc, day) => ({ ...acc, [day]: 0 }), {});
+    weekData.forEach(item => {
+        const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
+        item.apps.forEach(app => dailyTotalUsage[dayOfWeek] += app.minutes);
+    });
+    myChart1 = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: daysOfWeek,
+            datasets: [{
+                label: 'Tiempo Total de Consumo (Horas)',
+                data: daysOfWeek.map(day => (dailyTotalUsage[day] / 60).toFixed(2)),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true }
+    });
+}
 
-          if (!dailyMaxConsumption[dayOfWeek] || dailyMaxConsumption[dayOfWeek].minutes < maxConsumption) {
-              dailyMaxConsumption[dayOfWeek] = { hour, minutes: maxConsumption };
-          }
-      });
+// Nuevo gráfico: Uso diario por aplicaciones (barras apiladas)
+function generateStackedBarChart(week) {
+    const ctx = document.getElementById('stackedBarChart').getContext('2d');
+    if (stackedBarChart) stackedBarChart.destroy();
 
-      return dailyMaxConsumption;
-  }
+    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const weekData = dataGroupedByWeek[week];
 
-  // Función para generar el gráfico de la hora de mayor consumo por día
-  function generateWeeklyConsumptionGraph(week) {
-      const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-      const consumptionData = getProcessedDataForWeek(week); // Datos procesados para la semana seleccionada
+    // Inicializar una estructura para almacenar tiempo por aplicación y día
+    const appUsageByDay = {};
+    daysOfWeek.forEach(day => appUsageByDay[day] = {});
 
-      const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
+    // Agrupar datos por aplicación y día
+    weekData.forEach(item => {
+        const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
+        item.apps.forEach(app => {
+            if (!appUsageByDay[dayOfWeek][app.name]) appUsageByDay[dayOfWeek][app.name] = 0;
+            appUsageByDay[dayOfWeek][app.name] += app.minutes; // Acumular tiempo
+        });
+    });
 
-      // Si ya existe un gráfico, destrúyelo para evitar duplicados
-      if (lineChartWeeklyConsumption) {
-          lineChartWeeklyConsumption.destroy();
-      }
+    // Obtener una lista de aplicaciones únicas
+    const uniqueApps = new Set();
+    Object.values(appUsageByDay).forEach(apps => Object.keys(apps).forEach(app => uniqueApps.add(app)));
 
-      // Crear el gráfico
-      lineChartWeeklyConsumption = new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: daysOfWeek,  // Eje X con los días de la semana
-              datasets: [{
-                  label: 'Hora de Mayor Consumo',
-                  data: daysOfWeek.map(day => {
-                      const dayData = consumptionData[day];
-                      return dayData ? dayData.hour : null; // Si no hay datos, poner null
-                  }),
-                  borderColor: 'rgba(75, 192, 192, 1)',  // Color de la línea
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  fill: false,
-                  tension: 0.1,
-              }]
-          },
-          options: {
-              scales: {
-                  x: {
-                      title: {
-                          display: true,
-                          text: 'Días de la Semana',
-                      }
-                  },
-                  y: {
-                      title: {
-                          display: true,
-                          text: 'Hora del Día',
-                      },
-                      beginAtZero: true,
-                      ticks: {
-                          callback: function(value) {
-                              return `${value}:00`; // Mostrar las horas en formato 24h
-                          }
-                      },
-                      reverse: true,
-                      max: 23 // Límite superior para las horas
-                  }
-              },
-              plugins: {
-                  tooltip: {
-                      callbacks: {
-                          label: function(tooltipItem) {
-                              const day = daysOfWeek[tooltipItem.dataIndex];
-                              const hour = tooltipItem.raw;
-                              const consumption = consumptionData[day]
-                                  ? consumptionData[day].minutes
-                                  : 0;
-                              return `Hora: ${hour}:00, Consumo: ${consumption} minutos`;
-                          }
-                      }
-                  }
-              }
-          }
-      });
-  }
+    // Generar los datasets para Chart.js
+    const datasets = Array.from(uniqueApps).map(appName => ({
+        label: appName,
+        data: daysOfWeek.map(day => (appUsageByDay[day][appName] || 0) / 60), // Convertir minutos a horas
+        stack: 'stack1',
+        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Color aleatorio
+        borderColor: '#fff',
+        borderWidth: 1
+    }));
 
-  // Función para generar el gráfico de tiempo total de consumo por día
-  function generateGraph1(week) {
-      const weekData = dataGroupedByWeek[week];
+    // Crear gráfico de barras horizontales apiladas
+    stackedBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: daysOfWeek, // Eje Y: días de la semana
+            datasets: datasets  // Datos apilados por aplicación
+        },
+        options: {
+            indexAxis: 'y', // Configuración para barras horizontales
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                title: {
+                    display: true,
+                    text: 'Uso Diario por Aplicaciones (Horas)'
+                }
+            },
+            scales: {
+                x: { 
+                    stacked: true,
+                    title: { display: true, text: 'Tiempo de Uso (Horas)' },
+                    beginAtZero: true
+                },
+                y: { 
+                    stacked: true,
+                    title: { display: true, text: 'Día de la Semana' }
+                }
+            }
+        }
+    });
+}
 
-      // Estructura para almacenar el tiempo total de uso por día de la semana
-      const dailyTotalUsage = {
-          Lunes: 0,
-          Martes: 0,
-          Miércoles: 0,
-          Jueves: 0,
-          Viernes: 0,
-          Sábado: 0,
-          Domingo: 0
-      };
+// Actualiza los datos de ejemplo (corrigiendo `ranges`)
+data.forEach(item => {
+    if (!item.ranges) {
+        // Generar datos aleatorios si no existen
+        item.ranges = Array.from({ length: 8 }, () => Math.floor(Math.random() * 180));
+    }
+});
 
-      const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+// Obtener el contenedor del canvas del mapa de calor
+const ctxHeatmap = document.getElementById('heatmapChart').getContext('2d');
 
-      // Calcular el tiempo total de uso por día
-      weekData.forEach(item => {
-          const date = new Date(item.date);
-          const dayOfWeek = daysOfWeek[date.getDay()];
-          item.apps.forEach(app => {
-              dailyTotalUsage[dayOfWeek] += app.minutes;
-          });
-      });
+// Mapa de calor (sin usar `chartjs-chart-matrix`)
+// Generar el mapa de calor
+function generateHeatmap(weekData) {
+    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const timeRanges = [
+        '00:00-03:00', '03:00-06:00', '06:00-09:00', '09:00-12:00',
+        '12:00-15:00', '15:00-18:00', '18:00-21:00', '21:00-00:00'
+    ];
 
-      // Crear el gráfico en base al tiempo total de uso por día de la semana
-      const ctx = document.getElementById('myChart1').getContext('2d');
-      if (myChart1) {
-          myChart1.destroy(); // Destruir gráfico anterior si existe
-      }
+    const heatmapData = Array(8).fill(null).map(() => Array(7).fill(0));
+    weekData.forEach(item => {
+        const dayIndex = new Date(item.date).getDay();
+        item.ranges.forEach((minutes, rangeIndex) => {
+            heatmapData[rangeIndex][dayIndex] = minutes;
+        });
+    });
 
-      myChart1 = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: daysOfWeek,
-              datasets: [{
-                  label: 'Tiempo Total de Consumo (minutos)',
-                  data: daysOfWeek.map(day => (dailyTotalUsage[day] / 60).toFixed(2)), // Conversión de minutos a horas con 2 decimales
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  x: {
-                      title: {
-                          display: true,
-                          text: 'Día de la Semana'
-                      }
-                  },
-                  y: {
-                      title: {
-                          display: true,
-                          text: 'Horas'
-                      },
-                      beginAtZero: true
-                  }
-              }
-          }
-      });
-  }
+    const flatData = [];
+    heatmapData.forEach((row, y) => {
+        row.forEach((value, x) => {
+            flatData.push({ x, y, v: value });
+        });
+    });
 
-  // Función para actualizar los gráficos cuando se selecciona una nueva semana
-  function updateGraph() {
-      const selectedWeek = document.getElementById('weekSelector').value;
-      generateWeeklyConsumptionGraph(selectedWeek);  // Actualizar gráfico de horas de mayor consumo
-      generateGraph1(selectedWeek);  // Actualizar gráfico de tiempo total de consumo
-  }
+    const ctx = document.getElementById('heatmapChart').getContext('2d');
+    if (heatmapChart) heatmapChart.destroy();
 
-  // Inicializar el gráfico con la primera semana
-  populateWeekSelector();
-  updateGraph();
+    // Función para calcular el color basado en el valor
+    function calculateColor(value, min = 0, max = 180) {
+        const ratio = (value - min) / (max - min); // Normalizar valor entre 0 y 1
+        const r = Math.floor(255 * ratio); // Incrementar rojo proporcionalmente
+        const g = Math.floor(255 * (1 - ratio)); // Decrementar verde proporcionalmente
+        const b = 0; // Azul constante (puedes ajustar si es necesario)
+        return `rgba(${r}, ${g}, ${b}, 0.8)`; // Color con opacidad del 80%
+    }
+
+
+    heatmapChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Mapa de Calor',
+                data: flatData,
+                pointBackgroundColor: flatData.map(d => calculateColor(d.v)), // Escala de color
+                pointRadius: ({ raw }) => Math.max(5, raw.v / 10) // Escala de tamaño del punto
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const minutes = context.raw.v; // Valor en minutos
+                            if (minutes < 60) {
+                                return `${minutes} min `;
+                            } else {
+                                const hours = Math.floor(minutes / 60);
+                                const remainingMinutes = minutes % 60;
+                                return `${hours}h ${remainingMinutes}min`;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Días de la semana' },
+                    ticks: {
+                        callback: (val) => daysOfWeek[val] || '',
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                },
+                y: {
+                    title: { display: true, text: 'Rango horario' },
+                    reverse: true,
+                    ticks: {
+                        callback: (val) => timeRanges[val] || '',
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+
+// Actualización de gráficos al cambiar la semana
+function updateGraph() {
+    const selectedWeek = document.getElementById('weekSelector').value;
+    const weekData = dataGroupedByWeek[selectedWeek];
+    if (!weekData) {
+        console.error(`No hay datos disponibles para la semana ${selectedWeek}`);
+        return;
+    }
+    generateHeatmap(dataGroupedByWeek[selectedWeek]); // Actualizar mapa de calor con la semana seleccionada
+
+    generateWeeklyConsumptionGraph(selectedWeek);
+    generateGraph1(selectedWeek);
+    generateStackedBarChart(selectedWeek);
+}
+
+// Inicialización
+populateWeekSelector();
+updateGraph();
 </script>
 
 <script>
