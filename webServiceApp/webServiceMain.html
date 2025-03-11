@@ -38,25 +38,25 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                     aria-controls="nav-home" aria-selected="true">Reportes</a>
-                <a class="nav-item nav-link" id="nav-userRegister-tab" data-toggle="tab" href="#nav-userRegister" role="tab"
-                    aria-controls="nav-userRegister" aria-selected="true">Usuarios registrados</a>
+                <a class="nav-item nav-link" id="nav-userRegister-tab" data-toggle="tab" href="#nav-userRegister"
+                    role="tab" aria-controls="nav-userRegister" aria-selected="true">Usuarios registrados</a>
                 <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-userProfile" role="tab"
                     aria-controls="nav-userProfile" aria-selected="true">Perfil de Usuario</a>
-                <a class="nav-item nav-link" id="nav-gemini-tab" data-toggle="tab" href="#nav-userProfileGemini" role="tab"
-                    aria-controls="nav-userProfileGemini" aria-selected="true">Perfiles GEMINI </a>
-                
-                <a class="nav-item nav-link" id="nav-activityGemini-tab" data-toggle="tab" href="#nav-activityGemini" role="tab" aria-controls="nav-activityGemini"
-                    aria-selected="true">Actividades Alternativas </a>
-                
+                <a class="nav-item nav-link" id="nav-gemini-tab" data-toggle="tab" href="#nav-userProfileGemini"
+                    role="tab" aria-controls="nav-userProfileGemini" aria-selected="true">Perfiles GEMINI </a>
+
+                <a class="nav-item nav-link" id="nav-activityGemini-tab" data-toggle="tab" href="#nav-activityGemini"
+                    role="tab" aria-controls="nav-activityGemini" aria-selected="true">Actividades Alternativas </a>
+
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                     aria-controls="nav-profile" aria-selected="false">Graficos</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
                     aria-controls="nav-contact" aria-selected="false">Estadisticas</a>
-                </div>
+            </div>
         </nav>
 
         <div class="tab-content" id="nav-tabContent">
-            <!-- Estructura HTML para la tabla y los controles de paginación -->
+            <!-- tabla reportes -->
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
                     <div class="col-6 dropdown d-flex justify-content-start py-2">
@@ -112,7 +112,7 @@
             <!-- tabla usuarios registrados -->
             <div class="tab-pane fade" id="nav-userRegister" role="tabpanel" aria-labelledby="nav-userRegister-tab">
                 <div class="row mx-0">
-                    <div class=" p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">Usuarios
+                    <div class="p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">Usuarios
                         registrados en el proyecto</div>
                     <input type="text" id="search-input-userR" placeholder="Buscar por cédula"
                         class="form-control my-3 col-3">
@@ -136,15 +136,18 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Botones de paginación e información -->
+                <button id="prev-page-userR" class="btn btn-outline-secondary">Anterior</button>
+                <span id="page-info-userR"></span>
+                <button id="next-page-userR" class="btn btn-outline-secondary">Siguiente</button>
+                <div id="pagination-info-userR" class="pagination-container"></div>
             </div>
 
             <!-- tabla perfil de usuario -->
             <div class="tab-pane fade" id="nav-userProfile" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="row mx-0">
-                    <div class=" p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">Perfiles de
-                        usuario</div>
-                    <input type="text" id="search-input-userP" placeholder="Buscar por correo"
-                        class="form-control my-3 col-3">
+                    <div class="p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">Perfiles de usuario</div>
+                    <input type="text" id="search-input-userP" placeholder="Buscar por correo" class="form-control my-3 col-3">
                 </div>
                 <div class="table-container">
                     <table class="table table-striped table-custom">
@@ -167,16 +170,20 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Botones de paginación e información -->
+                <button id="prev-page-userP" class="btn btn-outline-secondary">Anterior</button>
+                <span id="page-info-userP"></span>
+                <button id="next-page-userP" class="btn btn-outline-secondary">Siguiente</button>
+                <div id="pagination-info-userP" class="pagination-container"></div>
             </div>
 
-            <!-- Tabla de respuesta de Gemini -->
+            <!-- tabla de perfil de usuario GEMINI -->
             <div class="tab-pane fade" id="nav-userProfileGemini" role="tabpanel" aria-labelledby="nav-gemini-tab">
                 <div class="row mx-0">
                     <div class="p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">
                         Perfiles de usuario y respuesta de Gemini
                     </div>
-                    <input type="text" id="search-input-gemini" placeholder="Buscar por correo"
-                        class="form-control my-3 col-3">
+                    <input type="text" id="search-input-gemini" placeholder="Buscar por correo" class="form-control my-3 col-3">
                 </div>
                 <div class="table-container">
                     <table class="table table-striped table-custom">
@@ -192,16 +199,20 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Botones de paginación e información -->
+                <button id="prev-page-gemini" class="btn btn-outline-secondary">Anterior</button>
+                <span id="page-info-gemini"></span>
+                <button id="next-page-gemini" class="btn btn-outline-secondary">Siguiente</button>
+                <div id="pagination-info-gemini" class="pagination-container"></div>
             </div>
 
-            <!-- Tabla de Actividades generadas en GEMINI -->
+            <!-- tabla de actividades alternativas -->
             <div class="tab-pane fade" id="nav-activityGemini" role="tabpanel" aria-labelledby="nav-activityGemini-tab">
                 <div class="row mx-0">
                     <div class="p-2 my-3 col-9" style="background-color: rgba(108, 117, 125, 0.25);">
                         Actividades generadas por GEMINI
                     </div>
-                    <input type="text" id="search-input-actividadGemini" placeholder="Buscar por correo"
-                        class="form-control my-3 col-3">
+                    <input type="text" id="search-input-actividadGemini" placeholder="Buscar por correo" class="form-control my-3 col-3">
                 </div>
                 <div class="table-container">
                     <table class="table table-striped table-custom">
@@ -219,8 +230,17 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Contenedor de paginación fuera de la tabla -->
+                <div class="pagination-container mt-3">
+                    <div id="pagination-info-1" class="mt-2"></div>
+                    <div class="pagination-container">
+                        <button id="prevPageBtn" class="btn btn-outline-secondary mx-2">Anterior</button>
+                        <span id="page-number">Página 1</span>
+                        <button id="nextPageBtn" class="btn btn-outline-secondary mx-2">Siguiente</button>
+                    </div>
+                </div>
             </div>
-           
+
             <!-- graficos pastel , barras -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="form-group col-4">
@@ -245,7 +265,7 @@
                             utilizadas en el mes</div>
                         <canvas id="pieChart" class="mx-4"></canvas>
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -258,13 +278,13 @@
                     <select id="weekSelector" onchange="updateGraph()">
                         <!-- Opciones de semanas serán añadidas con JS -->
                     </select>
-                  </div>
-                   <!-- Mapa de calor -->
+                </div>
+                <!-- Mapa de calor -->
                 <div class="col-md-10 mt-4">
                     <h3>Mapa de Calor: Uso por Rango Horario</h3>
                     <canvas id="heatmapChart" width="400" height="300"></canvas>
                 </div>
-                  <!-- Gráfico por hora de mayor consumo -->
+                <!-- Gráfico por hora de mayor consumo -->
                 <div class="col-md-10 mt-4">
                     <h3>Horas de Mayor consumo semanal</h3>
                     <canvas id="weeklyConsumptionChart" width="400" height="200"></canvas>
@@ -279,850 +299,699 @@
                     <h3>Uso Diario por Aplicaciones</h3>
                     <canvas id="stackedBarChart" width="400" height="200"></canvas>
                 </div>
-               
+
             </div>
         </div>
-    </div>        
-<script>
+    </div>
+    <script>
 
-   // Datos de ejemplo MS
-   const data = [
-   {
-       date: '2024-10-28 23:52:35',
-       hour: 22,
-       apps: [
-           { name: 'WhatsApp', minutes: 116 },
-           { name: 'Instagram', minutes: 54 },
-           { name: 'Facebook', minutes: 51 },
-           { name: 'Brave', minutes: 28 },
-           { name: 'Youtube', minutes: 25 }
-       ],
-       ranges: [23, 12, 0, 63,63, 44, 85, 21]
-   },
-   {
-       date: '2024-10-29 12:32:35',
-       hour: 17,
-       apps: [
-           { name: 'WhatsApp', minutes: 93 },
-           { name: 'Facebook', minutes: 73 },
-           { name: 'Youtube', minutes: 58 },
-           { name: 'The Battle Cats', minutes: 57 },
-           { name: 'Telegram', minutes: 53 }
-       ],
-       ranges: [23, 12, 0, 63,63, 32, 85, 21]
-   },
-   {
-       date: '2024-10-30 18:45:35',
-       hour: 18,
-       apps: [
-           { name: 'Facebook', minutes: 112 },
-           { name: 'The Battle Cats', minutes: 71 },
-           { name: 'Brave', minutes: 65 },
-           { name: 'Telegram', minutes: 45 },
-           { name: 'WhatsApp', minutes: 36 }
-       ],
-       ranges: [23, 12, 0, 63, 66, 85,63, 21]
-   },
-   {
-       date: '2024-10-31 09:22:35',
-       hour: 15,
-       apps: [
-           { name: 'WhatsApp', minutes: 116 },
-           { name: 'Facebook', minutes: 105 },
-           { name: 'Instagram', minutes: 73 },
-           { name: 'Reddit', minutes: 52 },
-           { name: 'X', minutes: 34 }
-       ],
-       ranges: [23, 12, 0, 63, 67, 85,63, 21]
-   },
-   {
-       date: '2024-11-01 14:45:35',
-       hour: 14,
-       apps: [
-           { name: 'Facebook', minutes: 87 },
-           { name: 'WhatsApp', minutes: 61 },
-           { name: 'The Battle Cats', minutes: 35 },
-           { name: 'PedidosYa', minutes: 27 },
-           { name: 'Instagram', minutes: 18 }
-       ],
-       ranges: [23, 12, 0, 63, 97, 85, 21,63]
-   },
-   {
-    date: '2024-11-02 14:45:35',
-    hour: 15,
-    apps: [
-        { name: 'Youtube', minutes: 123 },
-        { name: 'Telegram', minutes: 89 },
-        { name: 'Facebook', minutes: 77 },
-        { name: 'WhatsApp', minutes: 52 },
-        { name: 'Instagram', minutes: 43 }
-    ],
-    ranges: [23,63, 12, 0, 63, 32, 85, 21]
-}, 
-{
-    date: '2024-11-03 14:45:35',
-    hour: 18,
-    apps: [
-        { name: 'Facebook', minutes: 220 },
-        { name: 'Youtube', minutes: 193 },
-        { name: 'WhatsApp', minutes: 68 },
-        { name: 'Brave', minutes: 56 },
-        { name: 'Telegram', minutes: 22 }
-    ],
-    ranges: [23, 12,63, 0, 63, 88, 85, 21]
-}, 
-   // Semana 1: 2024-11-04 a 2024-11-10
-   {
-    date: '2024-11-04 09:00:00',
-    hour: 18,
-    apps: [
-        { name: 'WhatsApp', minutes: 87 },
-        { name: 'Instagram', minutes: 62 },
-        { name: 'Facebook', minutes: 58 },
-        { name: 'Telegram', minutes: 43 },
-        { name: 'Youtube', minutes: 24 }
-    ],
-    ranges: [23, 12, 0, 63, 123, 85,63, 21]
-},
-{
-    date: '2024-11-05 18:00:00',
-    hour: 18,
-    apps: [
-        { name: 'WhatsApp', minutes: 92 },
-        { name: 'Facebook', minutes: 85 },
-        { name: 'Instagram', minutes: 70 },
-        { name: 'The Battle Cats', minutes: 56 },
-        { name: 'Telegram', minutes: 50 }
-    ],
-    ranges: [23, 12, 0, 63, 89, 85,63,21]
-},
-{
-    date: '2024-11-06 12:00:00',
-    hour: 19,
-    apps: [
-        { name: 'WhatsApp', minutes: 75 },
-        { name: 'Facebook', minutes: 110 },
-        { name: 'Instagram', minutes: 62 },
-        { name: 'Youtube', minutes: 50 },
-        { name: 'Telegram', minutes: 40 }
-    ],
-    ranges: [23,63, 12, 0, 163, 123, 85, 21]
-},
-{
-    date: '2024-11-07 15:00:00',
-    hour: 15,
-    apps: [
-        { name: 'WhatsApp', minutes: 106 },
-        { name: 'Instagram', minutes: 55 },
-        { name: 'Facebook', minutes: 75 },
-        { name: 'Telegram', minutes: 35 },
-        { name: 'Reddit', minutes: 28 }
-    ],
-    ranges: [23, 12,63, 0, 63, 123, 85, 21]
-},
-{
-    date: '2024-11-08 21:00:00',
-    hour: 21,
-    apps: [
-        { name: 'Facebook', minutes: 110 },
-        { name: 'WhatsApp', minutes: 95 },
-        { name: 'Instagram', minutes: 60 },
-        { name: 'Youtube', minutes: 42 },
-        { name: 'Telegram', minutes: 45 }
-    ],
-    ranges: [23, 12,63, 0, 63, 123, 85, 21]
-},
-{
-    date: '2024-11-09 14:45:35',
-    hour: 13,
-    apps: [
-        { name: 'Youtube', minutes: 135 },
-        { name: 'Telegram', minutes: 98 },
-        { name: 'Facebook', minutes: 110 },
-        { name: 'WhatsApp', minutes: 60 },
-        { name: 'Instagram', minutes: 55 }
-    ],
-    ranges: [23,163, 12, 0, 63, 123, 85, 21]
-},
-{
-    date: '2024-11-10 14:45:35',
-    hour: 10,
-    apps: [
-        { name: 'Facebook', minutes: 220 },
-        { name: 'Youtube', minutes: 190 },
-        { name: 'WhatsApp', minutes: 85 },
-        { name: 'Brave', minutes: 60 },
-        { name: 'Telegram', minutes: 30 }
-    ],
-    ranges: [23, 12,63, 0, 63, 123, 85, 21]
-},
-
-// Semana 2: 2024-11-11 a 2024-11-17
-{
-    date: '2024-11-11 23:52:35',
-    hour: 19,
-    apps: [
-        { name: 'WhatsApp', minutes: 105 },
-        { name: 'Instagram', minutes: 55 },
-        { name: 'Facebook', minutes: 75 },
-        { name: 'Telegram', minutes: 42 },
-        { name: 'Youtube', minutes: 38 }
-    ],
-    ranges: [11, 45,63, 30, 134, 12, 98, 0]
-},
-{
-    date: '2024-11-12 12:32:35',
-    hour: 17,
-    apps: [
-        { name: 'WhatsApp', minutes: 80 },
-        { name: 'Facebook', minutes: 90 },
-        { name: 'Instagram', minutes: 65 },
-        { name: 'The Battle Cats', minutes: 55 },
-        { name: 'Telegram', minutes: 50 }
-    ],
-    ranges: [23,63, 12, 0, 63, 123, 85, 21]
-},
-{
-    date: '2024-11-13 18:45:35',
-    hour: 19,
-    apps: [
-        { name: 'Facebook', minutes: 110 },
-        { name: 'Telegram', minutes: 85 },
-        { name: 'WhatsApp', minutes: 60 },
-        { name: 'Brave', minutes: 40 },
-        { name: 'Instagram', minutes: 50 }
-    ],
-    ranges: [0, 32,63, 56, 112, 32, 0, 53]
-},
-{
-    date: '2024-11-14 09:22:35',
-    hour: 21,
-    apps: [
-        { name: 'WhatsApp', minutes: 95 },
-        { name: 'Facebook', minutes: 80 },
-        { name: 'Instagram', minutes: 50 },
-        { name: 'Reddit', minutes: 30 },
-        { name: 'X', minutes: 22 }
-    ],
-    ranges: [123, 12, 0,63, 63, 123, 85, 21]
-},
-{
-    date: '2024-11-15 14:45:35',
-    hour: 22,
-    apps: [
-        { name: 'Facebook', minutes: 120 },
-        { name: 'WhatsApp', minutes: 85 },
-        { name: 'The Battle Cats', minutes: 65 },
-        { name: 'PedidosYa', minutes: 30 },
-        { name: 'Instagram', minutes: 45 }
-    ],
-    ranges: [87, 12, 0, 63, 123, 85,63, 21]
-},
-{
-    date: '2024-11-16 14:45:35',
-    hour: 15,
-    apps: [
-        { name: 'Youtube', minutes: 145 },
-        { name: 'Telegram', minutes: 105 },
-        { name: 'Facebook', minutes: 120 },
-        { name: 'WhatsApp', minutes: 70 },
-        { name: 'Instagram', minutes: 50 }
-    ],
-    ranges: [0, 12, 0, 63, 123, 85, 21,63]
-},
-{
-    date: '2024-11-17 14:45:35',
-    hour: 10,
-    apps: [
-        { name: 'Facebook', minutes: 225 },
-        { name: 'Youtube', minutes: 200 },
-        { name: 'WhatsApp', minutes: 95 },
-        { name: 'Brave', minutes: 65 },
-        { name: 'Telegram', minutes: 40 }
-    ],
-    ranges: [0, 12, 0, 63, 123, 85,168, 21]
-}
-];
-  // Variables globales
-  let lineChartWeeklyConsumption;
-  let myChart1;
-  let stackedBarChart; // Nueva variable para el gráfico apilado
-  let heatmapChart;
-
-
-  // Función para obtener el número de semana (ISO-8601)
-  function getISOWeekNumber(date) {
-      const d = new Date(date);
-      d.setHours(0, 0, 0, 0); // Ajustar la hora para evitar problemas con las fechas
-      d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7); // Ajustar al jueves de la semana
-      const week1 = new Date(d.getFullYear(), 0, 4); // Primer jueves del año
-      return Math.ceil(((d - week1) / 86400000 + 1) / 7);
-  }
-
-  // Agrupar los datos por semana utilizando la nueva función de semana ISO-8601
-  function groupDataByWeek(data) {
-      const groupedData = {};
-      data.forEach(item => {
-          const weekNumber = getISOWeekNumber(item.date); // Usamos la nueva función
-          if (!groupedData[weekNumber]) {
-              groupedData[weekNumber] = [];
-          }
-          groupedData[weekNumber].push(item);
-      });
-      return groupedData;
-  }
-
-  // Agrupar los datos por semana
-  const dataGroupedByWeek = groupDataByWeek(data);
-
-  // Función para llenar el selector de semanas con las semanas disponibles
-  function populateWeekSelector() {
-      const weeks = Object.keys(dataGroupedByWeek);
-      const weekSelector = document.getElementById('weekSelector');
-      weekSelector.innerHTML = ''; // Limpiar el selector antes de agregar opciones
-      weeks.forEach(week => {
-          const option = document.createElement('option');
-          option.value = week;
-          option.innerText = `Semana ${week}`;
-          weekSelector.appendChild(option);
-      });
-      // Asegurarse de que haya una semana seleccionada al principio
-      if (weeks.length > 0) {
-          weekSelector.value = weeks[0];
-      }
-  }
-
-// Obtener el máximo consumo por día
-function getProcessedDataForWeek(week) {
-    const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const dailyMaxConsumption = {};
-    const weekData = dataGroupedByWeek[week];
-    weekData.forEach(item => {
-        const date = new Date(item.date);
-        const dayOfWeek = daysOfWeek[date.getDay()];
-        const maxConsumption = Math.max(...item.apps.map(app => app.minutes));
-        dailyMaxConsumption[dayOfWeek] = maxConsumption;
-    });
-    return dailyMaxConsumption;
-}
-// Gráfico de línea: Hora de mayor consumo por día
-function generateWeeklyConsumptionGraph(week) {
-    const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
-    if (lineChartWeeklyConsumption) lineChartWeeklyConsumption.destroy();
-    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const consumptionData = getProcessedDataForWeek(week);
-    lineChartWeeklyConsumption = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: daysOfWeek,
-            datasets: [{
-                label: 'Hora de Mayor Consumo',
-                data: daysOfWeek.map(day => consumptionData[day] || null),
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: false,
-                tension: 0.1
-            }]
-        },
-        options: { responsive: true }
-    });
-}
-
-// Gráfico de barras: Tiempo total por día
-function generateGraph1(week) {
-    const ctx = document.getElementById('myChart1').getContext('2d');
-    if (myChart1) myChart1.destroy();
-    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const weekData = dataGroupedByWeek[week];
-    const dailyTotalUsage = daysOfWeek.reduce((acc, day) => ({ ...acc, [day]: 0 }), {});
-    weekData.forEach(item => {
-        const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
-        item.apps.forEach(app => dailyTotalUsage[dayOfWeek] += app.minutes);
-    });
-    myChart1 = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: daysOfWeek,
-            datasets: [{
-                label: 'Tiempo Total de Consumo (Horas)',
-                data: daysOfWeek.map(day => (dailyTotalUsage[day] / 60).toFixed(2)),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: { responsive: true }
-    });
-}
-
-// Nuevo gráfico: Uso diario por aplicaciones (barras apiladas)
-function generateStackedBarChart(week) {
-    const ctx = document.getElementById('stackedBarChart').getContext('2d');
-    if (stackedBarChart) stackedBarChart.destroy();
-
-    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const weekData = dataGroupedByWeek[week];
-
-    // Inicializar una estructura para almacenar tiempo por aplicación y día
-    const appUsageByDay = {};
-    daysOfWeek.forEach(day => appUsageByDay[day] = {});
-
-    // Agrupar datos por aplicación y día
-    weekData.forEach(item => {
-        const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
-        item.apps.forEach(app => {
-            if (!appUsageByDay[dayOfWeek][app.name]) appUsageByDay[dayOfWeek][app.name] = 0;
-            appUsageByDay[dayOfWeek][app.name] += app.minutes; // Acumular tiempo
-        });
-    });
-
-    // Obtener una lista de aplicaciones únicas
-    const uniqueApps = new Set();
-    Object.values(appUsageByDay).forEach(apps => Object.keys(apps).forEach(app => uniqueApps.add(app)));
-
-    // Generar los datasets para Chart.js
-    const datasets = Array.from(uniqueApps).map(appName => ({
-        label: appName,
-        data: daysOfWeek.map(day => (appUsageByDay[day][appName] || 0) / 60), // Convertir minutos a horas
-        stack: 'stack1',
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Color aleatorio
-        borderColor: '#fff',
-        borderWidth: 1
-    }));
-
-    // Crear gráfico de barras horizontales apiladas
-    stackedBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: daysOfWeek, // Eje Y: días de la semana
-            datasets: datasets  // Datos apilados por aplicación
-        },
-        options: {
-            indexAxis: 'y', // Configuración para barras horizontales
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    mode: 'index',
-                    intersect: false
-                },
-                title: {
-                    display: true,
-                    text: 'Uso Diario por Aplicaciones (Horas)'
-                }
+        // Datos de ejemplo MS
+        const data = [
+            {
+                date: '2024-10-28 23:52:35',
+                hour: 22,
+                apps: [
+                    { name: 'WhatsApp', minutes: 116 },
+                    { name: 'Instagram', minutes: 54 },
+                    { name: 'Facebook', minutes: 51 },
+                    { name: 'Brave', minutes: 28 },
+                    { name: 'Youtube', minutes: 25 }
+                ],
+                ranges: [23, 12, 0, 63, 63, 44, 85, 21]
             },
-            scales: {
-                x: { 
-                    stacked: true,
-                    title: { display: true, text: 'Tiempo de Uso (Horas)' },
-                    beginAtZero: true
-                },
-                y: { 
-                    stacked: true,
-                    title: { display: true, text: 'Día de la Semana' }
+            {
+                date: '2024-10-29 12:32:35',
+                hour: 17,
+                apps: [
+                    { name: 'WhatsApp', minutes: 93 },
+                    { name: 'Facebook', minutes: 73 },
+                    { name: 'Youtube', minutes: 58 },
+                    { name: 'The Battle Cats', minutes: 57 },
+                    { name: 'Telegram', minutes: 53 }
+                ],
+                ranges: [23, 12, 0, 63, 63, 32, 85, 21]
+            },
+            {
+                date: '2024-10-30 18:45:35',
+                hour: 18,
+                apps: [
+                    { name: 'Facebook', minutes: 112 },
+                    { name: 'The Battle Cats', minutes: 71 },
+                    { name: 'Brave', minutes: 65 },
+                    { name: 'Telegram', minutes: 45 },
+                    { name: 'WhatsApp', minutes: 36 }
+                ],
+                ranges: [23, 12, 0, 63, 66, 85, 63, 21]
+            },
+            {
+                date: '2024-10-31 09:22:35',
+                hour: 15,
+                apps: [
+                    { name: 'WhatsApp', minutes: 116 },
+                    { name: 'Facebook', minutes: 105 },
+                    { name: 'Instagram', minutes: 73 },
+                    { name: 'Reddit', minutes: 52 },
+                    { name: 'X', minutes: 34 }
+                ],
+                ranges: [23, 12, 0, 63, 67, 85, 63, 21]
+            },
+            {
+                date: '2024-11-01 14:45:35',
+                hour: 14,
+                apps: [
+                    { name: 'Facebook', minutes: 87 },
+                    { name: 'WhatsApp', minutes: 61 },
+                    { name: 'The Battle Cats', minutes: 35 },
+                    { name: 'PedidosYa', minutes: 27 },
+                    { name: 'Instagram', minutes: 18 }
+                ],
+                ranges: [23, 12, 0, 63, 97, 85, 21, 63]
+            },
+            {
+                date: '2024-11-02 14:45:35',
+                hour: 15,
+                apps: [
+                    { name: 'Youtube', minutes: 123 },
+                    { name: 'Telegram', minutes: 89 },
+                    { name: 'Facebook', minutes: 77 },
+                    { name: 'WhatsApp', minutes: 52 },
+                    { name: 'Instagram', minutes: 43 }
+                ],
+                ranges: [23, 63, 12, 0, 63, 32, 85, 21]
+            },
+            {
+                date: '2024-11-03 14:45:35',
+                hour: 18,
+                apps: [
+                    { name: 'Facebook', minutes: 220 },
+                    { name: 'Youtube', minutes: 193 },
+                    { name: 'WhatsApp', minutes: 68 },
+                    { name: 'Brave', minutes: 56 },
+                    { name: 'Telegram', minutes: 22 }
+                ],
+                ranges: [23, 12, 63, 0, 63, 88, 85, 21]
+            },
+            // Semana 1: 2024-11-04 a 2024-11-10
+            {
+                date: '2024-11-04 09:00:00',
+                hour: 18,
+                apps: [
+                    { name: 'WhatsApp', minutes: 87 },
+                    { name: 'Instagram', minutes: 62 },
+                    { name: 'Facebook', minutes: 58 },
+                    { name: 'Telegram', minutes: 43 },
+                    { name: 'Youtube', minutes: 24 }
+                ],
+                ranges: [23, 12, 0, 63, 123, 85, 63, 21]
+            },
+            {
+                date: '2024-11-05 18:00:00',
+                hour: 18,
+                apps: [
+                    { name: 'WhatsApp', minutes: 92 },
+                    { name: 'Facebook', minutes: 85 },
+                    { name: 'Instagram', minutes: 70 },
+                    { name: 'The Battle Cats', minutes: 56 },
+                    { name: 'Telegram', minutes: 50 }
+                ],
+                ranges: [23, 12, 0, 63, 89, 85, 63, 21]
+            },
+            {
+                date: '2024-11-06 12:00:00',
+                hour: 19,
+                apps: [
+                    { name: 'WhatsApp', minutes: 75 },
+                    { name: 'Facebook', minutes: 110 },
+                    { name: 'Instagram', minutes: 62 },
+                    { name: 'Youtube', minutes: 50 },
+                    { name: 'Telegram', minutes: 40 }
+                ],
+                ranges: [23, 63, 12, 0, 163, 123, 85, 21]
+            },
+            {
+                date: '2024-11-07 15:00:00',
+                hour: 15,
+                apps: [
+                    { name: 'WhatsApp', minutes: 106 },
+                    { name: 'Instagram', minutes: 55 },
+                    { name: 'Facebook', minutes: 75 },
+                    { name: 'Telegram', minutes: 35 },
+                    { name: 'Reddit', minutes: 28 }
+                ],
+                ranges: [23, 12, 63, 0, 63, 123, 85, 21]
+            },
+            {
+                date: '2024-11-08 21:00:00',
+                hour: 21,
+                apps: [
+                    { name: 'Facebook', minutes: 110 },
+                    { name: 'WhatsApp', minutes: 95 },
+                    { name: 'Instagram', minutes: 60 },
+                    { name: 'Youtube', minutes: 42 },
+                    { name: 'Telegram', minutes: 45 }
+                ],
+                ranges: [23, 12, 63, 0, 63, 123, 85, 21]
+            },
+            {
+                date: '2024-11-09 14:45:35',
+                hour: 13,
+                apps: [
+                    { name: 'Youtube', minutes: 135 },
+                    { name: 'Telegram', minutes: 98 },
+                    { name: 'Facebook', minutes: 110 },
+                    { name: 'WhatsApp', minutes: 60 },
+                    { name: 'Instagram', minutes: 55 }
+                ],
+                ranges: [23, 163, 12, 0, 63, 123, 85, 21]
+            },
+            {
+                date: '2024-11-10 14:45:35',
+                hour: 10,
+                apps: [
+                    { name: 'Facebook', minutes: 220 },
+                    { name: 'Youtube', minutes: 190 },
+                    { name: 'WhatsApp', minutes: 85 },
+                    { name: 'Brave', minutes: 60 },
+                    { name: 'Telegram', minutes: 30 }
+                ],
+                ranges: [23, 12, 63, 0, 63, 123, 85, 21]
+            },
+
+            // Semana 2: 2024-11-11 a 2024-11-17
+            {
+                date: '2024-11-11 23:52:35',
+                hour: 19,
+                apps: [
+                    { name: 'WhatsApp', minutes: 105 },
+                    { name: 'Instagram', minutes: 55 },
+                    { name: 'Facebook', minutes: 75 },
+                    { name: 'Telegram', minutes: 42 },
+                    { name: 'Youtube', minutes: 38 }
+                ],
+                ranges: [11, 45, 63, 30, 134, 12, 98, 0]
+            },
+            {
+                date: '2024-11-12 12:32:35',
+                hour: 17,
+                apps: [
+                    { name: 'WhatsApp', minutes: 80 },
+                    { name: 'Facebook', minutes: 90 },
+                    { name: 'Instagram', minutes: 65 },
+                    { name: 'The Battle Cats', minutes: 55 },
+                    { name: 'Telegram', minutes: 50 }
+                ],
+                ranges: [23, 63, 12, 0, 63, 123, 85, 21]
+            },
+            {
+                date: '2024-11-13 18:45:35',
+                hour: 19,
+                apps: [
+                    { name: 'Facebook', minutes: 110 },
+                    { name: 'Telegram', minutes: 85 },
+                    { name: 'WhatsApp', minutes: 60 },
+                    { name: 'Brave', minutes: 40 },
+                    { name: 'Instagram', minutes: 50 }
+                ],
+                ranges: [0, 32, 63, 56, 112, 32, 0, 53]
+            },
+            {
+                date: '2024-11-14 09:22:35',
+                hour: 21,
+                apps: [
+                    { name: 'WhatsApp', minutes: 95 },
+                    { name: 'Facebook', minutes: 80 },
+                    { name: 'Instagram', minutes: 50 },
+                    { name: 'Reddit', minutes: 30 },
+                    { name: 'X', minutes: 22 }
+                ],
+                ranges: [123, 12, 0, 63, 63, 123, 85, 21]
+            },
+            {
+                date: '2024-11-15 14:45:35',
+                hour: 22,
+                apps: [
+                    { name: 'Facebook', minutes: 120 },
+                    { name: 'WhatsApp', minutes: 85 },
+                    { name: 'The Battle Cats', minutes: 65 },
+                    { name: 'PedidosYa', minutes: 30 },
+                    { name: 'Instagram', minutes: 45 }
+                ],
+                ranges: [87, 12, 0, 63, 123, 85, 63, 21]
+            },
+            {
+                date: '2024-11-16 14:45:35',
+                hour: 15,
+                apps: [
+                    { name: 'Youtube', minutes: 145 },
+                    { name: 'Telegram', minutes: 105 },
+                    { name: 'Facebook', minutes: 120 },
+                    { name: 'WhatsApp', minutes: 70 },
+                    { name: 'Instagram', minutes: 50 }
+                ],
+                ranges: [0, 12, 0, 63, 123, 85, 21, 63]
+            },
+            {
+                date: '2024-11-17 14:45:35',
+                hour: 10,
+                apps: [
+                    { name: 'Facebook', minutes: 225 },
+                    { name: 'Youtube', minutes: 200 },
+                    { name: 'WhatsApp', minutes: 95 },
+                    { name: 'Brave', minutes: 65 },
+                    { name: 'Telegram', minutes: 40 }
+                ],
+                ranges: [0, 12, 0, 63, 123, 85, 168, 21]
+            }
+        ];
+        // Variables globales
+        let lineChartWeeklyConsumption;
+        let myChart1;
+        let stackedBarChart; // Nueva variable para el gráfico apilado
+        let heatmapChart;
+
+
+        // Función para obtener el número de semana (ISO-8601)
+        function getISOWeekNumber(date) {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0); // Ajustar la hora para evitar problemas con las fechas
+            d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7); // Ajustar al jueves de la semana
+            const week1 = new Date(d.getFullYear(), 0, 4); // Primer jueves del año
+            return Math.ceil(((d - week1) / 86400000 + 1) / 7);
+        }
+
+        // Agrupar los datos por semana utilizando la nueva función de semana ISO-8601
+        function groupDataByWeek(data) {
+            const groupedData = {};
+            data.forEach(item => {
+                const weekNumber = getISOWeekNumber(item.date); // Usamos la nueva función
+                if (!groupedData[weekNumber]) {
+                    groupedData[weekNumber] = [];
                 }
+                groupedData[weekNumber].push(item);
+            });
+            return groupedData;
+        }
+
+        // Agrupar los datos por semana
+        const dataGroupedByWeek = groupDataByWeek(data);
+
+        // Función para llenar el selector de semanas con las semanas disponibles
+        function populateWeekSelector() {
+            const weeks = Object.keys(dataGroupedByWeek);
+            const weekSelector = document.getElementById('weekSelector');
+            weekSelector.innerHTML = ''; // Limpiar el selector antes de agregar opciones
+            weeks.forEach(week => {
+                const option = document.createElement('option');
+                option.value = week;
+                option.innerText = `Semana ${week}`;
+                weekSelector.appendChild(option);
+            });
+            // Asegurarse de que haya una semana seleccionada al principio
+            if (weeks.length > 0) {
+                weekSelector.value = weeks[0];
             }
         }
-    });
-}
 
-// Actualiza los datos de ejemplo (corrigiendo `ranges`)
-data.forEach(item => {
-    if (!item.ranges) {
-        // Generar datos aleatorios si no existen
-        item.ranges = Array.from({ length: 8 }, () => Math.floor(Math.random() * 180));
-    }
-});
+        // Obtener el máximo consumo por día
+        function getProcessedDataForWeek(week) {
+            const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            const dailyMaxConsumption = {};
+            const weekData = dataGroupedByWeek[week];
+            weekData.forEach(item => {
+                const date = new Date(item.date);
+                const dayOfWeek = daysOfWeek[date.getDay()];
+                const maxConsumption = Math.max(...item.apps.map(app => app.minutes));
+                dailyMaxConsumption[dayOfWeek] = maxConsumption;
+            });
+            return dailyMaxConsumption;
+        }
+        // Gráfico de línea: Hora de mayor consumo por día
+        function generateWeeklyConsumptionGraph(week) {
+            const ctx = document.getElementById('weeklyConsumptionChart').getContext('2d');
+            if (lineChartWeeklyConsumption) lineChartWeeklyConsumption.destroy();
+            const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+            const consumptionData = getProcessedDataForWeek(week);
+            lineChartWeeklyConsumption = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: daysOfWeek,
+                    datasets: [{
+                        label: 'Hora de Mayor Consumo',
+                        data: daysOfWeek.map(day => consumptionData[day] || null),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: { responsive: true }
+            });
+        }
 
-// Obtener el contenedor del canvas del mapa de calor
-const ctxHeatmap = document.getElementById('heatmapChart').getContext('2d');
+        // Gráfico de barras: Tiempo total por día
+        function generateGraph1(week) {
+            const ctx = document.getElementById('myChart1').getContext('2d');
+            if (myChart1) myChart1.destroy();
+            const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+            const weekData = dataGroupedByWeek[week];
+            const dailyTotalUsage = daysOfWeek.reduce((acc, day) => ({ ...acc, [day]: 0 }), {});
+            weekData.forEach(item => {
+                const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
+                item.apps.forEach(app => dailyTotalUsage[dayOfWeek] += app.minutes);
+            });
+            myChart1 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: daysOfWeek,
+                    datasets: [{
+                        label: 'Tiempo Total de Consumo (Horas)',
+                        data: daysOfWeek.map(day => (dailyTotalUsage[day] / 60).toFixed(2)),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true }
+            });
+        }
 
-// Mapa de calor (sin usar `chartjs-chart-matrix`)
-// Generar el mapa de calor
-function generateHeatmap(weekData) {
-    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-    const timeRanges = [
-        '00:00-03:00', '03:00-06:00', '06:00-09:00', '09:00-12:00',
-        '12:00-15:00', '15:00-18:00', '18:00-21:00', '21:00-00:00'
-    ];
+        // Nuevo gráfico: Uso diario por aplicaciones (barras apiladas)
+        function generateStackedBarChart(week) {
+            const ctx = document.getElementById('stackedBarChart').getContext('2d');
+            if (stackedBarChart) stackedBarChart.destroy();
 
-    const heatmapData = Array(8).fill(null).map(() => Array(7).fill(0));
-    weekData.forEach(item => {
-        const dayIndex = new Date(item.date).getDay();
-        item.ranges.forEach((minutes, rangeIndex) => {
-            heatmapData[rangeIndex][dayIndex] = minutes;
+            const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+            const weekData = dataGroupedByWeek[week];
+
+            // Inicializar una estructura para almacenar tiempo por aplicación y día
+            const appUsageByDay = {};
+            daysOfWeek.forEach(day => appUsageByDay[day] = {});
+
+            // Agrupar datos por aplicación y día
+            weekData.forEach(item => {
+                const dayOfWeek = daysOfWeek[new Date(item.date).getDay()];
+                item.apps.forEach(app => {
+                    if (!appUsageByDay[dayOfWeek][app.name]) appUsageByDay[dayOfWeek][app.name] = 0;
+                    appUsageByDay[dayOfWeek][app.name] += app.minutes; // Acumular tiempo
+                });
+            });
+
+            // Obtener una lista de aplicaciones únicas
+            const uniqueApps = new Set();
+            Object.values(appUsageByDay).forEach(apps => Object.keys(apps).forEach(app => uniqueApps.add(app)));
+
+            // Generar los datasets para Chart.js
+            const datasets = Array.from(uniqueApps).map(appName => ({
+                label: appName,
+                data: daysOfWeek.map(day => (appUsageByDay[day][appName] || 0) / 60), // Convertir minutos a horas
+                stack: 'stack1',
+                backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Color aleatorio
+                borderColor: '#fff',
+                borderWidth: 1
+            }));
+
+            // Crear gráfico de barras horizontales apiladas
+            stackedBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: daysOfWeek, // Eje Y: días de la semana
+                    datasets: datasets  // Datos apilados por aplicación
+                },
+                options: {
+                    indexAxis: 'y', // Configuración para barras horizontales
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uso Diario por Aplicaciones (Horas)'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            title: { display: true, text: 'Tiempo de Uso (Horas)' },
+                            beginAtZero: true
+                        },
+                        y: {
+                            stacked: true,
+                            title: { display: true, text: 'Día de la Semana' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Actualiza los datos de ejemplo (corrigiendo `ranges`)
+        data.forEach(item => {
+            if (!item.ranges) {
+                // Generar datos aleatorios si no existen
+                item.ranges = Array.from({ length: 8 }, () => Math.floor(Math.random() * 180));
+            }
         });
-    });
 
-    const flatData = [];
-    heatmapData.forEach((row, y) => {
-        row.forEach((value, x) => {
-            flatData.push({ x, y, v: value });
-        });
-    });
+        // Obtener el contenedor del canvas del mapa de calor
+        const ctxHeatmap = document.getElementById('heatmapChart').getContext('2d');
 
-    const ctx = document.getElementById('heatmapChart').getContext('2d');
-    if (heatmapChart) heatmapChart.destroy();
+        // Mapa de calor (sin usar `chartjs-chart-matrix`)
+        // Generar el mapa de calor
+        function generateHeatmap(weekData) {
+            const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+            const timeRanges = [
+                '00:00-03:00', '03:00-06:00', '06:00-09:00', '09:00-12:00',
+                '12:00-15:00', '15:00-18:00', '18:00-21:00', '21:00-00:00'
+            ];
 
-    // Función para calcular el color basado en el valor
-    function calculateColor(value, min = 0, max = 180) {
-        const ratio = (value - min) / (max - min); // Normalizar valor entre 0 y 1
-        const r = Math.floor(255 * ratio); // Incrementar rojo proporcionalmente
-        const g = Math.floor(255 * (1 - ratio)); // Decrementar verde proporcionalmente
-        const b = 0; // Azul constante (puedes ajustar si es necesario)
-        return `rgba(${r}, ${g}, ${b}, 0.8)`; // Color con opacidad del 80%
-    }
+            const heatmapData = Array(8).fill(null).map(() => Array(7).fill(0));
+            weekData.forEach(item => {
+                const dayIndex = new Date(item.date).getDay();
+                item.ranges.forEach((minutes, rangeIndex) => {
+                    heatmapData[rangeIndex][dayIndex] = minutes;
+                });
+            });
+
+            const flatData = [];
+            heatmapData.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    flatData.push({ x, y, v: value });
+                });
+            });
+
+            const ctx = document.getElementById('heatmapChart').getContext('2d');
+            if (heatmapChart) heatmapChart.destroy();
+
+            // Función para calcular el color basado en el valor
+            function calculateColor(value, min = 0, max = 180) {
+                const ratio = (value - min) / (max - min); // Normalizar valor entre 0 y 1
+                const r = Math.floor(255 * ratio); // Incrementar rojo proporcionalmente
+                const g = Math.floor(255 * (1 - ratio)); // Decrementar verde proporcionalmente
+                const b = 0; // Azul constante (puedes ajustar si es necesario)
+                return `rgba(${r}, ${g}, ${b}, 0.8)`; // Color con opacidad del 80%
+            }
 
 
-    heatmapChart = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Mapa de Calor',
-                data: flatData,
-                pointBackgroundColor: flatData.map(d => calculateColor(d.v)), // Escala de color
-                pointRadius: ({ raw }) => Math.max(5, raw.v / 10) // Escala de tamaño del punto
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const minutes = context.raw.v; // Valor en minutos
-                            if (minutes < 60) {
-                                return `${minutes} min `;
-                            } else {
-                                const hours = Math.floor(minutes / 60);
-                                const remainingMinutes = minutes % 60;
-                                return `${hours}h ${remainingMinutes}min`;
+            heatmapChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Mapa de Calor',
+                        data: flatData,
+                        pointBackgroundColor: flatData.map(d => calculateColor(d.v)), // Escala de color
+                        pointRadius: ({ raw }) => Math.max(5, raw.v / 10) // Escala de tamaño del punto
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const minutes = context.raw.v; // Valor en minutos
+                                    if (minutes < 60) {
+                                        return `${minutes} min `;
+                                    } else {
+                                        const hours = Math.floor(minutes / 60);
+                                        const remainingMinutes = minutes % 60;
+                                        return `${hours}h ${remainingMinutes}min`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Días de la semana' },
+                            ticks: {
+                                callback: (val) => daysOfWeek[val] || '',
+                                maxRotation: 0,
+                                minRotation: 0
+                            }
+                        },
+                        y: {
+                            title: { display: true, text: 'Rango horario' },
+                            reverse: true,
+                            ticks: {
+                                callback: (val) => timeRanges[val] || '',
+                                stepSize: 1
                             }
                         }
                     }
                 }
-            },
-            scales: {
-                x: {
-                    title: { display: true, text: 'Días de la semana' },
-                    ticks: {
-                        callback: (val) => daysOfWeek[val] || '',
-                        maxRotation: 0,
-                        minRotation: 0
-                    }
-                },
-                y: {
-                    title: { display: true, text: 'Rango horario' },
-                    reverse: true,
-                    ticks: {
-                        callback: (val) => timeRanges[val] || '',
-                        stepSize: 1
-                    }
-                }
-            }
+            });
         }
-    });
-}
 
-
-
-// Actualización de gráficos al cambiar la semana
-function updateGraph() {
-    const selectedWeek = document.getElementById('weekSelector').value;
-    const weekData = dataGroupedByWeek[selectedWeek];
-    if (!weekData) {
-        console.error(`No hay datos disponibles para la semana ${selectedWeek}`);
-        return;
-    }
-    generateHeatmap(dataGroupedByWeek[selectedWeek]); // Actualizar mapa de calor con la semana seleccionada
-
-    generateWeeklyConsumptionGraph(selectedWeek);
-    generateGraph1(selectedWeek);
-    generateStackedBarChart(selectedWeek);
-}
-
-// Inicialización
-populateWeekSelector();
-updateGraph();
-</script>
-
-<script>
-    //PARA PASTEL    
-    const userSelect = document.getElementById('user-select');
-    const pieChartCtx = document.getElementById('pieChart').getContext('2d');
-    const barChartCtx = document.getElementById('barChart').getContext('2d');
-
-    let pieChart, barChart;
-
-    async function fetchReportes(email = '') {
-        const response = await fetch(`/get-reportes?email=${email}`);
-        const reportes = await response.json();
-        return reportes;
-    }
-    function generateCharts(reportes) {
-        const now = new Date();
-        const yesterday = new Date();
-        yesterday.setDate(now.getDate() - 1);
-    
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    
-        // **Datos para el gráfico de barras (día anterior)**
-        const appUsageYesterday = {};
-        reportes.forEach(reporte => {
-            const reportDate = new Date(reporte.fecha);
-            if (
-                reportDate.getDate() === yesterday.getDate() &&
-                reportDate.getMonth() === yesterday.getMonth() &&
-                reportDate.getFullYear() === yesterday.getFullYear()
-            ) {
-                const apps = [
-                    { name: reporte.packageName1, time: reporte.tiempoUso1 },
-                    { name: reporte.packageName2, time: reporte.tiempoUso2 },
-                    { name: reporte.packageName3, time: reporte.tiempoUso3 },
-                    { name: reporte.packageName4, time: reporte.tiempoUso4 },
-                    { name: reporte.packageName5, time: reporte.tiempoUso5 },
-                ];
-    
-                apps.forEach(app => {
-                    if (app.name in appUsageYesterday) {
-                        appUsageYesterday[app.name] += app.time;
-                    } else {
-                        appUsageYesterday[app.name] = app.time;
-                    }
-                });
+        // Actualización de gráficos al cambiar la semana
+        function updateGraph() {
+            const selectedWeek = document.getElementById('weekSelector').value;
+            const weekData = dataGroupedByWeek[selectedWeek];
+            if (!weekData) {
+                console.error(`No hay datos disponibles para la semana ${selectedWeek}`);
+                return;
             }
-        });
-    
-        const labelsBar = Object.keys(appUsageYesterday);
-        const dataBar = Object.values(appUsageYesterday);
-    
-        // **Datos para el gráfico de pastel (mes)**
-        const appUsageMonth = {};
-        reportes.forEach(reporte => {
-            const reportDate = new Date(reporte.fecha);
-            if (reportDate >= startOfMonth && reportDate <= now) {
-                const apps = [
-                    { name: reporte.packageName1, time: reporte.tiempoUso1 },
-                    { name: reporte.packageName2, time: reporte.tiempoUso2 },
-                    { name: reporte.packageName3, time: reporte.tiempoUso3 },
-                    { name: reporte.packageName4, time: reporte.tiempoUso4 },
-                    { name: reporte.packageName5, time: reporte.tiempoUso5 },
-                ];
-    
-                apps.forEach(app => {
-                    if (app.name in appUsageMonth) {
-                        appUsageMonth[app.name] += app.time;
-                    } else {
-                        appUsageMonth[app.name] = app.time;
-                    }
-                });
-            }
-        });
-    
-        const sortedAppUsageMonth = Object.entries(appUsageMonth).sort((a, b) => b[1] - a[1]).slice(0, 5);
-        const labelsPie = sortedAppUsageMonth.map(item => item[0]);
-        const dataPie = sortedAppUsageMonth.map(item => item[1]);
-    
-        // **Actualizar gráfico de barras**
-        if (barChart) barChart.destroy();
-        barChart = new Chart(barChartCtx, {
-            type: 'bar',
-            data: {
-                labels: labelsBar,
-                datasets: [{
-                    label: 'Tiempo de Uso (min)',
-                    data: dataBar,
-                    backgroundColor: '#FF6384',
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    }
-                }
-            }
-        });
-    
-        // **Actualizar gráfico de pastel**
-        if (pieChart) pieChart.destroy();
-        pieChart = new Chart(pieChartCtx, {
-            type: 'pie',
-            data: {
-                labels: labelsPie,
-                datasets: [{
-                    data: dataPie,
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-                }]
-            },
-            options: {
-                responsive: true,
-            }
-        });
-    }
-    
-    async function updateCharts() {
-        const email = userSelect.value;
-        const reportes = await fetchReportes(email);
-        generateCharts(reportes);
-    }
-    
-    // Evento para actualizar gráficos al cambiar el usuario
-    userSelect.addEventListener('change', updateCharts);
-    
-    // Inicializar gráficos con datos generales
-    updateCharts();
+            generateHeatmap(dataGroupedByWeek[selectedWeek]); // Actualizar mapa de calor con la semana seleccionada
 
+            generateWeeklyConsumptionGraph(selectedWeek);
+            generateGraph1(selectedWeek);
+            generateStackedBarChart(selectedWeek);
+        }
 
-        
-        // Crear gráfico de barras
-        /*const barChartCtx = document.getElementById('barChart').getContext('2d');
-        const barChart = new Chart(barChartCtx, {
-            type: 'bar',
-            data: {
-                labels: data.map(item => item.packageName1),
-                datasets: [{
-                    label: 'Tiempo de Uso (min)',
-                    data: data.map(item => item.tiempoUso1),
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
+        // Inicialización
+        populateWeekSelector();
+        updateGraph();
+    </script>
+
+    <script>
+        //PARA PASTEL    
+        const userSelect = document.getElementById('user-select');
+        const pieChartCtx = document.getElementById('pieChart').getContext('2d');
+        const barChartCtx = document.getElementById('barChart').getContext('2d');
+
+        let pieChart, barChart;
+
+        async function fetchReportes(email = '') {
+            const response = await fetch(`/get-reportes?email=${email}`);
+            const reportes = await response.json();
+            return reportes;
+        }
+        function generateCharts(reportes) {
+            const now = new Date();
+            const yesterday = new Date();
+            yesterday.setDate(now.getDate() - 1);
+
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+            // **Datos para el gráfico de barras (día anterior)**
+            const appUsageYesterday = {};
+            reportes.forEach(reporte => {
+                const reportDate = new Date(reporte.fecha);
+                if (
+                    reportDate.getDate() === yesterday.getDate() &&
+                    reportDate.getMonth() === yesterday.getMonth() &&
+                    reportDate.getFullYear() === yesterday.getFullYear()
+                ) {
+                    const apps = [
+                        { name: reporte.packageName1, time: reporte.tiempoUso1 },
+                        { name: reporte.packageName2, time: reporte.tiempoUso2 },
+                        { name: reporte.packageName3, time: reporte.tiempoUso3 },
+                        { name: reporte.packageName4, time: reporte.tiempoUso4 },
+                        { name: reporte.packageName5, time: reporte.tiempoUso5 },
+                    ];
+
+                    apps.forEach(app => {
+                        if (app.name in appUsageYesterday) {
+                            appUsageYesterday[app.name] += app.time;
+                        } else {
+                            appUsageYesterday[app.name] = app.time;
                         }
+                    });
+                }
+            });
+
+            const labelsBar = Object.keys(appUsageYesterday);
+            const dataBar = Object.values(appUsageYesterday);
+
+            // **Datos para el gráfico de pastel (mes)**
+            const appUsageMonth = {};
+            reportes.forEach(reporte => {
+                const reportDate = new Date(reporte.fecha);
+                if (reportDate >= startOfMonth && reportDate <= now) {
+                    const apps = [
+                        { name: reporte.packageName1, time: reporte.tiempoUso1 },
+                        { name: reporte.packageName2, time: reporte.tiempoUso2 },
+                        { name: reporte.packageName3, time: reporte.tiempoUso3 },
+                        { name: reporte.packageName4, time: reporte.tiempoUso4 },
+                        { name: reporte.packageName5, time: reporte.tiempoUso5 },
+                    ];
+
+                    apps.forEach(app => {
+                        if (app.name in appUsageMonth) {
+                            appUsageMonth[app.name] += app.time;
+                        } else {
+                            appUsageMonth[app.name] = app.time;
+                        }
+                    });
+                }
+            });
+
+            const sortedAppUsageMonth = Object.entries(appUsageMonth).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const labelsPie = sortedAppUsageMonth.map(item => item[0]);
+            const dataPie = sortedAppUsageMonth.map(item => item[1]);
+
+            // **Actualizar gráfico de barras**
+            if (barChart) barChart.destroy();
+            barChart = new Chart(barChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: labelsBar,
+                    datasets: [{
+                        label: 'Tiempo de Uso (min)',
+                        data: dataBar,
+                        backgroundColor: '#FF6384',
                     }]
                 },
-                responsive: true,
-                legend: {
-                    position: 'right'
-                },
-                elements: {
-                    bar: {
-                        borderWidth: 2,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
                     }
-                },
-                title: {
-                    display: true,
-                    text: 'Uso de Aplicaciones Móviles'
                 }
-            }
-        });
-        
-        */
-        /*
-        // Crear gráfico lineal del último mes
-        const monthlyLineChartCtx = document.getElementById('monthlyLineChart').getContext('2d');
-        const monthlyLineChart = new Chart(monthlyLineChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-                datasets: [{
-                    label: 'Uso de Youtube',
-                    data: [58, 64, 55, 62],
-                    borderColor: '#FF6384',
-                    fill: false
-                },
-                {
-                    label: 'Uso de Miapp',
-                    data: [175, 180, 190, 200],
-                    borderColor: '#36A2EB',
-                    fill: false
-                },
-                {
-                    label: 'Uso de Twitter',
-                    data: [19, 20, 21, 18],
-                    borderColor: '#FFCE56',
-                    fill: false
-                },
-                {
-                    label: 'Uso de NexusLauncher',
-                    data: [17, 16, 18, 17],
-                    borderColor: '#4BC0C0',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
+            });
 
-        // Crear gráfico lineal de la última semana
-        const weeklyLineChartCtx = document.getElementById('weeklyLineChart').getContext('2d');
-        const weeklyLineChart = new Chart(weeklyLineChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-                datasets: [{
-                    label: 'Uso de Youtube',
-                    data: [10, 15, 12, 20, 18, 25, 22],
-                    borderColor: '#FF6384',
-                    fill: false
+            // **Actualizar gráfico de pastel**
+            if (pieChart) pieChart.destroy();
+            pieChart = new Chart(pieChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: labelsPie,
+                    datasets: [{
+                        data: dataPie,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    }]
                 },
-                {
-                    label: 'Uso de Miapp',
-                    data: [30, 28, 35, 32, 38, 40, 42],
-                    borderColor: '#36A2EB',
-                    fill: false
-                },
-                {
-                    label: 'Uso de Twitter',
-                    data: [5, 7, 6, 8, 9, 10, 11],
-                    borderColor: '#FFCE56',
-                    fill: false
-                },
-                {
-                    label: 'Uso de NexusLauncher',
-                    data: [4, 5, 6, 4, 5, 6, 7],
-                    borderColor: '#4BC0C0',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
+                options: {
+                    responsive: true,
+                }
+            });
+        }
 
-        // Crear gráfico lineal del último día
-        const dailyLineChartCtx = document.getElementById('dailyLineChart').getContext('2d');
-        const dailyLineChart = new Chart(dailyLineChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12', '12-13', '13-14', '14-15', '15-16', '16-17', '17-18', '18-19', '19-20', '20-21', '21-22', '22-23', '23-24'],
-                datasets: [{
-                    label: 'Uso de Youtube',
-                    data: [2, 3, 2, 4, 3, 5, 6, 7, 6, 8, 9, 7, 8, 9, 10, 11, 12, 10, 9, 8, 7, 6, 5, 4],
-                    borderColor: '#FF6384',
-                    fill: false
-                },
-                {
-                    label: 'Uso de Miapp',
-                    data: [5, 6, 5, 7, 6, 8, 9, 10, 11, 12, 13, 14, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4],
-                    borderColor: '#36A2EB',
-                    fill: false
-                },
-                {
-                    label: 'Uso de Twitter',
-                    data: [1, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7],
-                    borderColor: '#FFCE56',
-                    fill: false
-                },
-                {
-                    label: 'Uso de NexusLauncher',
-                    data: [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8],
-                    borderColor: '#4BC0C0',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
-*/
+        async function updateCharts() {
+            const email = userSelect.value;
+            const reportes = await fetchReportes(email);
+            generateCharts(reportes);
+        }
 
+        // Evento para actualizar gráficos al cambiar el usuario
+        userSelect.addEventListener('change', updateCharts);
+
+        // Inicializar gráficos con datos generales
+        updateCharts();
+
+        // Funcion para tabla reportes 
         fetch('/get-reportes')
             .then(response => response.json())
             .then(reportes => {
@@ -1136,6 +1005,7 @@ updateGraph();
                 const itemsPerPage = 15;
                 let currentPage = 1;
                 let filteredData = reportes; // Inicialmente mostramos todos los datos
+                let currentReportType = 'general'; // Tipo de reporte inicial
 
                 function renderTable(data) {
                     dataTableBody.innerHTML = '';
@@ -1146,25 +1016,25 @@ updateGraph();
                     currentData.forEach(item => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                        <td>${item.email}</td>
-                        <td>${item.fecha}</td>
-                        <td>${item.mayorConsumo}</td>
-                        <td>${item.packageName1}</td>
-                        <td>${item.tiempoUso1}</td>
-                        <td>${item.packageName2}</td>
-                        <td>${item.tiempoUso2}</td>
-                        <td>${item.packageName3}</td>
-                        <td>${item.tiempoUso3}</td>
-                        <td>${item.packageName4}</td>
-                        <td>${item.tiempoUso4}</td>
-                        <td>${item.packageName5}</td>
-                        <td>${item.tiempoUso5}</td>
-                        <td>
-                            <form action="/delete-reporte" method="POST">
-                                <input type="hidden" name="reporteId" value="${item._id}">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </td>`;
+                            <td>${item.email}</td>
+                            <td>${item.fecha}</td>
+                            <td>${item.mayorConsumo}</td>
+                            <td>${item.packageName1}</td>
+                            <td>${item.tiempoUso1}</td>
+                            <td>${item.packageName2}</td>
+                            <td>${item.tiempoUso2}</td>
+                            <td>${item.packageName3}</td>
+                            <td>${item.tiempoUso3}</td>
+                            <td>${item.packageName4}</td>
+                            <td>${item.tiempoUso4}</td>
+                            <td>${item.packageName5}</td>
+                            <td>${item.tiempoUso5}</td>
+                            <td>
+                                <form action="/delete-reporte" method="POST">
+                                    <input type="hidden" name="reporteId" value="${item._id}">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </td>`;
                         dataTableBody.appendChild(row);
                     });
 
@@ -1174,9 +1044,9 @@ updateGraph();
                     paginationInfo.textContent = `Mostrando ${startItem} a ${endItem} de ${data.length} registros`;
                     pageInfo.textContent = `Página ${currentPage}`;
 
-                    // Mostrar botones de navegación una vez que se ha renderizado la tabla
-                    prevPageBtn.style.display = 'inline-block';
-                    nextPageBtn.style.display = 'inline-block';
+                    // Habilitar o deshabilitar botones de navegación según la página actual
+                    prevPageBtn.disabled = currentPage === 1;
+                    nextPageBtn.disabled = endIndex >= data.length;
                 }
 
                 function filterData() {
@@ -1236,151 +1106,31 @@ updateGraph();
                 console.error('Error al obtener reportes:', err);
             });
 
-
-        // Obtener la lista de preferencias de usuario al cargar la página
-        fetch('/get-user-preferences')
-            .then(response => response.json())
-            .then(userPreferences => {
-                const dataTableBodyUserP = document.getElementById('data-table-body_userP');
-                const searchInputUserP = document.getElementById('search-input-userP'); // Asumiendo que tienes un input de búsqueda para esta tabla
-                let data = userPreferences;
-
-                function renderTable(data) {
-                    dataTableBodyUserP.innerHTML = '';
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                <td>${item.email}</td>
-                <td>${item.periodo}</td>
-                <td>${item.mascota}</td>
-                <td>${item.responsabilidadesEnCasa}</td>
-                <td>${item.horarioClases}</td>
-                <td>${item.espacioOrdenado}</td>
-                <td>${item.actividadesAireLibre}</td>
-                <td>${item.actividadesEnCasa}</td>
-                <td>${item.motivacion}</td>
-                <td>
-                            <form action="/delete-user-preference" method="POST">
-                                <input type="hidden" name="userPreferenceId" value="${item._id}">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </td>
-            `;
-                        dataTableBodyUserP.appendChild(row);
-                    });
-                }
-                //busqueda por caracter
-                function filterData() {
-                    const searchTerm = searchInputUserP.value.toLowerCase();
-                    const filteredData = data.filter(item => item.email.toLowerCase().includes(searchTerm));
-                    renderTable(filteredData);
-                }
-
-                searchInputUserP.addEventListener('input', filterData);
-
-                // Inicializar la tabla con todos los datos
-                renderTable(data);
-            })
-            .catch(err => {
-                console.error('Error al obtener userPreferences:', err);
-            });
-
-        // Cargar los datos de la tabla de UserProfileGemini
-        fetch('/get-user-profile-gemini')
-            .then(response => response.json())
-            .then(userProfileGemini => {
-                const dataTableBodyGemini = document.getElementById('data-table-body-gemini');
-                const searchInputGemini = document.getElementById('search-input-gemini');
-                let data = userProfileGemini;
-
-                function renderTable(data) {
-                    dataTableBodyGemini.innerHTML = '';
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                <td>${item.email}</td>
-                <td>${item.respuestaGemini}</td>
-                <td>
-                    <form action="/delete-user-profile-gemini" method="POST">
-                        <input type="hidden" name="userProfileGeminiId" value="${item._id}">
-                        <button type="submit">Eliminar</button>
-                    </form>
-                </td>
-            `;
-                        dataTableBodyGemini.appendChild(row);
-                    });
-                }
-
-                function filterData() {
-                    const searchTerm = searchInputGemini.value.toLowerCase();
-                    const filteredData = data.filter(item => item.email.toLowerCase().includes(searchTerm));
-                    renderTable(filteredData);
-                }
-
-                searchInputGemini.addEventListener('input', filterData);
-
-                renderTable(data);
-            })
-            .catch(err => {
-                console.error('Error al obtener userProfileGemini:', err);
-            });
-
-    // Cargar los datos de la tabla de UserProfileGemini
-    fetch('/get-activity-gemini')
+        // Funcion para tabla usuario registrados 
+        fetch('/get-user-register')
         .then(response => response.json())
-        .then(activityGemini => {
-            const dataTableBodyGemini = document.getElementById('data-table-body-actividadGemini');
-            const searchInputactividadGemini = document.getElementById('search-input-actividadGemini');
-            let data = activityGemini;
+        .then(userRegister => {
+            const dataTableBodyUserRegister = document.getElementById('data-table-body_userRegister');
+            const searchInputUserR = document.getElementById('search-input-userR');
+            const paginationInfoUserR = document.getElementById('pagination-info-userR');
+            const pageInfoUserR = document.getElementById('page-info-userR');
+            const prevPageBtnUserR = document.getElementById('prev-page-userR');
+            const nextPageBtnUserR = document.getElementById('next-page-userR');
 
+            const itemsPerPage = 15; // Número de elementos por página
+            let currentPage = 1; // Página actual
+            let filteredData = userRegister; // Datos filtrados (inicialmente todos los datos)
+
+            // Función para renderizar la tabla
             function renderTable(data) {
-                dataTableBodyGemini.innerHTML = '';
-                data.forEach(item => {
+                dataTableBodyUserRegister.innerHTML = '';
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentData = data.slice(startIndex, endIndex);
+
+                currentData.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-      <td>${item.emailUser}</td>
-       <td>${item.horaActual}</td>
-        <td>${item.promptConsultaGemini}</td>
-         <td>${item.respuestaConsultaGemini}</td>
-         
-      <td>
-          <form action="/delete-activity-gemini" method="POST">
-              <input type="hidden" name="ActividadesAlternativasId" value="${item._id}">
-              <button type="submit">Eliminar</button>
-          </form>
-      </td>
-  `;
-                    dataTableBodyGemini.appendChild(row);
-                });
-            }
-
-            function filterData() {
-                const searchTerm = searchInputactividadGemini.value.toLowerCase();
-                const filteredData = data.filter(item => item.email.toLowerCase().includes(searchTerm));
-                renderTable(filteredData);
-            }
-
-            searchInputactividadGemini.addEventListener('input', filterData);
-
-            renderTable(data);
-        })
-        .catch(err => {
-            console.error('Error al obtener activityGemini:', err);
-        });
-
-        // Obtener la lista de preferencias de usuario al cargar la página
-        fetch('/get-user-register')
-            .then(response => response.json())
-            .then(userRegister => {
-                const dataTableBodyUserRegister = document.getElementById('data-table-body_userRegister');
-                const searchInputUserR = document.getElementById('search-input-userR'); // Asumiendo que tienes un input de búsqueda para esta tabla
-                let data = userRegister;
-
-                function renderTable(data) {
-                    dataTableBodyUserRegister.innerHTML = '';
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
             <td>${item.email}</td>
             <td>${item.cedula}</td>
             <td>${item.edad}</td>
@@ -1388,36 +1138,324 @@ updateGraph();
             <td>${item.so}</td>
             <td>${item.movilidad}</td>
             <td>${item.tiempoDiario}</td>
-                            <td>
-                            <form action="/delete-user-register" method="POST">
-                                <input type="hidden" name="userRegisterId" value="${item._id}">
+            <td>
+                <form action="/delete-user-register" method="POST">
+                    <input type="hidden" name="userRegisterId" value="${item._id}">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        `;
+                    dataTableBodyUserRegister.appendChild(row);
+                });
+
+                // Actualizar información de paginación
+                const startItem = startIndex + 1;
+                const endItem = Math.min(startIndex + itemsPerPage, data.length);
+                paginationInfoUserR.textContent = `Mostrando ${startItem} a ${endItem} de ${data.length} registros`;
+                pageInfoUserR.textContent = `Página ${currentPage}`;
+
+                // Habilitar o deshabilitar botones de navegación según la página actual
+                prevPageBtnUserR.disabled = currentPage === 1;
+                nextPageBtnUserR.disabled = endIndex >= data.length;
+            }
+
+            // Función para filtrar datos
+            function filterData() {
+                const searchTerm = searchInputUserR.value.toLowerCase();
+                filteredData = userRegister.filter(item => item.cedula.toLowerCase().includes(searchTerm));
+                currentPage = 1; // Reiniciar a la primera página al aplicar filtros
+                renderTable(filteredData);
+            }
+
+            // Evento para filtrar datos al escribir en el campo de búsqueda
+            searchInputUserR.addEventListener('input', filterData);
+
+            // Evento para navegar a la página anterior
+            prevPageBtnUserR.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Evento para navegar a la página siguiente
+            nextPageBtnUserR.addEventListener('click', () => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                if (startIndex + itemsPerPage < filteredData.length) {
+                    currentPage++;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Inicializar la tabla con todos los datos
+            renderTable(filteredData);
+        })
+        .catch(err => {
+            console.error('Error al obtener userRegister:', err);
+        });
+
+        // Funcion para tabla perfil de usuario 
+       fetch('/get-user-preferences')
+        .then(response => response.json())
+        .then(userPreferences => {
+            const dataTableBodyUserP = document.getElementById('data-table-body_userP');
+            const searchInputUserP = document.getElementById('search-input-userP');
+            const paginationInfoUserP = document.getElementById('pagination-info-userP');
+            const pageInfoUserP = document.getElementById('page-info-userP');
+            const prevPageBtnUserP = document.getElementById('prev-page-userP');
+            const nextPageBtnUserP = document.getElementById('next-page-userP');
+
+            const itemsPerPage = 15; // Número de elementos por página
+            let currentPage = 1; // Página actual
+            let filteredData = userPreferences; // Datos filtrados (inicialmente todos los datos)
+
+            // Función para renderizar la tabla
+            function renderTable(data) {
+                dataTableBodyUserP.innerHTML = '';
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentData = data.slice(startIndex, endIndex);
+
+                currentData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.email}</td>
+                        <td>${item.periodo}</td>
+                        <td>${item.mascota}</td>
+                        <td>${item.responsabilidadesEnCasa}</td>
+                        <td>${item.horarioClases}</td>
+                        <td>${item.espacioOrdenado}</td>
+                        <td>${item.actividadesAireLibre}</td>
+                        <td>${item.actividadesEnCasa}</td>
+                        <td>${item.motivacion}</td>
+                        <td>
+                            <form action="/delete-user-preference" method="POST">
+                                <input type="hidden" name="userPreferenceId" value="${item._id}">
                                 <button type="submit">Eliminar</button>
                             </form>
                         </td>
-        `;
-                        dataTableBodyUserRegister.appendChild(row);
-                    });
-                }
-                //busqueda por caracter
-                function filterData() {
-                    const searchTerm = searchInputUserR.value.toLowerCase();
-                    const filteredData = data.filter(item => item.email.toLowerCase().includes(searchTerm));
+                    `;
+                    dataTableBodyUserP.appendChild(row);
+                });
+
+                // Actualizar información de paginación
+                const startItem = startIndex + 1;
+                const endItem = Math.min(startIndex + itemsPerPage, data.length);
+                paginationInfoUserP.textContent = `Mostrando ${startItem} a ${endItem} de ${data.length} registros`;
+                pageInfoUserP.textContent = `Página ${currentPage}`;
+
+                // Habilitar o deshabilitar botones de navegación según la página actual
+                prevPageBtnUserP.disabled = currentPage === 1;
+                nextPageBtnUserP.disabled = endIndex >= data.length;
+            }
+
+            // Función para filtrar datos
+            function filterData() {
+                const searchTerm = searchInputUserP.value.toLowerCase();
+                filteredData = userPreferences.filter(item => item.email.toLowerCase().includes(searchTerm));
+                currentPage = 1; // Reiniciar a la primera página al aplicar filtros
+                renderTable(filteredData);
+            }
+
+            // Evento para filtrar datos al escribir en el campo de búsqueda
+            searchInputUserP.addEventListener('input', filterData);
+
+            // Evento para navegar a la página anterior
+            prevPageBtnUserP.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
                     renderTable(filteredData);
                 }
-
-                searchInputUserR.addEventListener('input', filterData);
-
-                // Inicializar la tabla con todos los datos
-                renderTable(data);
-            })
-            .catch(err => {
-                console.error('Error al obtener userRegister:', err);
             });
 
+            // Evento para navegar a la página siguiente
+            nextPageBtnUserP.addEventListener('click', () => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                if (startIndex + itemsPerPage < filteredData.length) {
+                    currentPage++;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Inicializar la tabla con todos los datos
+            renderTable(filteredData);
+        })
+        .catch(err => {
+            console.error('Error al obtener userPreferences:', err);
+        });
+
+        // Funcion para tabla perfil de usuario GEMINI 
+        fetch('/get-user-profile-gemini')
+        .then(response => response.json())
+        .then(userProfileGemini => {
+            const dataTableBodyGemini = document.getElementById('data-table-body-gemini');
+            const searchInputGemini = document.getElementById('search-input-gemini');
+            const paginationInfoGemini = document.getElementById('pagination-info-gemini');
+            const pageInfoGemini = document.getElementById('page-info-gemini');
+            const prevPageBtnGemini = document.getElementById('prev-page-gemini');
+            const nextPageBtnGemini = document.getElementById('next-page-gemini');
+
+            const itemsPerPage = 15; // Número de elementos por página
+            let currentPage = 1; // Página actual
+            let filteredData = userProfileGemini; // Datos filtrados (inicialmente todos los datos)
+
+            // Función para renderizar la tabla
+            function renderTable(data) {
+                dataTableBodyGemini.innerHTML = '';
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentData = data.slice(startIndex, endIndex);
+
+                currentData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.email}</td>
+                        <td>${item.respuestaGemini}</td>
+                        <td>
+                            <form action="/delete-user-profile-gemini" method="POST">
+                                <input type="hidden" name="userProfileGeminiId" value="${item._id}">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    `;
+                    dataTableBodyGemini.appendChild(row);
+                });
+
+                // Actualizar información de paginación
+                const startItem = startIndex + 1;
+                const endItem = Math.min(startIndex + itemsPerPage, data.length);
+                paginationInfoGemini.textContent = `Mostrando ${startItem} a ${endItem} de ${data.length} registros`;
+                pageInfoGemini.textContent = `Página ${currentPage}`;
+
+                // Habilitar o deshabilitar botones de navegación según la página actual
+                prevPageBtnGemini.disabled = currentPage === 1;
+                nextPageBtnGemini.disabled = endIndex >= data.length;
+            }
+
+            // Función para filtrar datos
+            function filterData() {
+                const searchTerm = searchInputGemini.value.toLowerCase();
+                filteredData = userProfileGemini.filter(item => item.email.toLowerCase().includes(searchTerm));
+                currentPage = 1; // Reiniciar a la primera página al aplicar filtros
+                renderTable(filteredData);
+            }
+
+            // Evento para filtrar datos al escribir en el campo de búsqueda
+            searchInputGemini.addEventListener('input', filterData);
+
+            // Evento para navegar a la página anterior
+            prevPageBtnGemini.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Evento para navegar a la página siguiente
+            nextPageBtnGemini.addEventListener('click', () => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                if (startIndex + itemsPerPage < filteredData.length) {
+                    currentPage++;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Inicializar la tabla con todos los datos
+            renderTable(filteredData);
+        })
+        .catch(err => {
+            console.error('Error al obtener userProfileGemini:', err);
+        });
+
+        // Funcion para tabla actividades alternativas
+        fetch('/get-activity-gemini')
+        .then(response => response.json())
+        .then(activityGemini => {
+            const dataTableBodyGemini = document.getElementById('data-table-body-actividadGemini');
+            const searchInputactividadGemini = document.getElementById('search-input-actividadGemini');
+            const paginationInfoGemini = document.getElementById('pagination-info-1');
+            const prevPageBtnGemini = document.getElementById('prevPageBtn');
+            const nextPageBtnGemini = document.getElementById('nextPageBtn');
+            const pageNumber = document.getElementById('page-number');
+
+            const itemsPerPage = 12; // Número de elementos por página
+            let currentPage = 1; // Página actual
+            let filteredData = activityGemini; // Datos filtrados (inicialmente todos los datos)
+
+            // Función para renderizar la tabla
+            function renderTable(data) {
+                dataTableBodyGemini.innerHTML = '';
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentData = data.slice(startIndex, endIndex);
+
+                currentData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.emailUser}</td>
+                        <td>${item.horaActual}</td>
+                        <td>${item.promptConsultaGemini}</td>
+                        <td>${item.respuestaConsultaGemini}</td>
+                        <td>
+                            <form action="/delete-activity-gemini" method="POST">
+                                <input type="hidden" name="ActividadesAlternativasId" value="${item._id}">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    `;
+                    dataTableBodyGemini.appendChild(row);
+                });
+
+                // Actualizar información de paginación
+                const startItem = startIndex + 1;
+                const endItem = Math.min(startIndex + itemsPerPage, data.length);
+                paginationInfoGemini.textContent = `Mostrando ${startItem} a ${endItem} de ${data.length} registros`;
+                pageNumber.textContent = `Página ${currentPage}`;
+
+                // Habilitar o deshabilitar botones de navegación según la página actual
+                prevPageBtnGemini.disabled = currentPage === 1;
+                nextPageBtnGemini.disabled = endIndex >= data.length;
+            }
+
+            // Función para filtrar datos
+            function filterData() {
+                const searchTerm = searchInputactividadGemini.value.toLowerCase();
+                filteredData = activityGemini.filter(item => item.emailUser.toLowerCase().includes(searchTerm));
+                currentPage = 1; // Reiniciar a la primera página al aplicar filtros
+                renderTable(filteredData);
+            }
+
+            // Evento para filtrar datos al escribir en el campo de búsqueda
+            searchInputactividadGemini.addEventListener('input', filterData);
+
+            // Evento para navegar a la página anterior
+            prevPageBtnGemini.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Evento para navegar a la página siguiente
+            nextPageBtnGemini.addEventListener('click', () => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                if (startIndex + itemsPerPage < filteredData.length) {
+                    currentPage++;
+                    renderTable(filteredData);
+                }
+            });
+
+            // Inicializar la tabla con todos los datos
+            renderTable(filteredData);
+        })
+        .catch(err => {
+            console.error('Error al obtener actividades de GEMINI:', err);
+        });
+
+    
     </script>
 
 
 </body>
 
 </html>
- 
