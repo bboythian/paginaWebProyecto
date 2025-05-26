@@ -1,0 +1,10 @@
+_id,email,cedula,edad,genero,so,movilidad,tiempoDiario,nuevoCampo
+ObjectId(66f1ba4d5cd21f79a2c934dd),123@gmail.com,0543123333,22,femenino,iOS,Soy de Cuenca,Regularmente,valor específico
+ObjectId(66f1c525c7c7d3e714c934dd),321@gmail.com,0543123333,22,femenino,iOS,Soy de Cuenca,Regularmente,
+ObjectId(67bc8a0a2e28530aacc934de),andrese.zhagui@ucuenca.edu.ec,0150254340 ,24,masculino,Android,Vive fuera de la ciudad,Frecuentemente,
+ObjectId(67bc8a102e28530aacc934df),christopher.timbi@ucuenca.edu.ec,0106144066 ,23,masculino,Android,Vivo fuera de la ciudad ,Frecuentemente,
+ObjectId(67bf31225b77cc721fc934dd),santiago.velezd@ucuenca.edu.ec,0106542467,22,masculino,Android,Vivo en la zona urbana,Frecuente (Entre 4 y 6 horas),
+ObjectId(67bf31bf5b77cc721fc934df),fabian.lopez@ucuenca.edu.ec,0106482714,26,masculino,Android,Vivo en la zona urbana,Frecuente (Entre 4 y 6 horas),
+ObjectId(67bf31f55b77cc721fc934e0),alejandro.cabrera99@ucuenca.edu.ec,0151104973,25,masculino,Android,Vivo en la zona urbana,Muy frecuente (Más de 6 horas),
+ObjectId(67bf32335b77cc721fc934e1),jonnathan.aguilarl@ucuenca.edu.ec,0107474645,21,masculino,Android,Vivo en la zona urbana,Frecuente (Entre 4 y 6 horas),
+ObjectId(67bf3261732fe8b70bc934dd),elian.trelles@ucuenca.edu.ec,0105776769,24,masculino,Android,Vivo en la zona urbana,Frecuente (Entre 4 y 6 horas),
