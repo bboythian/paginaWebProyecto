@@ -9,7 +9,7 @@ const port = 8081;
 // Configuración de Google Generative AI
 // const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg"); //Antigua
 // const genAI = new GoogleGenerativeAI("AIzaSyDdJ56qyCyTS8e8rQU6kXiy3PS3c9_e0Hs"); //Nuevo Correo BAN
-const genAI = new GoogleGenerativeAI("AIzaSyCY5r3K0sBg0Ia-_yyUGI36XO2g9jPV48w"); //Nuevo Correo 2/0
+const genAI = new GoogleGenerativeAI("AIzaSyAYEIUnr2D-IBPbD0nxzBac2wyPVHBfj9U"); //Nuevo Correo 2/0
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
