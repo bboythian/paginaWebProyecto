@@ -43,4 +43,22 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    
+   
+    // Cambiar texto del botón "Mostrar más / Mostrar menos"
+    const toggleBtn = document.getElementById('toggleBtn');
+    const collapseTarget = document.getElementById('moreTeam');
+
+    if (toggleBtn && collapseTarget) {
+        collapseTarget.addEventListener('shown.bs.collapse', () => {
+            toggleBtn.innerHTML = '▲ Mostrar menos';
+        });
+
+        collapseTarget.addEventListener('hidden.bs.collapse', () => {
+            toggleBtn.innerHTML = '▼ Mostrar más';
+        });
+    }
+
+
+
 });
