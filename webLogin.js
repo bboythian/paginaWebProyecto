@@ -9,8 +9,11 @@ const port = 8081;
 // Configuración de Google Generative AI
 // const genAI = new GoogleGenerativeAI("AIzaSyBcPFBmlnt-Z6yc2h8yrNKQFq0yaJzlsQg"); //Antigua
 // const genAI = new GoogleGenerativeAI("AIzaSyDdJ56qyCyTS8e8rQU6kXiy3PS3c9_e0Hs"); //Nuevo Correo BAN
-const genAI = new GoogleGenerativeAI("AIzaSyA0XYAhA1LwUy38jSa_KOhvht_Vkfq1v-w"); //Nuevo Correo 2/0
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+//const genAI = new GoogleGenerativeAI("AIzaSyAYEIUnr2D-IBPbD0nxzBac2wyPVHBfj9U"); //Nuevo Correo 2/0
+const genAI = new GoogleGenerativeAI("AIzaSyATbgDZBanqDG0PJRQZ_22G5zsz7JWZ5pM");
+
+//const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
 // Configuración de clima
 const apiKey = 'b12c8f9a8a6055055c1b0a02dd14d4e5';

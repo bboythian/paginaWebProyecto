@@ -1,0 +1,133 @@
+_id,email,fecha,mayorConsumo,packageName1,tiempoUso1,packageName2,tiempoUso2,packageName3,tiempoUso3,packageName4,tiempoUso4,packageName5,tiempoUso5,__v
+ObjectId(67bfef586edf04e40265584d),andrese.zhagui@ucuenca.edu.ec,2025-02-27T04:51:00.000Z,19:00,Clash Royale,50,Facebook,31,TikTok,30,Instagram,25,Telegram,20,0
+ObjectId(67bff0196edf04e40265584f),jonnathan.aguilarl@ucuenca.edu.ec,2025-02-27T04:54:00.000Z,11:00,TikTok,11,Settings,9,Clock,8,Duolingo,8,CIARA,6,0
+ObjectId(67c13fb76edf04e402655879),jonnathan.aguilarl@ucuenca.edu.ec,2025-02-28T04:46:00.000Z,11:00,YouTube,59,Netflix,26,TikTok,21,Clock,14,Settings,1,0
+ObjectId(67c1415e6edf04e40265587b),santiago.velezd@ucuenca.edu.ec,2025-02-28T04:53:00.000Z,17:00,TikTok,135,WhatsApp,91,Facebook,72,YouTube,51,Instagram,29,0
+ObjectId(67c291b06edf04e4026558ad),andrese.zhagui@ucuenca.edu.ec,2025-03-01T04:48:00.000Z,19:00,Telegram,166,Clash Royale,46,Instagram,28,Facebook,25,WhatsApp,7,0
+ObjectId(67c292af6edf04e4026558af),santiago.velezd@ucuenca.edu.ec,2025-03-01T04:52:00.000Z,17:00,TikTok,318,Facebook,102,Instagram,94,WhatsApp,91,Spotify,12,0
+ObjectId(67c3e2c56edf04e4026558e7),andrese.zhagui@ucuenca.edu.ec,2025-03-02T04:46:00.000Z,20:00,TikTok,71,El Mundo del Panda Bebé,68,Instagram,45,Telegram,36,Clash Royale,36,0
+ObjectId(67c3e3a36edf04e4026558e9),santiago.velezd@ucuenca.edu.ec,2025-03-02T04:50:00.000Z,17:00,TikTok,177,Facebook,39,YouTube,38,WhatsApp,36,Instagram,13,0
+ObjectId(67c535266edf04e402655907),andrese.zhagui@ucuenca.edu.ec,2025-03-03T04:50:00.000Z,20:00,TikTok,90,Calculadora,39,Clash Royale,36,WhatsApp,35,Instagram,32,0
+ObjectId(67c687d36edf04e40265592a),andrese.zhagui@ucuenca.edu.ec,2025-03-04T04:55:00.000Z,20:00,Instagram,38,TikTok,26,Calculadora,20,WhatsApp,16,Clash Royale,15,0
+ObjectId(67ca7a7f6edf04e4026559d4),santiago.velezd@ucuenca.edu.ec,2025-03-07T04:47:00.000Z,17:00,TikTok,322,WhatsApp,81,Facebook,69,Instagram,22,Gmail,6,0
+ObjectId(67ca7bce6edf04e4026559d6),andrese.zhagui@ucuenca.edu.ec,2025-03-07T04:53:00.000Z,20:00,TikTok,92,Clash Royale,76,Instagram,63,Netflix,37,WhatsApp,16,0
+ObjectId(67cbce256edf04e402655a0a),santiago.velezd@ucuenca.edu.ec,2025-03-08T04:56:00.000Z,17:00,TikTok,292,Instagram,249,WhatsApp,103,Facebook,74,X,12,0
+ObjectId(67ce71516edf04e402655a54),andrese.zhagui@ucuenca.edu.ec,2025-03-10T04:57:00.000Z,20:00,Clash Royale,41,WhatsApp,32,Calculadora,29,Netflix,27,TikTok,21,0
+ObjectId(67ce71686edf04e402655a56),santiago.velezd@ucuenca.edu.ec,2025-03-10T04:57:00.000Z,17:00,TikTok,246,YouTube,72,Facebook,51,WhatsApp,47,Spotify,45,0
+ObjectId(67cfc2786edf04e402655a7e),santiago.velezd@ucuenca.edu.ec,2025-03-11T04:55:00.000Z,17:00,TikTok,484,Instagram,53,WhatsApp,47,Chrome,30,Amazon Alexa,12,0
+ObjectId(67cfc2e46edf04e402655a80),jonnathan.aguilarl@ucuenca.edu.ec,2025-03-11T04:57:00.000Z,12:00,Duolingo,25,Netflix,10,TikTok,3,Gmail,3,-,-,0
+ObjectId(67d11491ebd8a6e69c7b9fcb),andrese.zhagui@ucuenca.edu.ec,2025-03-12T04:58:00.000Z,20:00,TikTok,57,WhatsApp,50,Telegram,28,Instagram,26,Clash Royale,21,0
+ObjectId(67d265c4ebd8a6e69c7b9ffd),andrese.zhagui@ucuenca.edu.ec,2025-03-13T04:57:00.000Z,20:00,Netflix,70,Clash Royale,23,TikTok,22,8 Ball Pool,19,Facebook,19,0
+ObjectId(67d506d59605b023fb2de301),jonnathan.aguilarl@ucuenca.edu.ec,2025-03-15T04:48:00.000Z,12:00,Netflix,19,TikTok,12,Instagram,7,Chrome,1,-,-,0
+ObjectId(67d507e79605b023fb2de303),fabian.lopez@ucuenca.edu.ec,2025-03-15T04:53:00.000Z,12:00,Netflix,127,Facebook,117,TikTok,112,eFootball™,83,WhatsApp,63,0
+ObjectId(67d5085f9605b023fb2de305),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67de41b29605b023fb2de3e5),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67df94539605b023fb2de415),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e0e5649605b023fb2de43b),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e0e5e79605b023fb2de43d),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67e17bcd9605b023fb2de443),321@gmail.com,2025-03-24T15:34:00.000Z,10:00,WhatsApp,10,Facebook,10,Teléfono,7,Bloqueo de pantalla dinámico,3,-,-,0
+ObjectId(67e235bb9605b023fb2de46d),jonnathan.aguilarl@ucuenca.edu.ec,2025-03-25T04:48:00.000Z,12:00,Netflix,45,-,-,-,-,-,-,-,-,0
+ObjectId(67e2366c9605b023fb2de46f),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e2ca3b9605b023fb2de48f),321@gmail.com,2025-03-25T15:21:00.000Z,10:00,WhatsApp,64,Teléfono,23,TikTok,22,Instagram,20,Facebook,3,0
+ObjectId(67e2cdcc9605b023fb2de491),321@gmail.com,2025-03-25T15:37:00.000Z,10:00,WhatsApp,71,Teléfono,25,TikTok,23,Instagram,20,Facebook,3,0
+ObjectId(67e388059605b023fb2de4db),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67e41cc39605b023fb2de4e1),321@gmail.com,2025-03-26T15:26:00.000Z,10:00,WhatsApp,15,ChatGPT,3,TikTok,2,Teléfono,2,Sudoku Club,2,0
+ObjectId(67e4d8d59605b023fb2de53f),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67e4d9f69605b023fb2de541),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e4dad19605b023fb2de543),christopher.timbi@ucuenca.edu.ec,2025-03-27T04:57:00.000Z,11:00,TikTok,273,Crunchyroll,46,WhatsApp,30,Chrome,17,Calculadora,10,0
+ObjectId(67e56f8d9605b023fb2de549),321@gmail.com,2025-03-27T15:31:00.000Z,10:00,WhatsApp,16,Chrome,1,Bloqueo de pantalla dinámico,1,Teléfono,1,-,-,0
+ObjectId(67e62a299605b023fb2de58e),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67e6bf6b9605b023fb2de594),321@gmail.com,2025-03-28T15:24:00.000Z,10:00,WhatsApp,17,WPS Office,4,Teléfono,2,Calendario,1,-,-,0
+ObjectId(67e77b659605b023fb2de5b8),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e8ccec9605b023fb2de5d2),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67e8ce4c9605b023fb2de5d4),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67e9659a9605b023fb2de5d6),321@gmail.com,2025-03-30T15:38:00.000Z,10:00,Google,21,TikTok,10,WhatsApp,2,Teléfono,2,-,-,0
+ObjectId(67ea1e8b9605b023fb2de60c),christopher.timbi@ucuenca.edu.ec,2025-03-31T04:47:00.000Z,11:00,TikTok,215,Instagram,151,Crunchyroll,42,WhatsApp,31,Calculadora,10,0
+ObjectId(67ea1eda9605b023fb2de60e),jonnathan.aguilarl@ucuenca.edu.ec,2025-03-31T04:48:00.000Z,12:00,Netflix,52,TikTok,23,-,-,-,-,-,-,0
+ObjectId(67ea1f0c9605b023fb2de610),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67eab4b59605b023fb2de614),321@gmail.com,2025-03-31T15:28:00.000Z,10:00,WhatsApp,29,Teléfono,7,WPS Office,6,Bloqueo de pantalla dinámico,2,-,-,0
+ObjectId(67eb71319605b023fb2de646),christopher.timbi@ucuenca.edu.ec,2025-04-01T04:52:00.000Z,11:00,TikTok,123,Instagram,55,YouTube,13,WhatsApp,11,Calculadora,10,0
+ObjectId(67ecc11b9605b023fb2de687),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-02T04:45:00.000Z,13:00,TikTok,24,Gmail,1,-,-,-,-,-,-,0
+ObjectId(67ed57529605b023fb2de697),321@gmail.com,2025-04-02T15:26:00.000Z,10:00,WhatsApp,44,Facebook,16,WPS Office,5,Teléfono,3,-,-,0
+ObjectId(67ee13769605b023fb2de6c3),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-03T04:49:00.000Z,13:00,TikTok,25,Netflix,23,Facebook,1,-,-,-,-,0
+ObjectId(67ee13aa9605b023fb2de6c5),christopher.timbi@ucuenca.edu.ec,2025-04-03T04:50:00.000Z,11:00,TikTok,148,Instagram,41,WhatsApp,25,YouTube,16,YouTube Music,6,0
+ObjectId(67ee14159605b023fb2de6c7),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67eea7819605b023fb2de6c9),321@gmail.com,2025-04-03T15:20:00.000Z,10:00,WhatsApp,26,Chrome,8,Teléfono,7,-,-,-,-,0
+ObjectId(67eeabb29605b023fb2de6cb),321@gmail.com,2025-04-03T15:38:00.000Z,10:00,WhatsApp,27,Chrome,8,Teléfono,7,-,-,-,-,0
+ObjectId(67effb7e9605b023fb2de6fb),321@gmail.com,2025-04-04T15:31:00.000Z,10:00,WhatsApp,50,WPS Office,10,Gmail,9,Teléfono,7,Bloqueo de pantalla dinámico,4,0
+ObjectId(67f14dac9605b023fb2de729),321@gmail.com,2025-04-05T15:34:00.000Z,10:00,Teléfono,34,WhatsApp,14,TikTok,9,Facebook,2,WPS Office,1,0
+ObjectId(67f2093c9605b023fb2de74b),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67f29d589605b023fb2de751),321@gmail.com,2025-04-06T15:26:00.000Z,10:00,TikTok,39,WhatsApp,27,Maps,10,Google,3,Teléfono,2,0
+ObjectId(67f35a089605b023fb2de773),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67f4ab819605b023fb2de7b1),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-08T04:51:00.000Z,13:00,Instagram,57,TikTok,52,Chrome,29,ChatGPT,8,Keep Notes,8,0
+ObjectId(67f541999605b023fb2de7c1),321@gmail.com,2025-04-08T15:31:00.000Z,11:00,WhatsApp,48,Teléfono,32,TikTok,4,Cámara,4,Google Play Store,3,0
+ObjectId(67f5fc579605b023fb2de7f7),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67f5fc7d9605b023fb2de7f9),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-09T04:49:00.000Z,13:00,TikTok,86,Instagram,39,Netflix,11,YouTube,10,Facebook,6,0
+ObjectId(67f5fd4f9605b023fb2de7fb),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67f74ecd9605b023fb2de835),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67f74f679605b023fb2de837),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67f7e3429605b023fb2de857),321@gmail.com,2025-04-10T15:26:00.000Z,11:00,Teléfono,21,WhatsApp,7,-,-,-,-,-,-,0
+ObjectId(67f8a1be9605b023fb2de8a0),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67f9f0e59605b023fb2de8e6),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67f9f2579605b023fb2de8e8),christopher.timbi@ucuenca.edu.ec,2025-04-12T04:55:00.000Z,12:00,TikTok,117,Instagram,81,YouTube,27,WhatsApp,19,Chrome,10,0
+ObjectId(67fa88609605b023fb2de8f4),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fb42839605b023fb2de912),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-13T04:49:00.000Z,13:00,TikTok,5,-,-,-,-,-,-,-,-,0
+ObjectId(67fbd6f89605b023fb2de918),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fbd80c9605b023fb2de91a),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fbd8499605b023fb2de91c),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fbd9489605b023fb2de91e),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fc945b9605b023fb2de958),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67fc962f9605b023fb2de95a),christopher.timbi@ucuenca.edu.ec,2025-04-14T04:58:00.000Z,12:00,TikTok,101,Instagram,82,Chrome,57,Dropbox,21,YouTube,19,0
+ObjectId(67fde5a19605b023fb2de994),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(67fde6249605b023fb2de996),jonnathan.aguilarl@ucuenca.edu.ec,2025-04-15T04:52:00.000Z,13:00,Netflix,16,Clock,10,TikTok,7,Settings,4,Instagram,4,0
+ObjectId(67fde7b89605b023fb2de998),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67fde7bb9605b023fb2de99a),christopher.timbi@ucuenca.edu.ec,2025-04-15T04:58:00.000Z,12:00,TikTok,147,Instagram,77,WhatsApp,21,Calculadora,11,Fotos,8,0
+ObjectId(67fe79b39605b023fb2de9d7),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fe79d19605b023fb2de9d9),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fe7a0e9605b023fb2de9db),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fe7acd9605b023fb2de9dd),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67fe7bbd9605b023fb2de9df),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(67ff376d9605b023fb2dea11),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(67ff37de9605b023fb2dea13),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(680b14e7c9fbdaf08884b22a),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(680b15d3c9fbdaf08884b22c),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(680b16b2c9fbdaf08884b22e),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(680bac43c9fbdaf08884b23e),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(680bac63c9fbdaf08884b240),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(680baca0c9fbdaf08884b242),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(680c65b5c9fbdaf08884b268),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(680cfb58c9fbdaf08884b26e),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(680cfe15c9fbdaf08884b270),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(680f082fc9fbdaf08884b2a6),santiago.velezd@ucuenca.edu.ec,2025-03-13T04:51:00.000Z,"[150, 0, 62, 164, 38, 99, 48, 58]",TikTok,361,YouTube,80,WhatsApp,77,Facebook,73,Instagram,15,0
+ObjectId(680f0886c9fbdaf08884b2a8),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(68105abbc9fbdaf08884b2c2),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(6811ac73c9fbdaf08884b2d6),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(6812ffa4c9fbdaf08884b2ea),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(6815a0a6c9fbdaf08884b304),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(68184340c9fbdaf08884b31e),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(68199565c9fbdaf08884b32c),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(681ae88dc9fbdaf08884b33e),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(68202c27c9fbdaf08884b35a),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(68202e06c9fbdaf08884b35c),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(6822ceeac9fbdaf08884b376),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(682572b1c9fbdaf08884b390),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(682759eec9fbdaf08884b3a0),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68275a5cc9fbdaf08884b3a2),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68275bd7c9fbdaf08884b3a4),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68296795c9fbdaf08884b3c0),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(6829fd48c9fbdaf08884b3c2),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682b4f23c9fbdaf08884b3ce),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682ca04ac9fbdaf08884b3de),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682ca068c9fbdaf08884b3e0),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682ca0a5c9fbdaf08884b3e2),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682ca11dc9fbdaf08884b3e4),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682ca20dc9fbdaf08884b3e6),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(682d5ce1c9fbdaf08884b3f8),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(682eac20c9fbdaf08884b408),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(682ffe5dc9fbdaf08884b41c),fabian.lopez@ucuenca.edu.ec,2025-03-16T04:51:00.000Z,"[16, 0, 47, 7, 27, 113, 106, 7]",WhatsApp,102,Netflix,93,Spider Solitaire - Card Games,55,Betcris,51,Instagram,40,0
+ObjectId(683000aec9fbdaf08884b41e),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(68315206c9fbdaf08884b42e),christopher.timbi@ucuenca.edu.ec,2025-04-19T04:58:00.000Z,"[0, 0, 59, 2, 56, 87, 31, 65]",TikTok,175,Instagram,112,WhatsApp,35,Chrome,34,YouTube,14,0
+ObjectId(683336dfc9fbdaf08884b432),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68333806c9fbdaf08884b436),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68333843c9fbdaf08884b438),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
+ObjectId(68333909c9fbdaf08884b43a),321@gmail.com,2025-04-11T15:31:00.000Z,"[0, 0, 0, 5, 0, 0, 0, 0]",WhatsApp,11,Teléfono,2,-,-,-,-,-,-,0
